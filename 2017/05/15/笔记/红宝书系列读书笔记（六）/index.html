@@ -1,0 +1,1275 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="红宝书," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="使用Canvas绘图基本用法要使用&amp;lt;canvas&amp;gt;元素，必须先设置其width和height，指定可以绘图的区域大小。要在这块画布（canvas）上绘图吗，需要取得绘图上下文，是通过getContext()，然后传入上下文的名字。传入“2d”，就可以取得2D上下文对象。1&amp;lt;canvas id=&quot;drawing&quot; width=&quot;200&quot; height=&quot;200&quot;&amp;gt;您的浏览器不">
+<meta name="keywords" content="红宝书">
+<meta property="og:type" content="article">
+<meta property="og:title" content="红宝书系列读书笔记（六）">
+<meta property="og:url" content="http://peterlhx.github.io/2017/05/15/笔记/红宝书系列读书笔记（六）/index.html">
+<meta property="og:site_name" content="Mr.JS">
+<meta property="og:description" content="使用Canvas绘图基本用法要使用&amp;lt;canvas&amp;gt;元素，必须先设置其width和height，指定可以绘图的区域大小。要在这块画布（canvas）上绘图吗，需要取得绘图上下文，是通过getContext()，然后传入上下文的名字。传入“2d”，就可以取得2D上下文对象。1&amp;lt;canvas id=&quot;drawing&quot; width=&quot;200&quot; height=&quot;200&quot;&amp;gt;您的浏览器不">
+<meta property="og:updated_time" content="2017-05-19T16:38:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="红宝书系列读书笔记（六）">
+<meta name="twitter:description" content="使用Canvas绘图基本用法要使用&amp;lt;canvas&amp;gt;元素，必须先设置其width和height，指定可以绘图的区域大小。要在这块画布（canvas）上绘图吗，需要取得绘图上下文，是通过getContext()，然后传入上下文的名字。传入“2d”，就可以取得2D上下文对象。1&amp;lt;canvas id=&quot;drawing&quot; width=&quot;200&quot; height=&quot;200&quot;&amp;gt;您的浏览器不">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://peterlhx.github.io/2017/05/15/笔记/红宝书系列读书笔记（六）/"/>
+
+
+
+
+
+  <title>红宝书系列读书笔记（六） | Mr.JS</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mr.JS</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://peterlhx.github.io/2017/05/15/笔记/红宝书系列读书笔记（六）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Peter Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.JS">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">红宝书系列读书笔记（六）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-15T22:22:39+08:00">
+                2017-05-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/05/15/笔记/红宝书系列读书笔记（六）/" class="leancloud_visitors" data-flag-title="红宝书系列读书笔记（六）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="使用Canvas绘图"><a href="#使用Canvas绘图" class="headerlink" title="使用Canvas绘图"></a>使用Canvas绘图</h2><p><strong>基本用法</strong><br>要使用&lt;canvas&gt;元素，必须先设置其width和height，指定可以绘图的区域大小。<br>要在这块画布（canvas）上绘图吗，需要取得绘图上下文，是通过getContext()，然后传入上下文的名字。<br>传入“2d”，就可以取得2D上下文对象。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"drawing"</span> <span class="attr">width</span>=<span class="string">"200"</span> <span class="attr">height</span>=<span class="string">"200"</span>&gt;</span>您的浏览器不支持canvas元素<span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> drawing = <span class="built_in">document</span>.getElementById(<span class="string">"drawing"</span>);</div><div class="line"><span class="comment">//确定浏览器支持&lt;canvas&gt;元素</span></div><div class="line"><span class="keyword">if</span>(drawing.getContext)&#123;</div><div class="line">    <span class="keyword">var</span> context = drawing.getContext(<span class="string">"2d"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>使用toDataURL()方法，可以导出在&lt;canvas&gt;元素上绘制的图像。这个方法接受一个参数，即图像的MIME类型格式，<br>而且适用于创建图像的任何上下文。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> drawing = <span class="built_in">document</span>.getElementById(<span class="string">"drawing"</span>);</div><div class="line"><span class="comment">//确定浏览器支持&lt;canvas&gt;元素</span></div><div class="line"><span class="keyword">if</span>(drawing.getContext)&#123;</div><div class="line">    <span class="comment">//取得图像的数据URI</span></div><div class="line">    <span class="keyword">var</span> imgURI = drawing.toDataURL(<span class="string">"image/png"</span>);</div><div class="line">    <span class="comment">//显示图像</span></div><div class="line">    <span class="keyword">var</span> image = <span class="built_in">document</span>.createElement(<span class="string">"img"</span>);</div><div class="line">    image.src = imgURI;</div><div class="line">    <span class="built_in">document</span>.body.appendChild(image);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>2D上下文</strong><br>1.填充和描边<br>填充，就是用指定的样式（颜色、渐变、或图像）填充图形，取决于fillStyle属性；<br>描边，就是只在图形的边缘画线，取决于strokeStyle属性。<br>fillStyle和strokeStyle属性的值可以是字符串、渐变对象或模式对象，它们的默认值都是“#000000”。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> drawing = <span class="built_in">document</span>.getElementById(<span class="string">"drawing"</span>);</div><div class="line"><span class="keyword">if</span>(drawing.getContext)&#123;</div><div class="line">    <span class="keyword">var</span> context = drawing.getContext(<span class="string">"2d"</span>);</div><div class="line">    context.strokeStyle = <span class="string">"red"</span>;</div><div class="line">    context.fiilStyle = <span class="string">"#0000ff"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>2.绘制矩形<br>矩形是唯一一种可以直接在2D上下午中绘制的形状。<br>与矩形有关的方法包括：fillRect()、strokeRect()和clearRect()。<br>这三个方法都接收4个参数：矩形的x坐标、矩形的y坐标、矩形宽度和矩形高度。这些参数的单位都是像素。<br>首先，fillRect()方法会在画布上绘制的矩形会填充指定的颜色。填充的颜色通过fillStyle属性指定。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> drawing = <span class="built_in">document</span>.getElementById(<span class="string">"drawing"</span>);</div><div class="line"><span class="keyword">if</span>(drawing.getContext)&#123;</div><div class="line">    <span class="keyword">var</span> context = drawing.getContext(<span class="string">"2d"</span>);</div><div class="line">    <span class="comment">//绘制红色矩形</span></div><div class="line">    context.fillStyle = <span class="string">"#ff0000"</span>;</div><div class="line">    context.fillRect(<span class="number">10</span>,<span class="number">10</span>,<span class="number">50</span>,<span class="number">50</span>);</div><div class="line"></div><div class="line">    <span class="comment">//绘制半透明的蓝色矩形</span></div><div class="line">    context.fillStyle = <span class="string">"rgba(0,0,255,0.5)"</span>;</div><div class="line">    context.fillRect(<span class="number">30</span>,<span class="number">30</span>,<span class="number">50</span>,<span class="number">50</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>strokeRect()方法在画布上绘制的是矩形边框，边框颜色由strokeStyle属性指定。<br>描边线条的跨度由lineWidth属性控制，该属性的值可以是任意整数。另外，通过lineCap属性可以控制线条末端的形状是平头、圆头还是方头（“butt”，“round”，“square”），通过lineJoin属性可以控制线条相交的方式是圆交、斜交还是斜接（“round”，“bevel”，“miter”）；</p>
+<p>clearRect()方法用于清除画布上的矩形区域，区域大小由该方法中传入的参数决定。<br>本质上，这个方法可以绘制上下文中的某一矩形区域变透明。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> drawing = <span class="built_in">document</span>.getElementById(<span class="string">"drawing"</span>);</div><div class="line"><span class="keyword">if</span>(drawing.getContext)&#123;</div><div class="line">    <span class="keyword">var</span> context = drawing.getContext(<span class="string">"2d"</span>);</div><div class="line">    <span class="comment">// 绘制红色矩形</span></div><div class="line">    context.fillStyle = <span class="string">"#ff0000"</span>;</div><div class="line">    context.fillRect(<span class="number">10</span>, <span class="number">10</span>, <span class="number">50</span>, <span class="number">50</span>);</div><div class="line"></div><div class="line">    <span class="comment">// 绘制半透明的蓝色矩形</span></div><div class="line">    context.fillStyle = <span class="string">"rgba(0, 0, 255, 0.5)"</span>;</div><div class="line">    context.fillRect(<span class="number">30</span>, <span class="number">30</span>, <span class="number">50</span>, <span class="number">50</span>);</div><div class="line">    <span class="comment">// 在两个矩形重叠的地方清除一个小矩形</span></div><div class="line">    context.clearRect(<span class="number">40</span>, <span class="number">40</span>, <span class="number">10</span>, <span class="number">10</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>3.绘制路径<br>要绘制路径，首先必须调用beginPath()方法，表示要开始绘制新路径。然后通过下列方法来实际地绘制路径：<br>arc(x, y, radius, startAngle, endAngle, counterclockwise)：以(x,y)为圆心绘制一条弧线，弧线半径为radius，<br>起始和结束角度（用弧度表示）分别为startAngle和endAngle。最后一个参数表示startAngle和endAngle是否按逆时针计算，<br>值为false表示按顺时针方向计算。<br>arcTo(x1, y1, x2, y2, radius)：从上一点开始绘制一条弧线，到(x2,y2)为止，并且以给定的半径radius穿过(x1,y1)。<br>bezierCurveTo(c1x, c1y, c2x, c2y, x, y)：从上一点开始绘制一条曲线，到(x,y)为止，并且以(c1x,c1y)和(c2x,c2y)为控制点。<br>lineTo(x, y)：从上一点开始绘制一条直线，到(x,y)为止。<br>moveTo(x, y)：将绘图游标移动到(x,y)，不画线。<br>quadraticCurveTo(cx, cy, x, y)：从上一点开始绘制一条二次曲线，到(x,y)为止，并且以(cx,cy)作为控制点。<br>rect(x, y, width, height)：从点(x,y)开始绘制一个矩形，宽度和高度分别由width和height指定。这个方法绘制的是矩形路径，而不是strokeRect()和fillRect()所绘制的独立的形状。</p>
+<p>如果想绘制一条连接到路径起点的线条，可以调用closePath().<br>如果你想用fillStyle填充它，可以调用fill()方法。另外，还可以调用stroke()方法对路径描边，描边使用的是strokeStyle。<br>还可以调用clip()在路径上创建一个剪切区域。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//绘制一个不带数字的时钟表盘</span></div><div class="line"><span class="keyword">var</span> drawing = <span class="built_in">document</span>.getElementById(<span class="string">"drawing"</span>);</div><div class="line"><span class="keyword">if</span>(drawing.getContext)&#123;</div><div class="line">	<span class="keyword">var</span> context = drawing.getContext(<span class="string">"2d"</span>);</div><div class="line"></div><div class="line">	<span class="comment">//开始绘制路径</span></div><div class="line">	context.beginPath();</div><div class="line"></div><div class="line">	<span class="comment">//绘制外圆</span></div><div class="line">	context.arc(<span class="number">100</span>,<span class="number">100</span>,<span class="number">99</span>,<span class="number">0</span>,<span class="number">2</span>*<span class="built_in">Math</span>.PI,<span class="literal">false</span>);</div><div class="line"></div><div class="line">	<span class="comment">//绘制内圆</span></div><div class="line">	context.moveTo(<span class="number">194</span>,<span class="number">100</span>);</div><div class="line">	context.arc(<span class="number">100</span>,<span class="number">100</span>,<span class="number">94</span>,<span class="number">0</span>,<span class="number">2</span>*<span class="built_in">Math</span>.PI,<span class="literal">false</span>);</div><div class="line"></div><div class="line">	<span class="comment">//绘制分针</span></div><div class="line">	context.moveTo(<span class="number">100</span>,<span class="number">100</span>);</div><div class="line">	context.lineTo(<span class="number">100</span>,<span class="number">15</span>);</div><div class="line"></div><div class="line">	<span class="comment">//绘制时针</span></div><div class="line">	context.moveTo(<span class="number">100</span>,<span class="number">100</span>);</div><div class="line">	context.lineTo(<span class="number">35</span>,<span class="number">100</span>);</div><div class="line"></div><div class="line">	<span class="comment">//描边路径</span></div><div class="line">	context.stroke();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在路径使用频繁时，使用isPointInPath()方法判断路径被关闭之前画布某一点是否位于路径上，接收两个参数：x坐标和y坐标。</p>
+<p><strong>绘制文本</strong><br>绘制文本主要有两个方法：fillText()和strokeText()。<br>这两个方法都可以接收4个参数：要绘制的文本字符串、x坐标、y坐标和可选的最大像素宽度。<br>这两个方法都以下列3个属性为基础：<br>font：表示文本样式、大小及字体，用CSS中指定字体的格式来指定。<br>textAlign：表示文本对齐方式。可能的值有“start”、“end”、“left”、“right”和“center”，建议使用“start”和“end”,更稳定。<br>textBaseline：表示文本的基线。<br>可能的值有”top“、”hanging“、”middle“、”alphabetic“、”ideographic“和”bottom“。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">context.font = <span class="string">"bold 14px Arial"</span>;</div><div class="line">context.textAlign = <span class="string">"center"</span>;</div><div class="line">context.textBaseline = <span class="string">"middle"</span>;</div><div class="line">context.fillText(<span class="string">"12"</span>,<span class="number">100</span>,<span class="number">20</span>);</div></pre></td></tr></table></figure></p>
+<p>2D上下文提供了辅助确定文本大小的方法measureText()。这个方法接收一个参数，即要绘制的文本；返回一个TextMetrics对象。返回的对象目前只有一个width属性。<br>measureText()方法利用font、textAlign和textBaseline的当前值计算指定文本的大小。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> fontSize = <span class="number">100</span>;</div><div class="line">context.font = fontSize +<span class="string">"px Arial"</span>;</div><div class="line"><span class="keyword">while</span>(context.measureText(<span class="string">"Hello world!"</span>).width &gt; <span class="number">140</span>)&#123;</div><div class="line">	fontSize--;</div><div class="line">    context.font = fontSize + <span class="string">"px Arial"</span>;</div><div class="line">&#125;</div><div class="line">context.fillText(<span class="string">"Hello world!"</span>,<span class="number">10</span>,<span class="number">10</span>);</div><div class="line">context.fillText(<span class="string">"Font size is "</span> +fontSize +<span class="string">"px"</span>,<span class="number">10</span>,<span class="number">50</span>);</div></pre></td></tr></table></figure></p>
+<p><strong>变换</strong><br>通过上下文的变换，可以把处理后的图像绘制到画布上。<br>通过以下方法来修改变换矩阵：<br>rotate(angle)：围绕原点旋转图像angle弧度。</p>
+<blockquote>
+<p>旋转角度，以弧度计。<br>如需将角度转换为弧度，请使用 degrees<em>Math.PI/180 公式进行计算。<br>举例：如需旋转 5 度，可规定下面的公式：5</em>Math.PI/180。<br>context.rotate(5*Math.PI/180);</p>
+</blockquote>
+<p>scale(scaleX,scaleY)：缩放图像，在x方向乘以scaleX，在y方向乘以scaleY。scaleX和scaleY的默认值都是1.0。<br>translate(x,y)：都是将坐标原点移动到(x,y)。执行这个变换之后，坐标(0,0)会变成之前由(x,y)表示的点。<br>transform(m1_1, m1_2, m2_1, m2_2, dx, dy)：直接修改变换矩阵，方式是乘以如下矩阵。</p>
+<blockquote>
+<p>   m1_1    m1_2    dx<br>  m2_1    m2_2    dy<br>   0       0      1</p>
+</blockquote>
+<p>setTransform(m1_1, m1_2, m2_1, m2_2, dx, dy)：将变换矩阵重置为默认状态，然后再调用transform()。<br>还由两个方法可以跟踪上下文的状态变化，如果你知道将来还要返回某组属性与变换的组合，可以调用save()方法；<br>等想要回到之前保存的设置时，可以调用restore()方法，在保存设置的栈结构中向前返回一级，恢复之前的状态。<br>连续调用save()可以把更多设置保存到栈结构中，之后再连续调用restore()则可以一级一级返回。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">context.fillStyle = <span class="string">"#ff0000"</span>;</div><div class="line">context.save();</div><div class="line"></div><div class="line">context.fillStyle = <span class="string">"#00ff00"</span>;</div><div class="line">context.translate(<span class="number">100</span>,<span class="number">100</span>);</div><div class="line">context.save();</div><div class="line"></div><div class="line">context.fillStyle = <span class="string">"#0000ff"</span>;</div><div class="line">context.fillRect(<span class="number">0</span>,<span class="number">0</span>,<span class="number">100</span>,<span class="number">200</span>);    <span class="comment">//从点(100,100)开始绘制蓝色矩形</span></div><div class="line"></div><div class="line">context.restore();</div><div class="line">context.fillRect(<span class="number">10</span>,<span class="number">10</span>,<span class="number">100</span>,<span class="number">200</span>);    <span class="comment">//从点(110,110)开始绘制绿色矩形</span></div><div class="line"></div><div class="line">context.restore();</div><div class="line">context.fillRect(<span class="number">0</span>,<span class="number">0</span>,<span class="number">100</span>,<span class="number">200</span>);    <span class="comment">//从点(0,0)开始绘制红色矩形</span></div></pre></td></tr></table></figure></p>
+<p>需要注意的是，save()方法保存的只是对绘图上下文的设置和变换，不会保存绘图上下文的内容。</p>
+<p><strong>绘制图像</strong><br>2D上下文内置了对图像的支持，通过drawImage()方法可以将一副图像绘制到画布上。<br>该方法有三种参数组合：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> image = <span class="built_in">document</span>.images[<span class="number">0</span>];</div><div class="line"><span class="comment">//传入HTML&lt;img&gt;元素，以及绘制该图像的起点的x和y坐标。</span></div><div class="line">context.drawImage(image, <span class="number">10</span>, <span class="number">10</span>);</div><div class="line"><span class="comment">//要想改变图像大小，可以再多传入两个参数：目标宽度和目标高度</span></div><div class="line">context.drawImage(image, <span class="number">50</span>, <span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>);</div><div class="line"><span class="comment">//把图像中的某个区域绘制到上下文中,传入9个参数：要绘制的图像、源图像的x坐标、源图像的y坐标、源图像的宽度、</span></div><div class="line"><span class="comment">//源图像的高度、目标图像的x坐标、目标图像的y坐标、目标图像的宽度、目标图像的高度。</span></div><div class="line">context.drawImage(image, <span class="number">0</span>, <span class="number">10</span>, <span class="number">50</span>, <span class="number">50</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">40</span>, <span class="number">60</span>);</div></pre></td></tr></table></figure></p>
+<p><strong>阴影</strong><br>2D上下文会根据以下几个属性的值，自动为形状或路径绘制出阴影：<br>shadowColor：用CSS颜色格式表示的阴影颜色，默认为黑色。<br>shadowOffsetX：形状或路径x轴方向的阴影偏移量，默认为0。<br>shadowOffsetY：形状或路径y轴方向的阴影偏移量，默认为0。<br>shadowBlur：模糊的像素数，默认为0，即不模糊。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> drawing = <span class="built_in">document</span>.getElementById(<span class="string">"drawing"</span>);</div><div class="line"><span class="keyword">var</span> context = drawing.getContext(<span class="string">"2d"</span>);</div><div class="line"><span class="comment">//设置阴影</span></div><div class="line">context.shadowOffsetX = <span class="number">5</span>;</div><div class="line">context.shadowOffsetY = <span class="number">5</span>;</div><div class="line">context.shadowBlur = <span class="number">4</span>;</div><div class="line">context.shadowColor = <span class="string">"rgba(0,0,0,0.5)"</span>;</div><div class="line"><span class="comment">//绘制红色矩形</span></div><div class="line">context.fillStyle = <span class="string">"#ff0000"</span>;</div><div class="line">context.fillRect(<span class="number">10</span>, <span class="number">10</span>, <span class="number">50</span>, <span class="number">50</span>);</div><div class="line"><span class="comment">//绘制蓝色矩形</span></div><div class="line">context.fillStyle = <span class="string">"rgba(0,0,255,1)"</span>;</div><div class="line">context.fillRect(<span class="number">30</span>, <span class="number">30</span>, <span class="number">50</span>, <span class="number">50</span>);</div></pre></td></tr></table></figure></p>
+<p><strong>渐变</strong><br>渐变由CanvasGradient实例表示，能够通过2D上下文来创建和修改。<br>要创建一个新的线性渐变，可以调用createLinearGradient()方法。<br>这个方法接收4个参数：起点的x坐标、起点的y坐标、终点的x坐标、终点的y坐标。<br>调用这个方法后，它就会创建一个指定大小的渐变，并返回CanvasGradient对象的实例。<br>创建了渐变对象后，下一步就是使用addColorStop()方法来指定色标。<br>这个方法接收两个参数：色标位置和CSS颜色值。色标位置是一个0（开始的颜色）到1（结束的颜色）之间的数字。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> gradient = context.createLinearGradient(<span class="number">30</span>,<span class="number">30</span>,<span class="number">70</span>,<span class="number">70</span>);</div><div class="line">gradient.addColorStop(<span class="number">0</span>,<span class="string">"white"</span>);</div><div class="line">gradient.addColorStop(<span class="number">1</span>,<span class="string">"black"</span>);</div><div class="line"><span class="comment">//将fillStyle或strokeStyle设置为这个对象，从而使用渐变来绘制形状或描边</span></div><div class="line">context.fillStyle = gradient ;</div><div class="line">context.fillRect(<span class="number">30</span>,<span class="number">30</span>,<span class="number">50</span>,<span class="number">50</span>);</div></pre></td></tr></table></figure></p>
+<p>为了确保渐变与形状对齐，有时候可以考虑使用函数来确保坐标合适：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">createRectLinearGradient</span>(<span class="params">context,x,y,width,height</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> context.createLinearGradient(x, y, x+width, y+height);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>创建径向渐变（或放射渐变），可以使用createRadialGradient()方法。这个方法接收6个参数，对应着两个圆的圆心和半径。前三个是起点圆的圆心（x和y）及半径，后三个是终点圆的圆心（x和y）及半径。<br>如果想从某个形状的中心点开始创建一个向外扩散的径向渐变效果，就要将两个圆定义为同心圆。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> gradient = context.createRadialGradient(<span class="number">55</span>,<span class="number">55</span>,<span class="number">10</span>,<span class="number">55</span>,<span class="number">55</span>,<span class="number">30</span>);</div><div class="line">gradient.addColorStop(<span class="number">0</span>,<span class="string">"white"</span>);</div><div class="line">gradient.addColorStop(<span class="number">1</span>,<span class="string">"black"</span>);</div><div class="line"></div><div class="line">context.fillStyle = gradient ;</div><div class="line">context.fillRect(<span class="number">30</span>,<span class="number">30</span>,<span class="number">50</span>,<span class="number">50</span>);</div></pre></td></tr></table></figure></p>
+<h2 id="模式"><a href="#模式" class="headerlink" title="模式"></a>模式</h2><p>模式其实就是重复的图像，可以用来填充或描边图形。<br>通过createPattern()方法来创建新模式，该方法接收两个参数：一个HTML&lt;img&gt;元素和一个表示如何重复图像的字符串。第二个参数值与CSS的background-repeat属性值相同：repeat、repeat-x、repeat-y、no-repeat。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> image = <span class="built_in">document</span>.image[<span class="number">0</span>];</div><div class="line">pattern = context.createPattern(image,<span class="string">"repeat"</span>);</div><div class="line"><span class="comment">//绘制矩形</span></div><div class="line">context.fillStyle = pattern;</div><div class="line">context.fillRect(<span class="number">10</span>,<span class="number">10</span>,<span class="number">150</span>,<span class="number">150</span>);</div><div class="line">需要注意的是模式对象的生成和赋值过程必须写到JavaScript的<span class="function"><span class="keyword">function</span>中，否则可能会失效。</span></div><div class="line"><span class="title">window</span>.<span class="title">onload</span> = <span class="title">function</span>(<span class="params"></span>) &#123;</div><div class="line">	<span class="keyword">var</span> drawing = <span class="built_in">document</span>.getElementById(<span class="string">"drawing"</span>); </div><div class="line">	<span class="keyword">var</span> context = drawing.getContext(<span class="string">"2d"</span>);   </div><div class="line">	<span class="keyword">var</span> img = <span class="keyword">new</span> Image();</div><div class="line">	img.src = <span class="string">"http://imgsrc.baidu.com/forum/pic/item/e6b14bc2a4561b1fe4dd3b24.jpg"</span>; </div><div class="line">	<span class="keyword">var</span> pattern = context.createPattern(img, <span class="string">'repeat'</span>);</div><div class="line">	context.fillStyle = pattern;</div><div class="line">	context.fillRect(<span class="number">0</span>, <span class="number">0</span>, canvas.width, canvas.height);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>使用图像数据</strong><br>通过getImageData()取得原始图像数据。这个方法接收四个参数：要取得其数据的画面区域的x和y坐标以及该区域的像素宽度和高度。<br>返回ImageData对象实例，每个ImageData对象都有三个属性：width、height和data。<br>data属性是一个数组，保存着图像中每一个像素的数据。在data数组中，每一个像素用4个元素来保存，分别表示红、绿、蓝和透明度值。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> imageData = context.getImageData(<span class="number">10</span>,<span class="number">5</span>,<span class="number">50</span>,<span class="number">50</span>);</div><div class="line"><span class="keyword">var</span> data = imageData.data;</div><div class="line">red = data[<span class="number">0</span>];</div><div class="line">green = data[<span class="number">1</span>];</div><div class="line">blue = data[<span class="number">2</span>];</div><div class="line">alpha = data[<span class="number">3</span>];</div></pre></td></tr></table></figure></p>
+<p>通过修改图像数据，可以像下面这样创建一个简单的灰阶过滤器：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*灰阶过滤器*/</span></div><div class="line"><span class="keyword">var</span> drawing = <span class="built_in">document</span>.getElementById(<span class="string">"drawing"</span>);</div><div class="line"><span class="keyword">if</span>(drawing.getContext)&#123;</div><div class="line">	<span class="keyword">var</span> context = drawing.getContext(<span class="string">"2d"</span>);</div><div class="line">	<span class="keyword">var</span> image = <span class="built_in">document</span>.images[<span class="number">0</span>];</div><div class="line">	<span class="keyword">var</span> imageData, data, i, len, average, red, green, blue, alpha;</div><div class="line">	<span class="comment">//绘制原始图像</span></div><div class="line">	context.drawImage(image,<span class="number">0</span>,<span class="number">0</span>);</div><div class="line">	<span class="comment">//取得图像数据</span></div><div class="line">	imageData = context.getImageData(<span class="number">0</span>,<span class="number">0</span>,image.width,image.height);</div><div class="line">	data = imageData.data;</div><div class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>,len = data.length; i &lt; len; i += <span class="number">4</span>) &#123;</div><div class="line">		red = data[i];</div><div class="line">		green = data[i+<span class="number">1</span>];</div><div class="line">		blue = data[i+<span class="number">2</span>];</div><div class="line">		alpha = data[i+<span class="number">3</span>];</div><div class="line">		<span class="comment">//求得rgb平均值</span></div><div class="line">		average = <span class="built_in">Math</span>.floor((red+green+blue)/<span class="number">3</span>);</div><div class="line">		<span class="comment">//设置颜色值，透明度不变</span></div><div class="line">		data[i] = average;</div><div class="line">		data[i+<span class="number">1</span>] = average;</div><div class="line">		data[i+<span class="number">2</span>] = average;</div><div class="line">	&#125;</div><div class="line">	imageData.data = data;</div><div class="line">	<span class="comment">//将图像数据绘制到画布上</span></div><div class="line">	context.putImageData(imageData,<span class="number">0</span>,<span class="number">0</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>需要注意的是，在本地测试时会报错，因为本地测试用的图片是文件夹内的，js跨域限制是不能获取非同一域名下的数据的，而本地的位置是没有域名的，所以浏览器都认为你是跨域，导致报错。</p>
+<p><strong>合成</strong><br>还有两个会应用到2D上下文中所有绘制操作的属性：globalAlpha和globalCompositionOperation.<br>globalAlpha是一个介于0和1之间的值（包括0和1），用于指定所有绘制的透明度。默认值为0；<br>如果所有后续操作都要基于相同的透明度，就可以先把globalAlpha设置为适当的值，然后绘制，最后再设置为0。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//绘制红色矩形</span></div><div class="line">context.fillStyle = <span class="string">"#ff0000"</span>;</div><div class="line">context.fillRect(<span class="number">10</span>,<span class="number">10</span>,<span class="number">50</span>,<span class="number">50</span>);</div><div class="line"><span class="comment">//修改全局透明度</span></div><div class="line">context.globalAlpha =<span class="number">0.5</span>;</div><div class="line"><span class="comment">//绘制蓝色矩形</span></div><div class="line">context.fillStyle=<span class="string">"rgba(0,0,255,1)"</span>;</div><div class="line">context.fillRect(<span class="number">30</span>,<span class="number">30</span>,<span class="number">50</span>,<span class="number">50</span>);</div><div class="line"><span class="comment">//重置全局透明度</span></div><div class="line">context.globalAlpha = <span class="number">0</span>;</div></pre></td></tr></table></figure></p>
+<p>globalCompositionOperation表示后绘制的图形怎样与先绘制的图形结合。<br>有以下属性值（字符串）：<br>source-over（默认值）：后绘制的图形位于先绘制的图形上方。<br>source-in：后绘制的图形与先绘制的图形重叠部分可见，两者其他部分完全透明。<br>source-out：后绘制的图形与先绘制的图形重叠部分不可见，先绘制的图形完全透明。<br>source-atop：后绘制的图形与先绘制的图形重叠部分可见，先绘制的图形不受影响。<br>destination-over：后绘制的图形位于先绘制的图形下方，只有之前透明像素下的部分才可见。<br>destination-in：后绘制的图形位于先绘制的图形下方，两者不重叠的部分完全透明。<br>destination-out：后绘制的图形擦除与先绘制的图形重叠的部分。<br>destination-atop：后绘制的图形位于先绘制的图形下方，在两者不重叠的地方，先绘制的图形变透明。<br>lighter：后绘制的图形与先绘制的图形重叠部分的值相加，使该部分变亮。<br>copy：后绘制的图形完全替代与之重叠的先绘制图形。<br>xor：后绘制的图形与先绘制的图形重叠的部分执行“异或”操作。</p>
+<h2 id="WebGL"><a href="#WebGL" class="headerlink" title="WebGL"></a>WebGL</h2><p>WebGL是针对Canvas的3D上下文。<br><strong>类型化数组</strong><br>WebGL涉及的复杂计算需要提前知道数值的精度，而标准的Javascript数值无法满足需求。为此，WebGL引入了类型化数组。<br>类型化数组也是数组，只不过其元素被设置为特定类型的值。<br>类型化数组的核心是一个名为ArrayBuffer（数组缓冲器类型）的类型。每个ArrayBuffer对象表示的只是内存中指定的字节数，但不会指定这些字节用于保存什么类型的数据。<br>通过ArrayBuffer能够为将来使用分配一定数量的字节。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> buffer = <span class="keyword">new</span> <span class="built_in">ArrayBuffer</span>(<span class="number">20</span>);<span class="comment">//在内存中分配20字节</span></div><div class="line"><span class="keyword">var</span> bytes = buffer.byteLength;    <span class="comment">//通过buffer对象获取唯一的信息，字节数</span></div></pre></td></tr></table></figure></p>
+<p>1.视图<br>使用ArrayBuffer的一种特别的方式就是用它来创建数组缓冲器视图。<br>最常见的视图是DataView，通过它可以选择ArrayBuffer中一小段字节。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//基于整个缓冲器创建一个新视图</span></div><div class="line"><span class="keyword">var</span> view = <span class="keyword">new</span> <span class="built_in">DataView</span>(buffer);</div><div class="line"><span class="comment">//创建一个开始于字节9的新视图</span></div><div class="line"><span class="keyword">var</span> view = <span class="keyword">new</span> <span class="built_in">DataView</span>(buffer, <span class="number">9</span>);</div><div class="line"><span class="comment">//创建一个从字节9开始到字节18的新视图</span></div><div class="line"><span class="keyword">var</span> view = <span class="keyword">new</span> <span class="built_in">DataView</span>(buffer, <span class="number">9</span>, <span class="number">10</span>);</div></pre></td></tr></table></figure></p>
+<p>DataView对象会把字节偏移量以及字节长度信息分别保存在byteOffset和byteLength属性中。</p>
+<p>2.类型化视图<br>类型化视图一般也被称为类型化数组。有以下几种：<br>Int8Array、Uint8Array、Int16Array、Uint16Array、Int32Array、Uint32Array、Float32Array、Float64Array.</p>
+<p>如果为相应元素指定的字节数放不下相应的值，则实际保存的值是最大可能值的模。<br>类型化视图还有一个方法，subarray()，使用这个方法可以基于底层数组缓冲器的子集创建一个新视图。<br>这个方法接收两个参数：开始元素的索引和可选的结束元素的索引。返回的类型与调用该方法的视图类型相同。</p>
+<p><strong>WebGL上下文</strong><br>在使用WebGL上下文时，务必先检测一下返回值。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"drawing"</span> <span class="attr">width</span>=<span class="string">"200"</span> <span class="attr">height</span>=<span class="string">"200"</span>&gt;</span>您的浏览器不支持canvas元素<span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span>  drawing = <span class="built_in">document</span>.getElementById(<span class="string">"drawing"</span>);</div><div class="line"><span class="keyword">if</span>(drawing.getContext)&#123;</div><div class="line">    <span class="keyword">var</span> gl = drawing.getContext(<span class="string">"experimental-webgl"</span>);</div><div class="line">    <span class="keyword">if</span>(gl)&#123;</div><div class="line">        <span class="comment">//使用WebGL</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>一般都把WebGL上下文对象命名为gl。<br>通过给getContext()传递第二个参数，可以为WebGL上下文设置一些选项。这个参数本身是一个对象，有以下属性：<br>alpha：值为true，表示为上下文创建一个Alpha通道缓冲区；默认为true。<br>depth：值为true，表示可以使用16位深缓冲区；默认值为true。<br>stencil：值为true，表示可以使用8位模板缓冲区；默认值为false。<br>antialias：值为true，表示将使用默认机制执行抗锯齿操作；默认为true。<br>premultipliedAlpha：值为true，表示绘图缓冲区有预乘Alpha值；默认值为true。<br>preserveDrawingBuffer：值为true，表示在绘图完成后保留绘图缓冲区；默认值为false。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span>  drawing = <span class="built_in">document</span>.getElementById(<span class="string">"drawing"</span>);</div><div class="line"><span class="keyword">if</span>(drawing.getContext)&#123;</div><div class="line">    <span class="keyword">var</span> gl = drawing.getContext(<span class="string">"experimental-webgl"</span>,&#123;<span class="attr">alpha</span>:<span class="literal">false</span>&#125;);</div><div class="line">    <span class="keyword">if</span>(gl)&#123;</div><div class="line">        <span class="comment">//使用WebGL</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>如果getContext()无法创建WebGL上下文，有的浏览器会报错，为此，最好把调用封装到try-catch块中。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span>  drawing = <span class="built_in">document</span>.getElementById(<span class="string">"drawing"</span>),</div><div class="line">        gl;</div><div class="line"><span class="keyword">if</span>(drawing.getContext)&#123;</div><div class="line">    <span class="keyword">try</span>&#123;</div><div class="line">        gl = drawing.getContext(<span class="string">"experimental-webgl"</span>);</div><div class="line">    &#125;<span class="keyword">catch</span>(ex)&#123;</div><div class="line">    </div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(gl)&#123;</div><div class="line">        <span class="comment">//使用WebGL</span></div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        alert(<span class="string">"WebGL context could not be created."</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>1.常量</strong><br>eg:gl.COLOR_BUFFER_BIT</p>
+<p><strong>2.方法命名</strong><br>方法名的后缀包含参数个数（1到4）和接收的数据类型（f表示浮点数，i表示整数），而v代表接收数组<br>eg:<br>gl.uniform3i()接收3个整数。<br>gl.uniform4f()接收4个浮点数。<br>gl.uniform3iv()接收一个包含3个值的整数数组。</p>
+<p><strong>3.准备绘图</strong><br>在实际操作WebGL上下文之前，一般都要使用某种实色清除&lt;canvas&gt;，为绘图做好准备。<br>首先必须使用clearColor()方法来指定要使用的颜色值，该方法接收4个参数：红、绿、蓝和透明度。<br>每个参数都必须是一个0到1之间的数值，表示每种分量在最终颜色中的强度。<br>eg:<br>gl.clearColor(0,0,0,1);<br>gl.clear(gl.COLOR_BUFFER_BIT);</p>
+<p><strong>4.视口与坐标</strong><br>开始绘图之前，通常需要先定义WebGL视口（viewport）。<br>默认情况下，视口可以使用整个&lt;canvas&gt;区域。<br>要改变视口的大小，可以调用viewport()方法并传入4个参数：<br>（视口相对于&lt;canvas&gt;元素的）x坐标、y坐标、宽度和高度。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//调用&lt;canvas&gt;元素</span></div><div class="line">gl.viewport(<span class="number">0</span>,<span class="number">0</span>,drawing.width,drawing.height);</div></pre></td></tr></table></figure></p>
+<p>视口坐标的原点在&lt;canvas&gt;元素的左下角，x轴和y轴的正方向分别是向右和向上。</p>
+<p>另外，在视口内部的坐标系与定义视口的坐标系也不一样，在视口内部，坐标原点（0,0）是视口的中心点。<br>在视口内部绘图时使用视口外部坐标，结果可能会被视口剪切。</p>
+<p><strong>5.缓冲区</strong><br>顶点信息保存在javascript的类型化数组中，使用之前必须转换到WebGL缓冲区。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> buffer =gl.createBuffer();    <span class="comment">//创建缓冲区</span></div><div class="line">gl.bindBuffer(gl.ARRAY_BUFFER,buffer);    <span class="comment">//绑定到WebGL上下文</span></div><div class="line">gl.bufferData(gl.ARRAY_BUFFER,<span class="keyword">new</span> <span class="built_in">Float32Array</span>([<span class="number">0</span>,<span class="number">0.5</span>,<span class="number">1</span>]),gl.STATIC_DRAW);</div><div class="line"></div><div class="line">gl.bufferData()的最后一个参数用于指定使用缓冲区的方式：</div><div class="line">gl.STATIC_DRAW：数据只加载一次，在多次绘图中使用。</div><div class="line">gl.STREAM_DRAW：数据只加载一次，在几次绘图中使用。</div><div class="line">gl.DYNAMIC_DRAW：数据动态改变，在多次绘图中使用。</div></pre></td></tr></table></figure></p>
+<p>使用gl.deleteBuffer()释放内存。</p>
+<p><strong>6.错误</strong><br>WebGL操作一般不会抛出错误，为了知道是否有错误发生，必须在调用某个可能出错的方法后，手工调用gl.getError()。</p>
+<p><strong>7.着色器</strong><br>WebGL中有两种着色器：顶点着色器和片段（或像素）着色器。<br>顶点着色器用于将3D顶点转换为需要渲染的2D点。<br>片段着色器用于准确计算要绘制的每个像素的颜色。<br>着色器是用GLSL语言编写的。</p>
+<p>8.编写着色器<br>略<br>9.编写着色器程序<br>略<br>10.为着色器传入值<br>略<br>11.调试着色器和程序<br>略</p>
+<p><strong>12.绘图</strong><br><strong>WebGL只能绘制三种形状：点、线和三角</strong>。<br>执行绘图操作要调用gl.drawArrays()或gl.drawElements()方法，前者用于数组缓冲区，后者用于元素数组缓冲区。<br>gl.drawArrays()或gl.drawElements()的第一个参数都是一个常量，表示要绘制的形状，常量取值如下：<br>gl.POINTS：将每个顶点当成一个点来绘制。<br>gl.LINES：将数组当成一系列顶点，在这些顶点间画线。每个顶点既是起点也是终点，因此数组中必须包含偶数个顶点。<br>gl.LINE_LOOP：将数组当成一系列顶点，在这些顶点间画线。最后一个顶点画到第一个顶点，形成一个形状的轮廓。<br>gl.LINE_STRIP：除了不花最后一个顶点与第一个顶点之间的线之外，其他与gl.LINE_LOOP相同。<br>gl.TRIANGLES：将数组当成一系列顶点，在这些顶点间画三角形。<br>gl.TRIANGLES_STRIP：除了前三个顶点之后的顶点当作第三个顶点与前两个顶点共同构成一个新三角形外，其他与gl.TRIANGLES相同。<br>gl.TRIANGLES_FAN：除了前三个顶点之后的顶点当作第三个顶点与前一个顶点及第一个顶点共同构成一个新三角形外，其他与gl.TRIANGLES相同。例如，数组中有A、B、C、D四个顶点，则第一个是三角形连接ABC,第二个三角形连接BCD。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//假设已经使用了着色器请处理视口</span></div><div class="line"><span class="comment">//定义三个顶点以及每个顶点的x 和y 坐标</span></div><div class="line"><span class="keyword">var</span> vertices = <span class="keyword">new</span> <span class="built_in">Float32Array</span>([<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>]),</div><div class="line">       buffer = gl.createBuffer(),</div><div class="line">       vertexSetSize = <span class="number">2</span>,</div><div class="line">       vertexSetCount = vertices.length/vertexSetSize,</div><div class="line">       uColor,aVertexPosition;</div><div class="line"><span class="comment">//把数据放到缓冲区</span></div><div class="line">gl.bindBuffer(gl.ARRAY_BUFFER,buffer);</div><div class="line">gl.bufferData(gl.ARRAY_BUFFER,vertices,gl.STATIC_DRAW);</div><div class="line"><span class="comment">//为片段着色器传入颜色值</span></div><div class="line">uColor = gl.getUniformLocation(program,<span class="string">"uColor"</span>);</div><div class="line">gl.uniform4fv(uColor,[<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>]);</div><div class="line"><span class="comment">//为着色器传入顶点信息</span></div><div class="line">aVertexPosition = gl.getAttribLocation(program,<span class="string">"aVertextPosition"</span>);</div><div class="line">gl.enableVertexAttribArray(aVertexPosition);</div><div class="line">gl.vertexAttribPointer(aVertexPosition,vertexSetSize,gl.FLOAT,<span class="literal">false</span>,<span class="number">0</span>,<span class="number">0</span>);</div><div class="line"><span class="comment">//绘制三角形</span></div><div class="line">gl.drawArrays(gl.TRIANGLES,<span class="number">0</span>,vertexSetCount);</div></pre></td></tr></table></figure></p>
+<p><strong>13.纹理</strong><br>WebGL的纹理可以使用DOM中的图像。<br>调用gl.createTexture()创建一个新纹理。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> image = <span class="keyword">new</span> Image(),texture;</div><div class="line">image.src=<span class="string">"simple.gif"</span>;</div><div class="line">iimage.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    texture = gl.createTexture();</div><div class="line">    gl.bindTexture(gl.TEXTURE_2D,texture);</div><div class="line">    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,<span class="literal">true</span>);</div><div class="line">    </div><div class="line">    gl.texImage2D(gl.TEXTURE_2D,<span class="number">0</span>,gl.RGBA,gl.RGBA,gl.UNSIGNED,image);</div><div class="line">    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST);</div><div class="line">    gl.textParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST);    </div><div class="line">    <span class="comment">//清除当前纹理</span></div><div class="line">    gl.bindTexture(gl.TEXTURE_2D,<span class="literal">null</span>);</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p><strong>14.读取像素</strong><br>通过gl.readPixels()方法读取像素。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/weixin.png" alt="Peter Lee WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/zhifubao.png" alt="Peter Lee Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/红宝书/" rel="tag"># 红宝书</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/14/笔记/红宝书系列读书笔记（五）/" rel="next" title="红宝书系列读书笔记（五）">
+                <i class="fa fa-chevron-left"></i> 红宝书系列读书笔记（五）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/16/笔记/红宝书系列读书笔记（七）/" rel="prev" title="红宝书系列读书笔记（七）">
+                红宝书系列读书笔记（七） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="Peter Lee" />
+          <p class="site-author-name" itemprop="name">Peter Lee</p>
+           
+              <p class="site-description motion-element" itemprop="description">积累JavaScript，HTML 5，CSS3等前端基础知识，探究vue.js，webpack等前端主流技术，了解前端界内最新动态</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/peterlhx" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://stackoverflow.com/users/4940899/peter-lee" target="_blank" title="stack-overflow">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  stack-overflow
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/Peterlhx" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-zhihu"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Canvas绘图"><span class="nav-number">1.</span> <span class="nav-text">使用Canvas绘图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模式"><span class="nav-number">2.</span> <span class="nav-text">模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WebGL"><span class="nav-number">3.</span> <span class="nav-text">WebGL</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Peter Lee</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("ljcUFcjlR98hxBxhTA3k6lCA-gzGzoHsz", "f2BpBAbcvA7z8NuroKVyJTVp");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

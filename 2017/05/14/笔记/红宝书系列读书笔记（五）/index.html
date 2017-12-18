@@ -1,0 +1,1328 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="红宝书," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="事件Javascript与HTML之间的交互是通过事件来实现的。事件，就是文档或浏览器窗口中发生的一些特定的交互瞬间。 事件流事件流描述的是从页面中接收事件的顺序。IE8及之前版本的事件流仅是事件冒泡流。 事件冒泡IE的事件流叫做事件冒泡，即事件开始时由最具体的元素（文档中嵌套层次最深的那个节点）接收，然后逐级向上传播到较为不具体的节点（文档）。打个比方说：你在地方法院要上诉一件案子，如果地方没有">
+<meta name="keywords" content="红宝书">
+<meta property="og:type" content="article">
+<meta property="og:title" content="红宝书系列读书笔记（五）">
+<meta property="og:url" content="http://peterlhx.github.io/2017/05/14/笔记/红宝书系列读书笔记（五）/index.html">
+<meta property="og:site_name" content="Mr.JS">
+<meta property="og:description" content="事件Javascript与HTML之间的交互是通过事件来实现的。事件，就是文档或浏览器窗口中发生的一些特定的交互瞬间。 事件流事件流描述的是从页面中接收事件的顺序。IE8及之前版本的事件流仅是事件冒泡流。 事件冒泡IE的事件流叫做事件冒泡，即事件开始时由最具体的元素（文档中嵌套层次最深的那个节点）接收，然后逐级向上传播到较为不具体的节点（文档）。打个比方说：你在地方法院要上诉一件案子，如果地方没有">
+<meta property="og:image" content="http://peterlhx.github.io/uploads/event_attr.png">
+<meta property="og:image" content="http://peterlhx.github.io/uploads/ie_event_attr.png">
+<meta property="og:updated_time" content="2017-05-19T16:38:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="红宝书系列读书笔记（五）">
+<meta name="twitter:description" content="事件Javascript与HTML之间的交互是通过事件来实现的。事件，就是文档或浏览器窗口中发生的一些特定的交互瞬间。 事件流事件流描述的是从页面中接收事件的顺序。IE8及之前版本的事件流仅是事件冒泡流。 事件冒泡IE的事件流叫做事件冒泡，即事件开始时由最具体的元素（文档中嵌套层次最深的那个节点）接收，然后逐级向上传播到较为不具体的节点（文档）。打个比方说：你在地方法院要上诉一件案子，如果地方没有">
+<meta name="twitter:image" content="http://peterlhx.github.io/uploads/event_attr.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://peterlhx.github.io/2017/05/14/笔记/红宝书系列读书笔记（五）/"/>
+
+
+
+
+
+  <title>红宝书系列读书笔记（五） | Mr.JS</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mr.JS</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://peterlhx.github.io/2017/05/14/笔记/红宝书系列读书笔记（五）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Peter Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.JS">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">红宝书系列读书笔记（五）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-14T20:38:06+08:00">
+                2017-05-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/05/14/笔记/红宝书系列读书笔记（五）/" class="leancloud_visitors" data-flag-title="红宝书系列读书笔记（五）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h2><p>Javascript与HTML之间的交互是通过事件来实现的。事件，就是文档或浏览器窗口中发生的一些特定的交互瞬间。</p>
+<p><strong>事件流</strong><br>事件流描述的是从页面中接收事件的顺序。IE8及之前版本的事件流仅是事件冒泡流。</p>
+<p><strong>事件冒泡</strong><br>IE的事件流叫做事件冒泡，即事件开始时由最具体的元素（文档中嵌套层次最深的那个节点）接收，然后逐级向上传播到较为不具体的节点（文档）。<br>打个比方说：你在地方法院要上诉一件案子，如果地方没有处理此类案件的法院，地方相关部门会帮你继续往上级法院上诉，比如从市级到省级，<br>直至到中央法院，最终使你的案件得以处理。<br>最常应用于事件委托技术中。</p>
+<p><strong>事件捕获</strong><br>事件捕获的思想是不太具体的节点应该更早接收到事件，而最具体的节点应该最后接收到事件。事件捕获的用意在于事件到达预定目标之前捕获它。</p>
+<p><strong>DOM事件流</strong><br>“DOM2级事件”规定的事件流包括三个阶段：事件捕获阶段，处于目标阶段和事件冒泡阶段。</p>
+<p><strong>事件处理程序</strong><br>事件是指用户或浏览器自身执行的某种动作，如click；<br>事件处理程序是指响应某个事件的函数，也叫做事件侦听器，如onclick()。</p>
+<p>事件处理程序有以下五类：<br><strong>1）HTML事件处理程序</strong><br>直接在HTML中调用javascript代码或函数；<br>有点：简单，方便；<br>缺点：javascript和html紧密耦合，不方便维护和修改。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">showMessage</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        alert(<span class="string">"Hello world!"</span>);</div><div class="line">    &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"click me"</span> <span class="attr">onclick</span>=<span class="string">"showMessage()"</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p><strong>2）DOM0级事件处理程序</strong><br>通过javascript指定事件处理程序的传统方式，就是将一个函数赋值给一个事件处理程序属性。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> btn = <span class="built_in">document</span>.getElementById(<span class="string">"myBtn"</span>);</div><div class="line">btn.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    alert(<span class="keyword">this</span>.id);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">btn.onclick = <span class="literal">null</span>;    <span class="comment">//删除事件处理程序</span></div></pre></td></tr></table></figure></p>
+<p><strong>3）DOM2级事件处理程序</strong><br>“DOM2级事件”定义了两个方法，用于处理和删除事件处理程序的操作：addEventListener()和removeEventListener()<br>所有DOM节点都包含这两个方法，它们都接收3个参数：要处理的事件名、作为事件处理程序的函数和一个布尔值。<br>最后这个布尔值参数如果是true,表示在捕获阶段调用事件处理程序；如果是false，表示在冒泡阶段调用事件处理程序。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> btn = <span class="built_in">document</span>.getElementById(<span class="string">"myBtn"</span>);</div><div class="line">btn.addEventListener(<span class="string">"click"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    alert(<span class="keyword">this</span>.id);</div><div class="line">&#125;,<span class="literal">false</span>);</div></pre></td></tr></table></figure></p>
+<p>使用DOM2级方法主要好处是可以添加多个事件处理程序。<br>通过addEventListener()添加的事件处理程序只能使用removeEventListener()来移除；移除时传入的参数与添加处理程序时使用的参数相同。<br>这也意味着通过addEventListener()添加的匿名函数将无法移除。</p>
+<p><strong>4）IE事件处理程序</strong><br>IE实现了与DOM中类似的两个方法：attachEvent()和detachEvent()。<br>这两个方法接受相同的两个参数：事件处理程序名称与事件处理程序函数。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> btn = <span class="built_in">document</span>.getElementById(<span class="string">"myBtn"</span>);</div><div class="line">btn.attachEvent(<span class="string">"onclick"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    alert(<span class="string">"Clicked"</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>在IE中使用attachEvent()与使用DOM0级方法的主要区别在于事件处理程序的作用域。<br>在使用DOM0级方法的情况下，事件处理程序会在其所属元素的作用域内运行；<br>在使用attachEvent()方法的情况下，事件处理程序会在全局作用域中运行，因此this等于window。</p>
+<p>使用attachEvent()添加的事件可以通过detachEvent()来移除，但必须提供相同的参数，同样地，无法将匿名函数移除。<br>支持IE事件处理程序的浏览器有IE和Opera。</p>
+<p><strong>5）跨浏览器的事件处理程序</strong><br>自定义合适的事件处理的方法，使其能够在大多数浏览器下一致地运行。<br>创建addHandler()方法，它的职责是视情况分别使用DOM0级方法、DOM2级方法或IE方法来添加事件。<br>addHandler()方法接收3个参数：要操作的元素、事件名称和事件处理程序函数。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">EventUtil=&#123;</div><div class="line">    <span class="attr">addHandler</span>: <span class="function"><span class="keyword">function</span>(<span class="params">element,type,handler</span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span>(element.addEventListener)&#123;</div><div class="line">            element.addEventListener(type,handler,<span class="literal">false</span>);</div><div class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(element.attachEvent)&#123;</div><div class="line">            element.attachEvent(<span class="string">"on"</span>+type,handler);</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            element[<span class="string">"on"</span>+type] = handler;</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    <span class="attr">removeHandler</span>: <span class="function"><span class="keyword">function</span>(<span class="params">element,type,handler</span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span>(element.removeEventListener) &#123;</div><div class="line">            element.removeEventListener(type,handler,<span class="literal">false</span>);</div><div class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(element.detachEvent) &#123;</div><div class="line">            element.detachEvent(<span class="string">"on"</span>+type,handler);</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            element[<span class="string">"on"</span>+type] = <span class="literal">null</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<h2 id="事件对象"><a href="#事件对象" class="headerlink" title="事件对象"></a>事件对象</h2><p>在触发DOM上的某个事件时，会产生一个事件对象event。所有浏览器都支持event对象。</p>
+<p><strong>DOM中的事件对象</strong><br>兼容DOM的浏览器会将一个event对象传入到事件处理程序中。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> btn = <span class="built_in">document</span>.getElementById(<span class="string">"myBtn"</span>);</div><div class="line">btn.onclick = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</div><div class="line">    alert(event.type);    <span class="comment">//“click”</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p><img src="/uploads/event_attr.png" alt="event属性"><br>在事件处理程序内部，对象this始终等于currentTarget的值，而target则包含事件的实际目标。</p>
+<p><strong>IE中的事件对象</strong><br>要访问IE中的event对象有几种不同的方式，取决于指定事件处理程序的方法。<br>在使用DOM0级方法添加事件处理程序时，event对象作为window对象的一个属性存在。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> btn = <span class="built_in">document</span>.getElementById(<span class="string">"myBtn"</span>);</div><div class="line">btn.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> event = <span class="built_in">window</span>.event;</div><div class="line">    alert(event.type);    <span class="comment">//“click”</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p><img src="/uploads/ie_event_attr.png" alt="IE event属性"><br>因为事件处理程序的作用域是根据指定它的方式来确定的，所以不能认为this会始终等于事件目标。<br>所以，最好还是使用event.srcElement来确定事件目标。</p>
+<p><strong>跨浏览器的事件对象</strong><br>对前面的EventUtil对象加以增强：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">EventUtil = &#123;</div><div class="line">    <span class="attr">addHandler</span> : <span class="function"><span class="keyword">function</span>(<span class="params">element,type,handler</span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span>(element.addEventListener) &#123;</div><div class="line">            element.addEventListener(type,handler,<span class="literal">false</span>);</div><div class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(element.attachEvent) &#123;</div><div class="line">            element.attachEvent(<span class="string">"on"</span>+type,handler);</div><div class="line">        &#125;<span class="keyword">else</span> &#123;</div><div class="line">            element[<span class="string">"on"</span>+type] = handler;</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">getEvent</span>: <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> event ? event : <span class="built_in">window</span>.event;</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">getTarget</span>: <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> event.target || event.srcElement;</div><div class="line">    &#125;,</div><div class="line">    preventDefault：<span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span>(event.preventDefault) &#123;</div><div class="line">            event.preventDefault();</div><div class="line">        &#125;<span class="keyword">else</span> &#123;</div><div class="line">            event.returnValue=<span class="literal">true</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">	<span class="attr">removeHandler</span>: <span class="function"><span class="keyword">function</span>(<span class="params">element,type,handler</span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span>(element.removeEventListener) &#123;</div><div class="line">            element.removeEventListener(type,handler,<span class="literal">false</span>);</div><div class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(element.detachEvent) &#123;</div><div class="line">            element.detachEvent(<span class="string">"on"</span>+type,handler);</div><div class="line">        &#125;<span class="keyword">else</span> &#123;</div><div class="line">            element[<span class="string">"on"</span>+type] = <span class="literal">null</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">stopPropagation</span>: <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span>(event.stopPropagation) &#123;</div><div class="line">            event.stopPropagation();</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            event.cancelBubble = <span class="literal">true</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<h2 id="事件类型"><a href="#事件类型" class="headerlink" title="事件类型"></a>事件类型</h2><p>“DOM3级事件”规定了以下几类事件：<br><strong>UI事件</strong>：当用户与页面上的元素进行交互时触发；<br>UI事件（在DOM2级中归为HTML事件）有：load、unload、abort、error、select、resize、scroll</p>
+<p><strong>焦点事件</strong>：当元素获得或是去焦点时触发；<br>blur、focusin、focusout、focus、DOMFocusIn、DOMFocusOut；<br>利用这些事件并与document.hasFocus()方法及document.activeElement属性配合，可以知晓用户在页面上的行踪。</p>
+<p>当焦点从页面中的一个元素移动到另一个元素，会依次触发下列事件：<br>1）focusout在失去焦点的元素上触发；<br>2）focusin在获得焦点的元素上触发；<br>3）blur在失去焦点的元素上触发；<br>4）DOMFocusOut在失去焦点的元素上触发；<br>5）focus在获得焦点的元素上触发；<br>6）DOMFocusIn在获得焦点的元素上触发。</p>
+<p><strong>鼠标事件</strong>：当用户通过鼠标在页面上执行操作时触发；<br>click、dbclick、mousedown、mouseenter、mouseleave、<br>mousemove、mouseout、mouseover、mouseup</p>
+<p>相关元素：event对象的relatedTarget属性提供了相关元素的信息。<br>例如mouserover，事件的主目标是获得光标的元素，而相关元素就是那个失去光标的元素。</p>
+<p><strong>滚轮事件</strong>：当使用鼠标滚轮（或类似设备）时触发；<br>mousewheel;<br>与mousewheel事件对应的event对象除包含鼠标事件的所有标准信息外，还包括一个特殊的wheelDelta属性。<br>当用户向前滚动鼠标滚轮时，wheelDelta是120的倍数；当用户向后滚动鼠标滚轮时，wheelDelta是-120的倍数。</p>
+<p>而FireFox支持名为DOMMouseScroll的类似事件，有关鼠标滚轮的信息则保存在detail属性中，向前滚动鼠标滚轮时，属性值为-3的倍数，向后滚动鼠标滚轮时，属性值为3的倍数。</p>
+<p><strong>文本事件</strong>：当在文档中输入文本时触发；<br><strong>键盘事件</strong>：当用户通过键盘在页面上执行操作时触发；<br>keydown（任意键）、keypress（仅字符键）、keyup；<br>在发生keydown和keyup事件时，event对象的keyCode属性会包含一个代码，与键盘上一个特定的键对应。</p>
+<p>要想以跨浏览器的方式取得字符编码，必须首先检测charCode属性是否可用，如果不可用则使用keyCode.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> EventUtil = &#123;</div><div class="line">    <span class="comment">//省略代码</span></div><div class="line">    getCharCode : <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">        <span class="keyword">if</span>(<span class="keyword">typeof</span> event.charCode == <span class="string">"number"</span>)&#123;</div><div class="line">            <span class="keyword">return</span> event.charCode;</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            <span class="keyword">return</span> event.keyCode;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//省略代码</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>合成事件(DOM3级)</strong>：当为IME(输入法编辑器)输入字符时触发；<br><strong>变动事件</strong>：当底层DOM结构发生变化时触发；<br>变动名称事件：当元素或属性名变动时触发。（已被废弃）</p>
+<h2 id="HTML5事件"><a href="#HTML5事件" class="headerlink" title="HTML5事件"></a>HTML5事件</h2><p>1.contextmenu事件<br>通常使用contextmenu事件来显示自定义的上下文菜单。</p>
+<p>2.beforeunload事件<br>该事件是为了让开发人员有可能在页面卸载前阻止这一操作。</p>
+<p>3.DOMContentLoaded事件<br>该事件在形成完整的DOM树之后触发，不理会图像、javascript文件、css文件或其他资源是否已经下载完毕。</p>
+<p>4.readystatechange事件<br>该事件的目的是提供与文档或元素的加载状态有关的信息。<br>支持readystatechange事件的每个对象都有一个readyState属性，可能包含下列值：<br>uninitialized（未初始化）：对象存在但尚未初始化；<br>loading：对象正在加载数据；<br>loaded：对象加载数据完成；<br>interactive(交互)：可以操作对象了，但还没有完全加载；<br>complete：对象加载完毕。</p>
+<p>5.pageshow和pagehide事件</p>
+<p>6.hashchange事件<br>将hashchange事件处理程序添加给window对象，然后URL参数列表只要变化就会调用它。<br>此时event对象应该额外包含两个属性：oldURL和newURL。这两个属性分别保存着参数列表变化前后的完整URL。</p>
+<h2 id="设备事件"><a href="#设备事件" class="headerlink" title="设备事件"></a>设备事件</h2><p>1.orientationchange事件<br>苹果公司为移动Safari中添加了orientationchange事件，以便开发人员能够确定用户何时将设备由横向查看模式切换为纵向查看模式。<br>window.orientation属性可能包含3个值：<br>0表示肖像模式，90表示向左旋转的横向模式，-90表示向右旋转的横向模式。</p>
+<p>2.MozOrientation事件<br>Firefox3.6为检测设备的方向引入了一个名为MozOrientation的新事件。</p>
+<p>3.deviceorientation事件</p>
+<p>4.devicemotion事件</p>
+<h2 id="触摸与手势事件"><a href="#触摸与手势事件" class="headerlink" title="触摸与手势事件"></a>触摸与手势事件</h2><p><strong>1.触摸事件</strong><br>touchstart：当手指触摸屏幕时触发；即使已经有一个手指放在了屏幕上也会触发。<br>touchmove：当手指在屏幕上滑动时连续地触发。这个事件发生期间，调用preventDefault()可以阻止滚动<br>touchend：当手指从屏幕移开时触发；<br>touchcancel：当系统停止跟踪触摸时触发；<br>三个用于跟踪触摸的属性：<br>touches：表示当前跟踪的触摸操作的Touch对象的数组；<br>targetTouches：特定于事件目标的Touch对象的数组；<br>changeTouches：表示自上次触摸以来发生了什么改变的Touch对象的数组。</p>
+<p>每个Touch对象包含下列属性：<br>clientX：触摸目标在视口中的x坐标；<br>clientY：触摸目标在视口中的y坐标<br>identifier：标识触摸的唯一ID；<br>pageX：触摸目标在页面中的x坐标；<br>pageY：触摸目标在页面中的y坐标；<br>screenX：触摸目标在屏幕中的x坐标；<br>screenY：触摸目标在屏幕中的y坐标；<br>target：触摸的DOM节点目标。</p>
+<p><strong>2.手势事件</strong><br>gesturestart：当一个手指已经按在屏幕上而另一个手指又触摸屏幕时触发。<br>gesturechange：当触摸屏幕的任何一个手指的位置发生变化时触发。<br>gestureend：当任何一个手指从屏幕上面移开时触发。</p>
+<h2 id="内存和性能"><a href="#内存和性能" class="headerlink" title="内存和性能"></a>内存和性能</h2><p>事件委托（事件代理）<br>事件委托利用了事件冒泡，只指定一个事件处理程序，就可以管理某一类型的所有事件。<br>优点：</p>
+<blockquote>
+<ol>
+<li>document对象很快就可以访问，而且可以在页面生命周期的任何时点上为它添加事件处理程序<br>（无需等待DOMContentLoaded或load事件）。</li>
+<li>在页面中设置事件处理程序所需的时间更少。只添加一个事件处理程序所需的DOM引用更少，所花时间更少。</li>
+<li>整个页面占用的内存空间更少，能够提升整体性能。</li>
+</ol>
+</blockquote>
+<p><strong>移除事件处理程序</strong><br>每当将事件处理程序指定给元素时，运行中的浏览器代码与支持页面交互的Javascript代码之间就会建立一个连接。连接越多，页面执行起来就慢。所以，需要将那些过时不用的“空事件处理程序”移除。</p>
+<p>当从文档中移除带有事件处理程序的元素时，原来添加到元素中的事件处理程序极有可能无法被当作垃圾回收。<br>所以最好手工移除事件处理程序，eg : btn.onclick = null;</p>
+<p>导致“空事件处理程序”的另外一种情况，就是卸载页面的时候。如果在页面被卸载之前没有清理干净事件处理程序，那它们会滞留在内存中。<br>所以，最好的做法是在页面卸载之前，先通过onunload事件处理程序移除所有的事件处理程序。</p>
+<h2 id="模拟事件"><a href="#模拟事件" class="headerlink" title="模拟事件"></a>模拟事件</h2><p>DOM中的事件模拟<br>通过document.createEvent()方法创建event对象，这个方法接收一个参数，<br>即表示要创建的事件类型的字符串。<br>字符串如下：<br>UIEvents ：一般化的UI事件。<br>MouseEvents : 一般化的鼠标事件。<br>MutationEvents : 一般化的DOM变动事件。<br>HTMLEvents : 一般化的HTML事件。</p>
+<p>模拟事件的触发需要使用dispatchEvent()方法，所有支持事件的DOM节点都支持这个方法。</p>
+<p>1.模拟鼠标事件（MouseEvent）<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> btn = <span class="built_in">document</span>.getElementById(<span class="string">"myBtn"</span>);</div><div class="line"><span class="comment">//创建事件对象</span></div><div class="line"><span class="keyword">var</span> event = <span class="built_in">document</span>.createEvent(<span class="string">"MouseEvent"</span>);</div><div class="line"><span class="comment">//初始化事件对象</span></div><div class="line">event.initMouseEvent(<span class="string">"click"</span>,<span class="literal">true</span>,<span class="literal">true</span>,<span class="built_in">document</span>.defaultView,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="literal">false</span>,<span class="literal">false</span>,<span class="literal">false</span>,<span class="literal">false</span>,<span class="number">0</span>,<span class="literal">null</span>);</div><div class="line"><span class="comment">//触发事件</span></div><div class="line">btn.dispatchEvent(event);</div></pre></td></tr></table></figure></p>
+<p>2.模拟键盘事件（keyboardEvent）<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> textbox = <span class="built_in">document</span>.getElementById(<span class="string">"myTextbox"</span>), event;</div><div class="line"><span class="comment">//以DOM3级方式创建事件对象</span></div><div class="line"><span class="keyword">if</span>(<span class="built_in">document</span>.implementation.hasFeature(<span class="string">"KeyboardEvents"</span>,<span class="string">"3.0"</span>))&#123;</div><div class="line">    event = <span class="built_in">document</span>.createEvent(<span class="string">"KeyboardEvent"</span>);</div><div class="line">    <span class="comment">//模拟按下Shift键又同时按下A键</span></div><div class="line">    event.initKeyboardEvent(<span class="string">"keydown"</span>,<span class="literal">true</span>,<span class="literal">true</span>,<span class="built_in">document</span>.defaultView,<span class="string">"a"</span>,<span class="number">0</span>,<span class="string">"Shift"</span>,<span class="number">0</span>);</div><div class="line">    </div><div class="line">&#125;</div><div class="line">textbox.dispatchEvent(event);</div></pre></td></tr></table></figure></p>
+<p>IE中的事件模拟<br>通过document.createEventObject()在IE中创建event对象，这个方法不接受参数，返回通用的event对象。然后，你必须手工为这个对象添加所有必要的信息，最后在目标上调用fireEvent()方法。<br>fireEvent()接受两个参数：事件处理程序名称和event对象。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> btn = <span class="built_in">document</span>.getElementById(<span class="string">"myBtn"</span>);</div><div class="line"><span class="comment">//创建事件对象</span></div><div class="line"><span class="keyword">var</span> event = <span class="built_in">document</span>.createEventObject();</div><div class="line"><span class="comment">//初始化事件对象</span></div><div class="line">event.screenX=<span class="number">100</span>;</div><div class="line">event.screenY=<span class="number">0</span>;</div><div class="line"><span class="comment">//...省略其他属性的初始化</span></div><div class="line"></div><div class="line"><span class="comment">//触发事件</span></div><div class="line">btn.fireEvent(<span class="string">"onclick"</span>,event);</div></pre></td></tr></table></figure></p>
+<h2 id="表单脚本"><a href="#表单脚本" class="headerlink" title="表单脚本"></a>表单脚本</h2><p><strong>表单的基础知识</strong><br>在Javascript中，表单对应的是HTMLFormElement类型，继承于HTMLElement。<br>有如下属性和方法：<br>acceptCharset：服务器能够处理的字符集；<br>action：接受请求的URL；<br>elements：表单中所有控件的集合；<br>enctype：请求的编码类型；<br>length：表单中控件的数量；<br>method：要发送的HTTP请求类型；<br>name：表单的名称；<br>reset()：将所有表单域重置为默认值；<br>submit()：提交表单；<br>target：用于发送请求和接收响应的窗口名称。</p>
+<p>取得表单主要是通过为其添加id特性，然后使用document.getElementById()方法取得；<br>此外还可以通过document.forms可以取得页面中所有的表单。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> firstForm = <span class="built_in">document</span>.forms[<span class="number">0</span>];            <span class="comment">//通过数值索引获取</span></div><div class="line"><span class="keyword">var</span> myForm = <span class="built_in">document</span>.forms[<span class="string">"myForm"</span>];    <span class="comment">//通过name值获取</span></div></pre></td></tr></table></figure></p>
+<p><strong>提交表单</strong><br>用户点击提交按钮或图像按钮时，就会提交表单。<br>图像按钮：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span>  <span class="attr">type</span> = <span class="string">"image"</span> <span class="attr">src</span> = <span class="string">"img.gif"</span>/&gt;</span></div></pre></td></tr></table></figure></p>
+<p>浏览器会在将请求发送给服务器之前触发submit事件，这样，我们就有机会验证表单数据，并据以决定是否允许表单提交。阻止这个事件的默认行为就可以取消表单那提交。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> form = <span class="built_in">document</span>.getElementById(<span class="string">"myForm"</span>);</div><div class="line">EventUtil.addHandler(form,<span class="string">"submit"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">    event = EventUtil.getEvent(event);</div><div class="line">    </div><div class="line">    EventUtil.preventDefault(event);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">在Javascript中，以编程方式调用submit()方法提交表单。</div><div class="line">eg:</div><div class="line"><span class="keyword">var</span> form = <span class="built_in">document</span>.getElementById(<span class="string">"myForm"</span>);</div><div class="line">form.submit();</div><div class="line"></div><div class="line"><span class="comment">// 重置表单</span></div><div class="line">form.reset();</div></pre></td></tr></table></figure></p>
+<p><strong>表单字段</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> form = <span class="built_in">document</span>.getElementById(<span class="string">"myForm"</span>);</div><div class="line"><span class="keyword">var</span> field1 = form.elements[<span class="number">0</span>];</div><div class="line"><span class="keyword">var</span> field2 = form.elements[<span class="string">"textbox2"</span>];</div></pre></td></tr></table></figure></p>
+<p>如果有多个表单控件都在使用一个name(如单选按钮)，name就会返回以该name命名的一个NodeList。</p>
+<p><strong>共有的表单字段属性</strong><br>disabled，form，name，readonly，tabIndex，type，value。</p>
+<p>为防止用户重复点击表单的提交按钮，需要在第一次单击后就禁用提交按钮。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">EventUtil.addHandler(form, <span class="string">"submit"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</div><div class="line">    event = EventUtil.getEvent(event);</div><div class="line">    <span class="keyword">var</span> target = EventUtil.getTarget(event);</div><div class="line">    <span class="keyword">var</span> btn = target.elements[<span class="string">"submit-btn"</span>];</div><div class="line">    </div><div class="line">    btn.disabled = <span class="literal">true</span>;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p><strong>共有的表单字段方法</strong><br>focus()和blur()。<br>在HTML5中，为表单字段新增了一个autofocus属性，在支持这个属性的浏览器中，只要设置了，不用Javascript就能自动把焦点移动到相应字段。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">autofocus</span> /&gt;</span></div></pre></td></tr></table></figure></p>
+<p>共有的表单字段事件<br>blur、change、focus。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> textbox = <span class="built_in">document</span>.forms[<span class="number">0</span>].elements[<span class="number">0</span>];</div><div class="line">EventUtil.addHandler(textbox,<span class="string">"change"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">    event = EventUtil.getEvent(event);</div><div class="line">    <span class="keyword">var</span> target = EventUtil.getTarget(event);</div><div class="line">    </div><div class="line">    <span class="keyword">if</span>(<span class="regexp">/[^\d]/</span>.test(target.value))&#123;</div><div class="line">        target.style.backgroundColor = <span class="string">"red"</span>;</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        target.style.backgroundColor = <span class="string">""</span>;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p><strong>文本框脚本</strong><br>&lt;input&gt;和&lt;textarea&gt;<br>要实现文本框，必须将&lt;input&gt;元素的type特性设置为”text”。而通过设置size特性，可以指定文本框中能够显示的字符数。而maxlength特性则用于指定文本框可以接受的最大字符数。</p>
+<p>&lt;textarea&gt;则始终会呈现一个多行文本框。通过使用rows（行）和cols（列）特性来指定文本框大小</p>
+<p><strong>选择文本</strong><br>上述两种文本框都支持select()方法，这个方法用于选择文本框中的所有文本，该方法不接受参数。<br>1.选择（select）事件<br>在大多数浏览器中，只有用户选择了文本（而且释放鼠标），才会触发select事件。而在IE8及更早版本中，只要用户选择了一个字母（不必释放鼠标），就会触发select事件。<br>2.取得选择的文本<br>在HTML5中，添加了两个属性：selectionStart和selectionEnd。这两个属性中保存的是基于0的数值，表示所选择的文本的范围。<br>因此，要取得用户在文本框中选择的文本，可以如下编码：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getSelectedText</span>(<span class="params">textbox</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> textbox.value.substring(textbox.selectionStart,textbox.selectionEnd);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>而IE8及其更早版本要实现取得用户选择的文本，需要通过document.selection对象，其中保存着用户在整个文档范围内选择的文本信息。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//兼容各浏览器</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getSelectedText</span>(<span class="params">textbox</span>)</span>&#123;</div><div class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> textbox.selectionStart == <span class="string">"number"</span>)&#123;</div><div class="line">        <span class="keyword">return</span> textbox.value.substring(textbox.selectionStart,textbox.selectionEnd);</div><div class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">document</span>.selection)&#123;</div><div class="line">        <span class="keyword">return</span> <span class="built_in">document</span>.selection.createRange().text;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>3.取得部分文本<br>setSelectionRange()方法，所有文本框都支持，该方法接受两个参数：要选择的第一个字符的索引和要选择的最后一个字符之后的字符的索引。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">textbox.value=<span class="string">"Hello World!"</span>;</div><div class="line"><span class="comment">//选择所有文本</span></div><div class="line">textbox.setSelectionRange(<span class="number">0</span>,textbox.value.length);    <span class="comment">//"Hello World!"</span></div><div class="line"><span class="comment">//选择前三个字符</span></div><div class="line">textbox.setSelectionRange(<span class="number">0</span>,<span class="number">3</span>);    <span class="comment">//"Hel"</span></div></pre></td></tr></table></figure></p>
+<p>要看到选择的文本，必须在调用setSelectionRange()之前或之后立即将焦点设置到文本框。<br>IE9、FireFox、Safari、Chrome和Opera支持这种方案。<br>而IE8及其更早版本支持使用范围选择部分文本。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//兼容各浏览器版</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">selectText</span>(<span class="params">textbox,startIndex,stopIndex</span>)</span>&#123;</div><div class="line">    <span class="keyword">if</span>(textbox.setSelectionRange)&#123;</div><div class="line">        textbox.setSelectionRange(startIndex,stopIndex);</div><div class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(text.createTextRange)&#123;</div><div class="line">        <span class="keyword">var</span> range = textbox.createTextRange();</div><div class="line">        range.collapse(<span class="literal">true</span>);    <span class="comment">//将范围折叠到文本框的开始位置</span></div><div class="line">        range.moveStart(<span class="string">"character"</span>,startIndex);</div><div class="line">        range.moveEnd(<span class="string">"character"</span>,stopIndex-startIndex);</div><div class="line">        range.select();</div><div class="line">    &#125;</div><div class="line">    textbox.focus();    <span class="comment">//设置文本框焦点，以便用户看到文本框中选择的文本</span></div><div class="line">&#125;</div><div class="line">selectText(textbox,<span class="number">0</span>,textbox.value.length);</div></pre></td></tr></table></figure></p>
+<p><strong>过滤输入</strong><br>1.屏蔽字符<br>检测keypress事件对应的字符编码，然后再决定如何响应。<br>EventUtil.addHandler(textbox, “keypress”, function(event){<br>    event = EventUtil.getEvent(event);<br>    var target = EventUtil.getTarget(event);<br>    var charCode = EventUtil.getCharCode(event);</p>
+<p>//屏蔽非数值，并避免屏蔽一些常用和必要的键,，如向上键、向下键、ctrl+C等<br> if(!/\d/.test(String.fromCharCode(charCode))&amp;&amp;charCode&gt;9&amp;&amp;!event.ctrlKey){<br>        EventUtil.preventDefault(event);<br>    }<br>});</p>
+<p>2.操作剪贴板<br>六个剪贴板事件：<br>beforecopy：在发生复制操作前触发。<br>copy：在发生复制操作时触发。<br>beforecut：在发生剪切操作前触发。<br>cut：在发生剪切操作时触发。<br>beforepaste：在发生粘贴操作前触发。<br>paste：在发生粘贴操作时触发。</p>
+<p>要访问剪切板中的数据，可以使用clipboardData对象：在IE中，这个对象是window对象的属性；而在其他主流浏览器中，这个对象是相应的event对象的属性。<br>clipboardData对象有三个方法：<br>getData()、setData()和clearData()。<br>这三个方法的接受参数在IE和其他主流浏览器中有所区别。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> EventUtil=&#123;</div><div class="line">    <span class="comment">//省略的代码</span></div><div class="line">    getClipboardText: <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">        <span class="keyword">var</span> clipboardData = (event.clipboardData || <span class="built_in">window</span>.clipboardData);</div><div class="line">        <span class="keyword">return</span> clipboardData.getData(<span class="string">"text"</span>);</div><div class="line">    &#125; ,</div><div class="line">    <span class="attr">setClipboardText</span>: <span class="function"><span class="keyword">function</span>(<span class="params">event,value</span>)</span>&#123;</div><div class="line">        <span class="keyword">if</span>(event.clipboardData)&#123;</div><div class="line">            <span class="keyword">return</span> event.clipboardData.setData(<span class="string">"text/plain"</span>,value);</div><div class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">window</span>.clipboardData)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="built_in">window</span>.clipboardData.setData(<span class="string">"text"</span>,value);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>在需要确保粘贴到文本框中的文本包含某些字符，或者符合某种格式要求时，能够访问剪贴板是非常有用的。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">EventUtil.addHandler(textbox, <span class="string">"paste"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">    event = EventUtil.getEvent(event);</div><div class="line">    <span class="keyword">var</span> text = EventUtil.getClipboardText(event);</div><div class="line">    <span class="keyword">if</span>(!<span class="regexp">/^\d*$/</span>.test(text))&#123;</div><div class="line">        EventUtil.preventDefault(event);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p><strong>自动切换焦点</strong><br>为增强表单字段的易用性，通常在用户填写完当前字段时，自动将焦点切换到下一个字段。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"tel1"</span> <span class="attr">id</span>=<span class="string">"txtTel1"</span> <span class="attr">maxlength</span>=<span class="string">"3"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"tel2"</span> <span class="attr">id</span>=<span class="string">"txtTel2"</span> <span class="attr">maxlength</span>=<span class="string">"3"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"tel3"</span> <span class="attr">id</span>=<span class="string">"txtTel3"</span> <span class="attr">maxlength</span>=<span class="string">"4"</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>当用户在前一个文本框中输入的字符达到最大数量后，自动将焦点切换到下一个文本框。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">tabForward</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">		evnet = EventUtil.getEvent(event);</div><div class="line">		<span class="keyword">var</span> target = EventUtil.getTarget(event);</div><div class="line"></div><div class="line">		<span class="keyword">if</span> (target.value.length == target.maxlength)&#123;</div><div class="line">			<span class="keyword">var</span> form = target.form;</div><div class="line">			<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>,len = form.elements.length;i&lt;len; i++) &#123;</div><div class="line">				<span class="keyword">if</span>(form.elements[i] == target)&#123;</div><div class="line">					<span class="keyword">if</span>(form.elements[i+<span class="number">1</span>])&#123;</div><div class="line">						form.elements[i+<span class="number">1</span>].focus();</div><div class="line">					&#125;</div><div class="line">					<span class="keyword">return</span>;</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">  	&#125;</div><div class="line">	<span class="keyword">var</span> textbox1 = <span class="built_in">document</span>.getElementById(<span class="string">"txtTel1"</span>);</div><div class="line">	<span class="keyword">var</span> textbox2 = <span class="built_in">document</span>.getElementById(<span class="string">"txtTel2"</span>);</div><div class="line">	<span class="keyword">var</span> textbox3 = <span class="built_in">document</span>.getElementById(<span class="string">"txtTel3"</span>);</div><div class="line"></div><div class="line">	EventUtil.addHandler(textbox1,<span class="string">"kepup"</span>,tabForward);</div><div class="line">	EventUtil.addHandler(textbox2,<span class="string">"kepup"</span>,tabForward);</div><div class="line">	EventUtil.addHandler(textbox3,<span class="string">"kepup"</span>,tabForward);</div><div class="line">&#125;)();</div></pre></td></tr></table></figure></p>
+<h2 id="HTML5约束验证API"><a href="#HTML5约束验证API" class="headerlink" title="HTML5约束验证API"></a>HTML5约束验证API</h2><p>当用户禁用javascript或浏览器不支持时，使用HTML5提供的一些功能，仍能够实现基本的验证。<br>1.必填字段<br>required属性<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">required</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>2.其他输入类型<br>HTML5为&lt;input&gt;元素的type属性又增加了几个值:email和url等。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"email"</span> <span class="attr">name</span>=<span class="string">"email"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"url"</span> <span class="attr">name</span>=<span class="string">"homepage"</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>3.数值范围<br>除了”email”和“url”，HTML5还定义了另外几个输入元素：”number”、”range”、”datetime”、”datetime-local”、”date”、”month”、”week”以及”time”.<br>对这些数值类型的输入元素，可以指定min属性、max属性和step属性。此外，还有两个方法：stepUp()和stepDown(),<br>都可以接收一个可选的参数：要在当前值基础上加上减去的数值。（默认是加或减1）<br>这两个方法都还没得到任何浏览器的支持。</p>
+<p>4.输入模式<br>HTML5为文本字段新增了pattern属性，这个属性的值是一个正则表达式，用于匹配文本框中的值。<br>只允许输入数值：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span> =<span class="string">"text"</span> <span class="attr">pattern</span>=<span class="string">"\d+"</span> <span class="attr">name</span>=<span class="string">"count"</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>注意，模式的开头和结尾不用加^和$符号。这两个符号表示输入的值必须从头到尾都与模式匹配。</p>
+<p>5.检测有效性<br>使用checkValidity()方法可以检测表单中的某个字段是否有效。如果字段有效，返回true,否则返回false。字段的值是否有效的判断依据是根据前面介绍的各种约束，如必填字段如果没有值就是无效，而字段中的值与pattern属性不匹配也是无效的。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(<span class="built_in">document</span>.forms[<span class="number">0</span>].elements[<span class="number">0</span>].checkValidity())&#123;</div><div class="line"><span class="comment">//字段有效</span></div><div class="line">&#125;<span class="keyword">else</span>&#123;</div><div class="line"><span class="comment">//字段无效</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>validity属性会告知什么字段有效或无效。这个对象有一系列属性，每个属性返回布尔值。<br>customError、patternMismatch、rangeOverflow、rangeUnderflow、stepMismatch、tooLong、<br>typeMismatch、valid、valueMissing。</p>
+<p>6.禁用验证<br>通过设置novalidate属性，可以告诉表单不进行验证。</p>
+<p><strong>选择框脚本</strong><br>选择框是通过&lt;select&gt;和&lt;option&gt;元素创建的。<br>有如下的属性和方法：<br>add(newOption,relOption)：向控件中插入新&lt;option&gt;元素，其位置在相关项（relOption）之前。<br>multiple：布尔值，表示是否允许多选。<br>options：控件中所有&lt;option&gt;元素的HTMLCollection。<br>remove(index)：移除给定位置的选项。<br>selectIndex：基于0的选中项的索引，如果没有选中项，则值为-1； 对于支持多选的控件，只保存选中项中第一项的索引。<br>size：选择框中可见的行数。</p>
+<p>在DOM中，每个&lt;option&gt;元素都有一个HTMLOptionElement对象表示，并拥有如下的属性：<br>index：当前选项在options 集合中的索引。<br>label：当前选项的标签；<br>selected：布尔值，表示当前选项是否被选中。将这个属性设置为true可以选中当前选项。<br>text：选项的文本；<br>value：选项的值。</p>
+<p><strong>选择选项</strong><br>对于单选的选择框，访问选中项的最简单方式，就是使用选择框的selectedIndex 属性。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> selectedOption = selectbox.options[selectbox.selectedIndex];</div></pre></td></tr></table></figure></p>
+<p>另一种选择选项的方式，就是取得对某一项的引用，然后将其属性设置为true。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">selectbox.options[<span class="number">0</span>].selected=<span class="literal">true</span>;</div></pre></td></tr></table></figure></p>
+<p>selected属性的作用主要是确定用户选择了选择框中的哪一项。</p>
+<p><strong>添加选项</strong><br>有多种添加选项的方式，如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> newOption = <span class="built_in">document</span>.createElement(<span class="string">"option"</span>);</div><div class="line">newOption.appendChild(<span class="built_in">document</span>.createTextNode(<span class="string">"Option text"</span>));</div><div class="line">newOption.setAttribute(<span class="string">"value"</span>,<span class="string">"Option value"</span>);</div><div class="line">selectbox.appendChild(newOption);</div></pre></td></tr></table></figure></p>
+<p>第二种方式是使用Option构造函数来创建新选项。Option构造函数接收两个参数：文本（text）和值（value）。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> newOption = <span class="keyword">new</span> Option(<span class="string">"Option text"</span>,<span class="string">"Option value"</span>);</div><div class="line">selectbox.appendChild(newOption);</div></pre></td></tr></table></figure></p>
+<p>第三种添加新选项的方式是使用选择框的add()方法。该方法接受两个参数：要添加的新选项和将位于新选项之后的选项。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> newOption = <span class="keyword">new</span> Option(<span class="string">"Option text"</span>,<span class="string">"Option value"</span>);</div><div class="line"><span class="comment">//第二个参数传入undefined，表示将新选项插入到列表最后。这是最佳方案</span></div><div class="line">selectbox.add(newOption,<span class="literal">undefined</span>);</div></pre></td></tr></table></figure></p>
+<p>要想将新选项插入到其他位置，应该使用标准的DOM技术和insertBefore()方法。</p>
+<p><strong>移除选项</strong><br>使用DOM的removeChild()方法或者使用选择框的remove()方法，还有最后一种就是将相应选项设置为null。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">selectbox.removeChild(seclectbox.options[<span class="number">0</span>]);    <span class="comment">//移除第一个选项</span></div><div class="line">selectbox.remove(<span class="number">0</span>);    <span class="comment">//传入要移除选项的索引</span></div><div class="line">selectbox.options[<span class="number">0</span>]=<span class="literal">null</span>;</div></pre></td></tr></table></figure></p>
+<p><strong>移动和重排选项</strong><br>使用DOM技术能够很简单的实现移动和重排选项。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//移动选项，完成后会重置每一个选项的index属性</span></div><div class="line"><span class="keyword">var</span> selectbox1 = <span class="built_in">document</span>.getElementById(<span class="string">"selLocations1"</span>);</div><div class="line"><span class="keyword">var</span> selectbox2 = <span class="built_in">document</span>.getElementById(<span class="string">"selLocations2"</span>);</div><div class="line">selectbox2.appendChid(selectbox1.options[<span class="number">0</span>]);</div><div class="line"></div><div class="line"><span class="comment">//重排选项</span></div><div class="line"><span class="keyword">var</span> optionToMove = selectbox.options[<span class="number">1</span>];</div><div class="line">selectbox.insertBefore(optionToMove,selectbox.options[optionToMove.index<span class="number">-1</span>]);</div></pre></td></tr></table></figure></p>
+<h2 id="表单序列化"><a href="#表单序列化" class="headerlink" title="表单序列化"></a>表单序列化</h2><p>浏览器将数据发送给服务器的过程：<br>对表单字段的名称和值进行URL编码，使用和号（&amp;）分隔；<br>不发送禁用的表单字段；<br>只发送勾选的复选框和单选按钮；<br>不发送type为“reset”和“button”的按钮；<br>多选选择框中的每个选中的值单独一个条目；<br>在单击提交按钮提交表单的情况下，也会发送提交按钮；否则不发送提交按钮。<br>&lt;select&gt;元素的值，就是选中的&lt;option&gt;元素的value特性的值。如果&lt;option&gt;元素没有value特性，则是&lt;option&gt;元素的文本值。</p>
+<p>表单序列化的实现：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div></pre></td><td class="code"><pre><div class="line">function (form)&#123;</div><div class="line">	var parts=[],</div><div class="line">	field = null,</div><div class="line">	i,</div><div class="line">	len,</div><div class="line">	j,</div><div class="line">	optLen,</div><div class="line">	option,</div><div class="line">	optValue;</div><div class="line">	for (i = 0,len = form.elements.length; i &lt; len; i++) &#123;</div><div class="line">		field = form.elements[i];</div><div class="line">		switch(field.type)&#123;</div><div class="line">			case "select-one":</div><div class="line">			case "select-multiple":</div><div class="line">				if (field.name.length) &#123;</div><div class="line">					for (j = 0,optLen=field.options.length; j &lt; optLen; j++) &#123;</div><div class="line">						option = field.options[j];</div><div class="line">						if (option.selected) &#123;</div><div class="line">							optValue="";</div><div class="line">							if (option.hasAttribute) &#123;</div><div class="line">								optValue = (option.hasAttribute("value") ? option.value : option.text);</div><div class="line">							&#125;else&#123;</div><div class="line">								//兼容IE</div><div class="line">								optValue = (option.attributes["value"].specified ? option.value : option.text);</div><div class="line">							&#125;</div><div class="line">							parts.push(encodeURIComponent(field.name)+ "=" +</div><div class="line">							encodeURIComponent(field.value));</div><div class="line">						&#125;</div><div class="line">					&#125;</div><div class="line">				&#125;</div><div class="line">				break;</div><div class="line">			case undefined://字段集</div><div class="line">			case "file":</div><div class="line">			case "submit":</div><div class="line">			case "reset":</div><div class="line">			case "button":</div><div class="line">				break;</div><div class="line">			case "radio":</div><div class="line">			case "checkbox":</div><div class="line">				if (!field.checked) &#123;</div><div class="line">					break;</div><div class="line">				&#125;</div><div class="line">			default:</div><div class="line">				//不包含没有名字的表单字段</div><div class="line">				if(field.name.length)&#123;</div><div class="line">					parts.push(encodeURIComponent(field.name)+ "=" +</div><div class="line">					encodeURIComponent(field.value));</div><div class="line">				&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	return parts.join("&amp;");</div><div class="line"> &#125;</div><div class="line"></div><div class="line">## 富文本编辑</div><div class="line">富文本编辑，又称为WYSIWYG（What You See Is What You Get,所见即所得）。</div><div class="line">这一技术的本质，就是在页面中嵌入一个包含空的HTML页面的iframe。通过设置designMode属性，这个空白的HTML页面可以被编辑，而编辑的对象则是该页面&amp;lt;body&amp;gt;元素的HTML代码。</div><div class="line">designMode属性有两个可能的值：“off”（默认值）和“on”。在设置为“on”时，整个文档都会变得可以编辑。</div><div class="line"></div><div class="line">使用contenteditable属性</div><div class="line">把contenteditable属性应用给页面中的任何元素，然后用户立即就可以编辑该元素。</div><div class="line">contenteditable 属性有三个可能的值：“true"表示打开，"false"表示关闭，"inherit"表示从父元素那里继承。</div><div class="line"></div><div class="line">**操作富文本**</div><div class="line">与富文本编辑器交互的主要方式，就是使用document.execCommand()。这个方法可以对文档执行预定义的命令，而且可以应用大多数格式。</div><div class="line">该刚方法传递三个参数：要执行的命令名称、表示浏览器是否应该为当前命令提供用户界面的一个布尔值和执行命令必须一个值（如果不需要则传递null）。为确保跨浏览器的兼容性，第二个参数应该始终设置为false。</div><div class="line">调用execCommand()可以实现浏览器菜单的很多功能. 如保存文件,打开新文件,撤消、重做操作…等等</div><div class="line">```js</div><div class="line">//复制</div><div class="line">document.execCommand("copy",false,null);</div><div class="line">//剪切</div><div class="line">document.execCommand("cut",false,null);</div><div class="line">//粘贴</div><div class="line">document.execCommand("paste",false,null);</div><div class="line">//打印</div><div class="line">document.execCommand("print",false,null);</div></pre></td></tr></table></figure></p>
+<p><strong>富文本选区</strong><br>在富文本编辑器中，使用框架的getSelection()方法，可以确定实际选择的文本。这个方法是window对象和document对象的属性，调用它会返回一个表示当前选择文本的Selection对象。每个Selection对象都有以下属性：<br>anchorNode：选区起点所在的节点。<br>anchorOffset：在到达选区起点位置之前跳过anchorNode中的字符数量。<br>focusNode：选区终点所在的节点。<br>focusOffset：focusNode中包含在选区之内的字符数量。<br>isCollapsed：布尔值，表示选区的起点和终点是否重合。<br>rangeCount：选区中包含的DOM范围的数量。<br>上述属性并没有多少用处，但以下的方法提供了更多的信息，并支持对选区的操作。<br>addRange(range)：将指定的DOM范围添加到选区中。<br>collapse(nde,offset)：将选区折叠到指定节点中的相应的文本偏移位置。<br>collapseToEnd()：将选区折叠到终点位置。<br>collapseToStart()：将选区折叠到起点位置。<br>containsNode(node)：确定指定的节点是否包含在选区中。<br>deleteFromDocument()：从文档中删除选区中的文本，与document。execCommand(“delete”,false,null)命令的结果相同。<br>extend(node,offset)：通过将focusNode和focusOffset移动到指定的值来扩展选区。<br>getRangeAt(index)：返回索引对应选区中的DOM范围。<br>removeAllRanges()：从选区中移除所有DOM范围。实际上，这样会移除选区，因为选区中至少要有一个范围。<br>removeRange(range)：从选区中移除指定的DOM范围。<br>selectAllChildren(node)：清除选区并选择指定节点的所有子节点。<br>toString()：返回选区所包含的文本内容。<br>下面来看一个例子：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> selection =frames[<span class="string">"richedit"</span>].getSelection();</div><div class="line"><span class="comment">//取得选择的文本</span></div><div class="line"><span class="keyword">var</span> selectedText = selection.toString();</div><div class="line"><span class="comment">//取得代表选区的范围</span></div><div class="line"><span class="keyword">var</span> range = selection.getRangeAt(<span class="number">0</span>);</div><div class="line"><span class="comment">//突出显示选择的文本</span></div><div class="line"><span class="keyword">var</span> span = frames[<span class="string">"richedit"</span>].document.createElement(<span class="string">"span"</span>);</div><div class="line">span.style.backgroundColor = <span class="string">"yellow"</span>;</div><div class="line">range.surroundContents(span);</div></pre></td></tr></table></figure></p>
+<p><strong>表单与富文本</strong><br>富文本编辑器是使用iframe而非表单控件实现的，富文本编辑器中的HTML不会被自动提交到服务器，而需要我们手工来提取并提交HTML。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">EventUtil.addHandler(form,<span class="string">"submit"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">    event = EventUtil.getEvent(event);</div><div class="line">    <span class="keyword">var</span> target=EventUtil.getTarget(event);</div><div class="line">    </div><div class="line">    target.elements[<span class="string">"comments"</span>].value = frames[<span class="string">"richedit"</span>].document.body.innerHTML;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>通过文档主体的innerHTML属性获取了iframe中的HTML，然后将其插入到了名为”comments”的表单字段中。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/weixin.png" alt="Peter Lee WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/zhifubao.png" alt="Peter Lee Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/红宝书/" rel="tag"># 红宝书</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/14/笔记/红宝书系列读书笔记（四）/" rel="next" title="红宝书系列读书笔记（四）">
+                <i class="fa fa-chevron-left"></i> 红宝书系列读书笔记（四）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/15/笔记/红宝书系列读书笔记（六）/" rel="prev" title="红宝书系列读书笔记（六）">
+                红宝书系列读书笔记（六） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="Peter Lee" />
+          <p class="site-author-name" itemprop="name">Peter Lee</p>
+           
+              <p class="site-description motion-element" itemprop="description">积累JavaScript，HTML 5，CSS3等前端基础知识，探究vue.js，webpack等前端主流技术，了解前端界内最新动态</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/peterlhx" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://stackoverflow.com/users/4940899/peter-lee" target="_blank" title="stack-overflow">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  stack-overflow
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/Peterlhx" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-zhihu"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#事件"><span class="nav-number">1.</span> <span class="nav-text">事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件对象"><span class="nav-number">2.</span> <span class="nav-text">事件对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件类型"><span class="nav-number">3.</span> <span class="nav-text">事件类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML5事件"><span class="nav-number">4.</span> <span class="nav-text">HTML5事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设备事件"><span class="nav-number">5.</span> <span class="nav-text">设备事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#触摸与手势事件"><span class="nav-number">6.</span> <span class="nav-text">触摸与手势事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存和性能"><span class="nav-number">7.</span> <span class="nav-text">内存和性能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模拟事件"><span class="nav-number">8.</span> <span class="nav-text">模拟事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表单脚本"><span class="nav-number">9.</span> <span class="nav-text">表单脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML5约束验证API"><span class="nav-number">10.</span> <span class="nav-text">HTML5约束验证API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表单序列化"><span class="nav-number">11.</span> <span class="nav-text">表单序列化</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Peter Lee</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("ljcUFcjlR98hxBxhTA3k6lCA-gzGzoHsz", "f2BpBAbcvA7z8NuroKVyJTVp");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
