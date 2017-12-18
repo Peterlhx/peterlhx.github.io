@@ -1,0 +1,1326 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="高性能JavaScript," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="第一章 加载和运行JavaScript拥有阻塞的特征，当JavaScript运行时，其他的事情不能被浏览器处理。大多数浏览器使用单进程处理UI更新和JavaScript运行等多个任务，而同一时间只能有一个任务被执行。 &amp;lt;script&amp;gt;标签一旦出现，就会使整个页面因脚本解析、运行而出现等待。因为脚本可能在运行过程中修改页面内容。比如使用document.write()方法。 浏览器在遇到">
+<meta name="keywords" content="高性能JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《高性能JavaScript》读书笔记（一）">
+<meta property="og:url" content="http://peterlhx.github.io/2017/05/20/笔记/《高性能JavaScript》读书笔记（一）/index.html">
+<meta property="og:site_name" content="Mr.JS">
+<meta property="og:description" content="第一章 加载和运行JavaScript拥有阻塞的特征，当JavaScript运行时，其他的事情不能被浏览器处理。大多数浏览器使用单进程处理UI更新和JavaScript运行等多个任务，而同一时间只能有一个任务被执行。 &amp;lt;script&amp;gt;标签一旦出现，就会使整个页面因脚本解析、运行而出现等待。因为脚本可能在运行过程中修改页面内容。比如使用document.write()方法。 浏览器在遇到">
+<meta property="og:image" content="http://peterlhx.github.io/uploads/with.png">
+<meta property="og:updated_time" content="2017-05-19T17:14:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《高性能JavaScript》读书笔记（一）">
+<meta name="twitter:description" content="第一章 加载和运行JavaScript拥有阻塞的特征，当JavaScript运行时，其他的事情不能被浏览器处理。大多数浏览器使用单进程处理UI更新和JavaScript运行等多个任务，而同一时间只能有一个任务被执行。 &amp;lt;script&amp;gt;标签一旦出现，就会使整个页面因脚本解析、运行而出现等待。因为脚本可能在运行过程中修改页面内容。比如使用document.write()方法。 浏览器在遇到">
+<meta name="twitter:image" content="http://peterlhx.github.io/uploads/with.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://peterlhx.github.io/2017/05/20/笔记/《高性能JavaScript》读书笔记（一）/"/>
+
+
+
+
+
+  <title>《高性能JavaScript》读书笔记（一） | Mr.JS</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mr.JS</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://peterlhx.github.io/2017/05/20/笔记/《高性能JavaScript》读书笔记（一）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Peter Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.JS">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">《高性能JavaScript》读书笔记（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-20T00:35:34+08:00">
+                2017-05-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/05/20/笔记/《高性能JavaScript》读书笔记（一）/" class="leancloud_visitors" data-flag-title="《高性能JavaScript》读书笔记（一）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="第一章-加载和运行"><a href="#第一章-加载和运行" class="headerlink" title="第一章 加载和运行"></a>第一章 加载和运行</h2><p>JavaScript拥有阻塞的特征，当JavaScript运行时，其他的事情不能被浏览器处理。大多数浏览器使用单进程处理UI更新和JavaScript运行等多个任务，而同一时间只能有一个任务被执行。</p>
+<p>&lt;script&gt;标签一旦出现，就会使整个页面因脚本解析、运行而出现等待。因为脚本可能在运行过程中修改页面内容。比如使用document.write()方法。</p>
+<p>浏览器在遇到&lt;body&gt;标签之前，不会渲染页面的任何部分。将脚本放在页面的顶端，将导致一个可以察觉的延迟，通常表现为：页面打开时，首先显示为一副空白的页面，而此时用户不能进行阅读和操作。</p>
+<p>IE8，Firefox 3.5,Safari 4和Chrome 2允许并行下载JavaScript文件，但JavaScript的下载仍然要阻塞其他资源的下载，例如图片等。</p>
+<p>因此，推荐将所有的&lt;script&gt;标签放在尽可能接近&lt;body&gt;标签底部的位置，尽量减少对整个页面下载的影响。</p>
+<p>此外，限制页面的&lt;script&gt;标签的数量也可以改善性能。每当页面解析碰到一个&lt;script&gt;标签时，紧接着有一段时间用于代码执行。最小化这些延迟时间可以改善页面的整体性能。每个HTTP请求都会产生额外的性能负担，下载一个100KB的文件比下载四个25KB的文件要快，所以减少引用外部脚本文件的数量，就可以减少性能损失。</p>
+<p>可以使用打包工具或者使用CDN（内容分发网络）来实现：<br>例如，下面的URL包含两个文件（YUI，联合句柄）</p>
+<blockquote>
+<p><a href="http://yui.yahooapis.com/combo?2.7.0/build/yahoo/yahoo-min.js&amp;2.7.0/build/event/event-min.js" target="_blank" rel="external">http://yui.yahooapis.com/combo?2.7.0/build/yahoo/yahoo-min.js&amp;2.7.0/build/event/event-min.js</a><br>此URL请求两个文件，这两个文件在服务器是分离的，但当服务器收到此URL请求时，两个文件会被合并在一起返回给客户端，从而减少了&lt;script&gt;标签</p>
+</blockquote>
+<p>注意：</p>
+<blockquote>
+<p>保持 JavaScript 文件短小，并限制 HTTP 请求的数量，只是创建反应迅速的网页应用的第一步。<br>一个应用程序所包含的功能越多，所需要的 JavaScript 代码就越大，保持源码短小并不总是一种选择。尽管下载一个大 JavaScript 文件只产生一次 HTTP 请求，却会锁定浏览器一大段时间。为避开这种情况，你需要向页面中逐步添加 JavaScript，某种程度上说不会阻塞浏览器。</p>
+</blockquote>
+<p><strong>非阻塞脚本</strong><br>非阻塞脚本的秘密在于，等页面完成加载之后，再加载JavaScript代码。<br>实现方法：<br><strong>1.延迟脚本</strong><br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"file.js"</span> <span class="attr">defer</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>这个defer属性指明元素中所包含的脚本不打算修改DOM，因此代码可以稍后执行(DOM加载完后执行)。<br>（仅适用于IE4+和Firefox 3.5+）</p>
+<p><strong>2.动态脚本加载（最常用的模式）</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> script = <span class="built_in">document</span>.createElement (<span class="string">"script"</span>);</div><div class="line">script.type = <span class="string">"text/javascript"</span>;</div><div class="line">script.src = <span class="string">"file1.js"</span>;</div><div class="line"><span class="built_in">document</span>.getElementsByTagName(<span class="string">"head"</span>)[<span class="number">0</span>].appendChild(script);</div></pre></td></tr></table></figure></p>
+<p>file1.js当元素&lt;script&gt;添加到页面之后立刻开始下载。此技术的重点在于：无论在何处启动下载，文件的下载和运行都不会阻塞其他页面处理过程。<br>跨浏览器实现动态加载js<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadScript</span>(<span class="params">url, callback</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> script = <span class="built_in">document</span>.createElement (<span class="string">"script"</span>)</div><div class="line">    script.type = <span class="string">"text/javascript"</span>;</div><div class="line">    <span class="keyword">if</span> (script.readyState)&#123; <span class="comment">//IE浏览器</span></div><div class="line">        script.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            <span class="keyword">if</span> (script.readyState == <span class="string">"loaded"</span> || script.readyState == <span class="string">"complete"</span>)&#123;</div><div class="line">                script.onreadystatechange = <span class="literal">null</span>;</div><div class="line">                callback();    <span class="comment">//js文件接收完成时触发的回调函数</span></div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">    &#125; <span class="keyword">else</span> &#123; <span class="comment">//其他浏览器</span></div><div class="line">        script.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            callback(); <span class="comment">//js文件接收完成时触发的回调函数</span></div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line">    script.src = url;</div><div class="line">    <span class="built_in">document</span>.getElementsByTagName(<span class="string">"head"</span>)[<span class="number">0</span>].appendChild(script);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>使用方法如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">loadScript(<span class="string">"file1.js"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    alert(<span class="string">"File is loaded!"</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>在大多数浏览器中，不会保证文件加载的顺序，只有Firefox和Opera能够保证脚本按照你指定的顺序执行。<br>可以采用串联的方式，保证下载次序：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">loadScript(<span class="string">"file1.js"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    loadScript(<span class="string">"file2.js"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        loadScript(<span class="string">"file3.js"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        alert(<span class="string">"All files are loaded!"</span>);</div><div class="line">        &#125;);</div><div class="line">    &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p><strong>3.XHR脚本注入</strong><br>使用XHR对象将脚本注入到页面中,继而实现非阻塞脚本。此技术首先创建一个XHR对象，然后下载JavaScript文件，接着用一个动态&lt;script&gt;元素将JavaScript代码注入页面。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</div><div class="line">xhr.open(<span class="string">"get"</span>,<span class="string">"file1.js"</span>,<span class="literal">true</span>);</div><div class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">if</span>(xhr.readyState == <span class="number">4</span>)&#123;</div><div class="line">        <span class="comment">//2**表示有效的回应，304表示一个缓存响应</span></div><div class="line">        <span class="keyword">if</span>(xhr.status &gt;= <span class="number">200</span> &amp;&amp; xhr.status &lt; <span class="number">300</span> || xhr.status == <span class="number">304</span>)&#123;</div><div class="line">            <span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">"script"</span>);</div><div class="line">            script.type = <span class="string">"text/javascript"</span>;</div><div class="line">            script.text = xhr.responseText;    <span class="comment">// 创建内联代码的&amp;lt;script&amp;gt;元素</span></div><div class="line">            <span class="built_in">document</span>.body.appendChild(script);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">xhr.send(<span class="literal">null</span>);</div></pre></td></tr></table></figure></p>
+<p>这种方法的优点是：<br>可以下载不立即执行的JavaScript代码；<br>兼容性好，同样的代码在所有现代浏览器中都不会引发异常。</p>
+<p>限制：JavaScript文件必须与页面放置在同一个域内，不能从CDN下载。（所以大型网页不采用这方法）</p>
+<p><strong>推荐的非阻塞模式</strong><br>推荐的向页面加载大量JavaScript的方法分为两个步骤：</p>
+<blockquote>
+<p>第一步，包含动态加载的JavaScript所需的代码，然后加载页面初始化所需的除JavaScript之外的部分。这部分代码尽量小，它下载和运行非常迅速，不会对页面造成很大干扰。当初始代码准备好后，用它来加载其余的JavaScript代码。<br>另外，也可以直接将加载其余JavaScript代码的函数嵌入在页面中，这样可以避免另一HTTP请求。<br>典型示例是YUI3，核心设计理念是：用一个很小的初始代码，下载其余的功能代码。</p>
+</blockquote>
+<p><strong>非阻塞 JavaScript 加载库</strong><br>使用LazyLoad实现加载其他的功能代码（<a href="http://github.com/rgrove/lazyload/）" target="_blank" rel="external">http://github.com/rgrove/lazyload/）</a><br>可以下载多个JavaScript文件，并保证它们在所有浏览器上都能够按照正确的顺序执行。</p>
+<p><strong>总结</strong><br>几种减少JavaScript对性能的影响的方法：<br>1）将所有&lt;script&gt;标签放置在页面的底部，紧靠body关闭标签&lt;/body&gt;上方；<br>2）将脚本成组打包。页面&lt;script&gt;标签越少，页面加载速度就越快，响应也更加迅速。</p>
+<p>几种使用非阻塞方式下载JavaScript的方法：<br>1）为&lt;script&gt;标签添加defer属性（仅适用于IE和Firefox3.5+）<br>2）动态创建&lt;script&gt;元素，用它下载并执行代码<br>3）用XHR对象下载代码，并注入到页面中</p>
+<h2 id="第二章-数据访问"><a href="#第二章-数据访问" class="headerlink" title="第二章 数据访问"></a>第二章 数据访问</h2><p>在JavaScript中有四种基本的数据访问位置：<br><strong>1.直接量</strong><br>直接量仅仅代表自己，而不存储于特定位置。JavaScript的直接量包括：字符串，数字，布尔值，对象，数组，函数，正则表达式，具有特殊意义的空值，以及未定义。</p>
+<p><strong>2.变量</strong><br>开发人员使用var关键字创建用于存储数据值</p>
+<p><strong>3.数组项</strong><br>具有数字索引，存储一个JavaScript数组对象。</p>
+<p><strong>4.对象成员</strong><br>具有字符串索引，存储一个JavaScript对象。</p>
+<p>每一种数据存储位置都具有特定的读写操作负担。直接量和局部变量的访问速度要远大于数组项和对象成员的访问速度。</p>
+<p><strong>管理作用域</strong><br><em>作用域链和标识符解析</em><br>每一个JavaScript函数都被表示为对象。进一步说，它是一个函数实例。函数对象如其他对象那样，拥有可以编程访问的属性，和一系列不能被程序访问，仅供JavaScript引擎使用的内部属性。其中一个内部属性就是[[Scope]]。<br>内部[[Scope]]属性包含一个函数被创建的作用域中对象的集合。此集合被称为函数的作用域链，它决定哪些数据可由函数访问。此函数作用域链中的每个对象被称为一个可变对象，每个可变对象都以“键值对”的形式存在。当一个函数创建后，它的作用域链被填充以对象，这些对象代表创建此函数的环境中可访问的数据。</p>
+<p>在函数运行过程中，每遇到一个变量，标识符识别过程要决定从哪里获得或者存储数据。此过程搜索运行期上下文的作用域链，查找同名的标识符。</p>
+<p><em>标识符识别性能</em><br>在运行前上下文的作用域链中，一个标识符所处的位置越深，它的读写速度就越慢。<br>全局变量总是处于运行期上下文作用域链的最后一个位置，所以总是最远才能触及的。这也是为什么要尽量减少全局变量的原因之一。</p>
+<p>在没有优化JavaScript引擎的浏览器中，最好尽可能使用局部变量。<br>一个好的经验法则是：用局部变量存储本地范围之外的变量值，如果他们在函数中使用多于一次，考虑下面的例子：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">initUI</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> bd = <span class="built_in">document</span>.body,</div><div class="line">        links = <span class="built_in">document</span>.getElementsByTagname(<span class="string">"a"</span>),</div><div class="line">        i=<span class="number">0</span>,</div><div class="line">        len = links,length;</div><div class="line"></div><div class="line">    <span class="keyword">while</span>(i&lt;len)&#123;</div><div class="line">        update(links[i++]);</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">document</span>.getElementById(<span class="string">"go-btn"</span>).onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        start();</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    bd.className = <span class="string">"active"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>以上代码中，包含了三个对document的引用。可以通过这种方法减轻重复的全局变量访问对性能的影响：首先将全局变量的引用存储在一个局部变量中，然后使用这个局部变量代替全局变量。</p>
+<p><strong>改变作用域链</strong><br>一般来说，一个运行前上下文的作用域链不会被改变。但是，有两种表达式可以在运行时临时改变运行期上下文作用域链。<br>第一个是with表达式：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">initUI</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">with</span>(<span class="built_in">document</span>)&#123;    <span class="comment">//    应该避免使用</span></div><div class="line">    	<span class="keyword">var</span> bd = body,</div><div class="line">        	links = getElementsByTagname(<span class="string">"a"</span>),</div><div class="line">        	i=<span class="number">0</span>,</div><div class="line">        	len = links,length;</div><div class="line"></div><div class="line">    	<span class="keyword">while</span>(i&lt;len)&#123;</div><div class="line">        	update(links[i++]);</div><div class="line">    	&#125;</div><div class="line">    	getElementById(<span class="string">"go-btn"</span>).onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        	start();</div><div class="line">    	&#125;;</div><div class="line">    	bd.className = <span class="string">"active"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>重写后的initUI()版本使用了with()表达式，避免了多次书写“document”。看起来似乎更有效率，<br>实际上却产生了一个性能问题：</p>
+<blockquote>
+<p>当代码流执行到一个with表达式时，运行前上下文的作用域链被临时改变了。一个新的可变对象将被创建，它包括指定对象的所有属性。此对象被插入到作用域链的前端，意味着现在函数的所有局部变量都被推入第二个作用域链对象中，所以访问代价更高了。<br><img src="/uploads/with.png" alt="with的作用"></p>
+</blockquote>
+<p>第二个是try-catch表达式的catch子句：<br>当try块发生错误时，程序流程自动转入catch块，并将异常对象推入作用域链前端的一个可变对象中。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">try</span>&#123;</div><div class="line">    <span class="comment">//some error</span></div><div class="line">&#125;<span class="keyword">catch</span>&#123;</div><div class="line">    <span class="comment">//alert error</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>注意，当catch子句执行完毕，作用域链就会返回到原来的状态。<br>若没有局部变量访问，作用域链临时改变就不会影响代码的性能。</p>
+<p><strong>动态作用域</strong><br>无论是with表达式还是try-catch表达式的catch子句，以及包含()的函数，都被认为是动态作用域。<br>动态作用域只因代码运行而存在，因此无法通过静态分析（查看代码结构）来确定是否存在动态作用域。</p>
+<p>闭包，作用域和内存<br>闭包是JavaScript最强大的一个方面，它允许函数访问局部范围之外的数据，同时也能够使得变量常驻内存中，实现缓存。不过，有一个性能影响与闭包有关。<br>由于闭包的[[Scope]]属性包含于运行前上下文作用域链相同的对象引用，会产生副作用。通常，一个函数的激活对象与运行期上下文一同销毁，当涉及闭包时，激活对象就无法销毁了，因为引用仍然存在于闭包[[Scope]]属性中，这就导致了闭包会需要更多的内存开销。</p>
+<p>闭包最主要的性能关注点：经常访问一些范围之外的标识符，每次访问都导致一些性能损失。</p>
+<p>小结：为了减轻对运行速度的影响，应将常用的域外变量存入局部变量中，然后直接访问局部变量。</p>
+<p><strong>对象成员</strong><br>大多数JavaScript代码以面向对象的形式编写。对象的一个命名成员可以包含任何数据类型。<br>当一个命名成员引用了一个函数时，它被称作一个方法，而一个非函数的数据则被称为属性。</p>
+<p><strong>原型</strong><br>JavaScript中的对象是基于原型的。原型是其他对象的基础，定义并实现了一个新对象所必须具有的成员。原型对象为所有给定类型的对象实例所共享，因此所有实例共享原型对象的成员。<br>一个对象通过一个内部属性绑定到它的原型，Firefox，Safari和Chrome支持这一属性：<em>proto</em>；其他浏览器不允许脚本访问这一属性。任何时候创建一个内置类型的实例，这些实例自动拥有一个Object作为它们的原型。</p>
+<p>对象有两种成员：实例成员和原型成员。实例成员直接存在于实例自身，而原型成员则从对象原型继承。<br>处理对象成员的过程：当对象的某个成员被调用时，对成员进行搜索，先从对象实例开始，如果没有找到，则转向搜索原型对象。</p>
+<p>通过hasOwnProperty()函数确定一个对象是否具有特定名称的实例成员，若是为实例成员则返回true，若为原型成员则返回false。<br>通过in操作符可以确定对象是否具有某个名称的成员，实例成员和原型成员都会被返回true。</p>
+<p><strong>原型链</strong><br>对象的原型决定了一个实例的类型。在原型链上搜索成员，每深入一层都会增加性能损失。</p>
+<p><strong>嵌套成员</strong><br>由于对象成员可能包含其他成员，例如：window.location.href。每遇到一个点号，JavaScript引擎就要在对象成员上执行一次解析过程。应尽量避免使用这种方法，同时在一个函数中不应该多次读取同一个对象成员的值，应将该对象成员的值保存在一个局部变量中。 </p>
+<p><strong>总结</strong><br>JavaScript中有四种数据访问类型：直接量，变量，数组项，对象成员。<br>直接量和局部变量访问速度非常快，数组项和对象成员需要更长时间。局部变量比域外变量快，因为局部变量位于作用域链的第一个对象中。全局变量总是最慢的，因为它们总是位于作用域链的最后一环。<br>要避免使用with表达式和try-catch表达式的catch子句，因为它们改变了运行前上下文的作用域链。<br>提高JavaScript代码性能的方法：将经常使用的对象成员，数组项和域外变量存入局部变量中，访问局部变量的速度回快于那些原始变量。</p>
+<h2 id="第三章-DOM编程"><a href="#第三章-DOM编程" class="headerlink" title="第三章 DOM编程"></a>第三章 DOM编程</h2><p>对DOM操作代价昂贵，在富网页应用中通常是一个瓶颈。<br>主要有三个方面：<br>1.访问和修改DOM元素；</p>
+<p>2.修改DOM元素的样式，造成重绘和重新排版；</p>
+<p>3.通过DOM事件处理用户响应</p>
+<p>DOM，即文档对象模型，是一个独立于语言的，使用XML和HTML文档操作的应用程序接口（API）。</p>
+<p><strong>访问和修改</strong><br>浏览器通常要求DOM实现和JavaScript实现保持相互独立。这样两个独立的部分以功能接口连接就会带来性能损耗。应尽量减少对DOM的操作次数，尽量保持在ECMAScript中。<br>修改元素的代价更昂贵，因为它经常导致浏览器重新计算页面的几何变化。最坏的情况是使用循环执行访问或修改元素，特别是在HTML集合中使用循环。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">innerHTMLLoop</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> count = <span class="number">0</span>; count &lt; <span class="number">15000</span>; count++)&#123;</div><div class="line">        <span class="built_in">document</span>.getElementById(<span class="string">"here"</span>).innerHTML += <span class="string">"a"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>修改如下,使用局部变量保存更新后的内容，在循环结束时一次性写入：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">innerHTMLLoop</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> content = <span class="string">""</span>;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> count = <span class="number">0</span>; count &lt; <span class="number">15000</span>; count++)&#123;</div><div class="line">        content +=<span class="string">"a"</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">document</span>.getElementById(<span class="string">"here"</span>).innerHTML += content;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>innerHTML 与 DOM方法比较</strong><br>两者性能相差不大，但若要更新一大块HTML页面，innerHTML在大多数浏览器中执行更快。</p>
+<p><strong>节点克隆</strong><br>使用DOM方法更新页面内容的另一个途径是克隆已有DOM元素，而不是创建新的，即使用element.cloneNode()代替document.createElement()。<br>用克隆节点的方法重新生成一个表格，单元格只创建一次，然后重复执行复制操作，这样做能够稍微快了一点。</p>
+<p><strong>HTML集合</strong><br>HTML集合是用于存放DOM节点引用的类数组对象。<br>下列函数返回的值就是一个集合：<br>document.getElementsByTagName();<br>document.getElementsByClassName();//当下大多数浏览器都不能使用</p>
+<p>下列属性也属于HTML集合：<br>document.images        页面中所有的&lt;img&gt;元素<br>document.links            页面中所有的&lt;a&gt;元素<br>document.forms          页面中所有的&lt;form&gt;表单<br>document.forms[0].elements    页面中第一个表单的所有字段</p>
+<p>HTML集合是一种类似数组的列表，但不是数组，没有数组的push()或slice()之类的方法，但提供了length属性。<br>也可以和数组一样通过下标索引访问列表中的元素。<br>HTML集合实际上在查询文档，当你更新信息时，每次都要重复执行查询操作，效率很低。<br>在集合遍历或数组遍历时，将length属性存入一个变量中，从而提升运行速度。</p>
+<p><strong>访问集合元素时使用局部变量</strong><br>一般来说，对于任何类型的DOM访问，如果同一个DOM属性或方法被访问一次以上，最好使用一个局部变量缓存此DOM成员。<br>当遍历一个集合时，第一个优化是将集合引用存储于局部变量，并在循环之外缓存length属性。然后如果在循环体中多次访问同一个集合元素，那么使用局部变量缓存它。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// slow</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">collectionGlobal</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> coll = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'div'</span>),</div><div class="line">    len = coll.length,</div><div class="line">    name = <span class="string">''</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> count = <span class="number">0</span>; count &lt; len; count++) &#123;</div><div class="line">        name = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'div'</span>)[count].nodeName;</div><div class="line">        name = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'div'</span>)[count].nodeType;</div><div class="line">        name = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'div'</span>)[count].tagName;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> name;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">// faster</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">collectionLocal</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> coll = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'div'</span>),</div><div class="line">    len = coll.length,</div><div class="line">    name = <span class="string">''</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> count = <span class="number">0</span>; count &lt; len; count++) &#123;</div><div class="line">        name = coll[count].nodeName;</div><div class="line">        name = coll[count].nodeType;</div><div class="line">        name = coll[count].tagName;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> name;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">// fastest</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">collectionNodesLocal</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> coll = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'div'</span>),</div><div class="line">    len = coll.length,</div><div class="line">    name = <span class="string">''</span>,</div><div class="line">    el = <span class="literal">null</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> count = <span class="number">0</span>; count &lt; len; count++) &#123;</div><div class="line">        el = coll[count];</div><div class="line">        name = el.nodeName;</div><div class="line">        name = el.nodeType;</div><div class="line">        name = el.tagName;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> name;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p><strong>DOM漫谈</strong><br>抓取DOM<br>经常需要从一个DOM元素开始，操作周围的元素，或者递归迭代所有的子节点。使用childNodes集合或者使用nextSibling获得每个元素的兄弟节点。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">testNextSibling</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> el = <span class="built_in">document</span>.getElementById(<span class="string">"myDiv"</span>);</div><div class="line">    <span class="keyword">var</span> child = el.firstChild,name =<span class="string">""</span>;</div><div class="line">    <span class="keyword">do</span>&#123;</div><div class="line">        name = ch.nodeName;</div><div class="line">    &#125;<span class="keyword">while</span>(ch=ch.nexSibling)</div><div class="line">    <span class="keyword">return</span> name;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">testChildNodes</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> el = <span class="built_in">document</span>.getElementById(<span class="string">"myDiv"</span>),</div><div class="line">    ch = el.childNodes,</div><div class="line">    len = ch.length,name=<span class="string">""</span>;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> count = <span class="number">0</span>;count &lt; len; count++)&#123;</div><div class="line">        name = ch[count].nodeName;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> name;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在不同浏览器上，nextSibling和childNodes方法的运行时间基本相等，但在IE中，nextSibling比childNodes好。所以在IE中，用nextSibling更好，其他浏览器随意。</p>
+<p><strong>元素节点</strong><br>DOM属性诸如childNodes，firstChild和nextSibling不区分元素节点和其他类型节点，如注释节点和文本节点。在多数情况下，只有元素节点需要被访问，所以在循环中，应对节点返回类型进行检查，过滤出非元素节点。<br>但这些检查和过滤不是必要的，许多浏览器提供了API函数只返回元素节点。</p>
+<p><strong>选择器API</strong><br>最新的浏览器提供了querySelectorAll()的原生浏览器DOM函数。该方法比使用JavaScript和DOM迭代并缩小元素列表的方法要快。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> elements = <span class="built_in">document</span>.querySelectorAll(<span class="string">"#menu a"</span>);</div><div class="line"></div><div class="line">querySelectorAll()</div></pre></td></tr></table></figure></p>
+<p>接收一个CSS选择器字符串参数并返回一个NodeList——由符合条件的节点构成的类数组对象。还可以通过querySelectorAll()一次性获得多类的节点，进行联合查询：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//获取类名为warning和notice的div元素</span></div><div class="line"><span class="keyword">var</span> errs = <span class="built_in">document</span>.querySelectorAll(<span class="string">"div.warning,div.notice"</span>);</div></pre></td></tr></table></figure></p>
+<p>另外还有一个querySelector()选择器API。该函数只返回符合查询条件的第一个节点。</p>
+<p><strong>重绘和重排版</strong><br>当浏览器下载完所有HTML标记，JavaScript，CSS，图片之后，它解析文件并创建两个内部数据结构：<br>一棵DOM树：表示页面结构；<br>一棵渲染树：表示DOM节点如何显示。 </p>
+<p>一旦DOM树和渲染树构造完毕，浏览器就可以显示页面上的元素了。</p>
+<p>当DOM改变影响到元素的几何属性（宽和高），浏览器需要重新计算元素的几何属性，而且其他元素的几何属性和位置也会因此改变受到影响。浏览器使渲染树上受影响的部分失效，然后重构渲染树。这个过程被称作重排版。</p>
+<p>当只改变DOM的样式时（没有改变页面布局），在这种情况下，只需要重绘。</p>
+<p><strong>重排版会发生什么？</strong></p>
+<blockquote>
+<p>除了当布局和几何改变时需要重排版，下列情况也需要重排版：<br>添加或删除可见的DOM元素；<br>元素位置改变；<br>元素尺寸改变；<br>内容改变，例如文本改变或图片被另一个不同尺寸的所替代。<br>最初的页面渲染；<br>浏览器窗口改变尺寸。</p>
+</blockquote>
+<p><strong>最小化重绘和重排版</strong><br>重绘和重排版代价昂贵，所以，提高程序响应速度一个好策略是减少此类操作发生的机会。为减少发生次数，应该将多个DOM和风格改变合并到一个批次中一次性执行。<br>当需要改变一个元素多个样式属性时，应该使用cssText()方法<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> el = <span class="built_in">document</span>.getElementById(<span class="string">'mydiv'</span>);</div><div class="line">el.style.cssText = <span class="string">'border-left: 1px; border-right: 2px; padding: 5px;'</span>;</div></pre></td></tr></table></figure></p>
+<p>以上代码只修改DOM一次，提高了效率。<br>这个例子中的代码修改 cssText 属性，覆盖已存在的风格信息。如果你打算保持当前的风格，你可以将<br>它附加在 cssText 字符串的后面。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">el.style.cssText += <span class="string">'; border-left: 1px;'</span>;</div></pre></td></tr></table></figure></p>
+<p><strong>批量修改DOM</strong><br>当你需要对DOM元素进行多次修改时，可以通过以下步骤减少重绘和重排版的次数：</p>
+<blockquote>
+<ol>
+<li>从文档流中摘除该元素；</li>
+<li>对其应用多重改变；</li>
+<li>将元素带回文档中；</li>
+</ol>
+</blockquote>
+<p>此过程只引发了两次重排版——第一步和第三步。若忽略这两个步骤，则第二步中每次改变都将引发一次重排版。</p>
+<p>有三种方法可以将DOM从文档中摘除：<br>1）隐藏元素，进行修改，然后再显示它；<br>2）使用一个文档片段在已存DOM之外创建一个子树，然后将它拷贝到文档中；（性能较优）<br>3）将原始元素拷贝到一个脱离文档的节点中，修改副本，然后覆盖原始元素。</p>
+<p>缓冲布局信息<br>浏览器通过队列化修改和批量运行的方法，尽量减少重排版次数。当你查询布局信息如偏移量、滚动条<br>位置，或风格属性时，浏览器刷新队列并执行所有修改操作，以返回最新的数值。最好是尽量减少对布局信<br>息的查询次数，查询时将它赋给局部变量，并用局部变量参与计算。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> current = myElement.offsetLeft;    <span class="comment">//只查询了布局信息一次</span></div><div class="line">current++</div><div class="line">myElement.style.left = current + <span class="string">'px'</span>;</div><div class="line">myElement.style.top = current + <span class="string">'px'</span>;</div><div class="line"><span class="keyword">if</span> (current &gt;= <span class="number">500</span>) &#123;</div><div class="line">    stopAnimation();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>将元素提出动画流</strong><br>显示和隐藏部分页面构成页面展开/折叠动画是一种常见的交互模式。它通常包括区域扩大的几何动画，将页面其他部分推向下方。<br>浏览器需要重排版的部分越小，应用程序的响应速度就越快。而当一个页面顶部的动画推移了差不多整个页面时，将引发巨大的重排版动作，使用户感到动画卡顿。渲染树的大多数节点需要被重新计算，它变得更糟糕。</p>
+<p>使用以下步骤可以避免大部分页面进行重排版：<br>1）使用绝对坐标定位页面动画的元素，使它位于页面布局流之外；<br>2）启动动画元素。当它扩大时，它临时覆盖部分页面。这是一个重绘的过程，但只影响页面的一小部分，避免重排版并重绘一大块动画<br>3）当动画结束，重新定位，从而只一次下移文档其他元素的位置。</p>
+<blockquote>
+<p>译者注：文字描述比较简单概要，我对这三步的理解如下：<br>1、页面顶部可以“折叠/展开”的元素称作“动画元素”，用绝对坐标对它进行定位，当它的尺寸改变时，就不会推移页面中其他元素的位置，而只是覆盖其他元素。<br>2、 展开动作只在“动画元素”上进行。 这时其他元素的坐标并没有改变， 换句话说， 其他元素并没有因为“动画元素”的扩大而随之下移，而是任由动画元素覆盖。<br>3、“动画元素”的动画结束时，将其他元素的位置下移到动画元素下方，界面“跳”了一下。</p>
+</blockquote>
+<p><strong>IE和 :hover</strong><br>如果大量使用了伪类:hover，那么会降低反应速度。此问题在IE8中尤为显著。</p>
+<p><strong>事件托管（事件委托）</strong><br>当页面中存在大量元素，而且每个元素有一个或多个事件句柄与之挂接（例如onclick）时，可能会影响性能。连接每个句柄都是有代价的。挂接事件占用了处理时间，另外，<em>浏览器需要保存每个句柄的记录，占用更多内存</em>。<br>事件托管基于这样一个事实：事件逐层冒泡总能被父元素捕获。采用事件托管技术之后，你只需要在一个包装元素上挂接一个句柄，用于处理子元素发生的所有事件。<br>DOM事件的三个阶段：捕获阶段，目标阶段，冒泡阶段</p>
+<p><strong>总结</strong><br>将DOM和ECMAScript比作两座岛，每次操作DOM都要收取“过路费”，因此为减少DOM编程中的性能损失，记住以下几点：<br>1）最小化DOM访问，尽量在JavaScript端做尽可能多的事情；<br>2）在反复访问的地方使用局部变量存放DOM引用；<br>3）小心地处理 HTML 集合，因为他们表现出“存在性”，总是对底层文档重新查询。将集合的 length 属性缓存到一个变量中，在迭代中使用这个变量。如果经常操作这个集合，可以将集合拷贝到数组中；<br>4）在浏览器允许的情况下，尽可能使用速度更快的API，如querySelectorAll和firstElementChild等；<br>5）注意重绘和重排版；批量修改风格（cssText）,离线操作DOM，缓存并减少对布局信息的访问；<br>6）动画中使用绝对定位，使用拖放代理<br>7）使用事件托管技术最小化事件句柄数量</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/weixin.png" alt="Peter Lee WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/zhifubao.png" alt="Peter Lee Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/高性能JavaScript/" rel="tag"># 高性能JavaScript</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/18/红宝书系列读书笔记（九）/" rel="next" title="红宝书系列读书笔记（九）">
+                <i class="fa fa-chevron-left"></i> 红宝书系列读书笔记（九）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/21/笔记/《高性能JavaScript》读书笔记（二）/" rel="prev" title="《高性能JavaScript》读书笔记（二）">
+                《高性能JavaScript》读书笔记（二） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="Peter Lee" />
+          <p class="site-author-name" itemprop="name">Peter Lee</p>
+           
+              <p class="site-description motion-element" itemprop="description">积累JavaScript，HTML 5，CSS3等前端基础知识，探究vue.js，webpack等前端主流技术，了解前端界内最新动态</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/peterlhx" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://stackoverflow.com/users/4940899/peter-lee" target="_blank" title="stack-overflow">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  stack-overflow
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/Peterlhx" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-zhihu"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一章-加载和运行"><span class="nav-number">1.</span> <span class="nav-text">第一章 加载和运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二章-数据访问"><span class="nav-number">2.</span> <span class="nav-text">第二章 数据访问</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三章-DOM编程"><span class="nav-number">3.</span> <span class="nav-text">第三章 DOM编程</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Peter Lee</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("ljcUFcjlR98hxBxhTA3k6lCA-gzGzoHsz", "f2BpBAbcvA7z8NuroKVyJTVp");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

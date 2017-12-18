@@ -1,0 +1,1286 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="红宝书," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="BOM(浏览器对象模型)window对象BOM的核心对象是window，它表示浏览器的一个实例。在浏览器中，window对象有双重角色，它既是通过Javascript访问浏览器窗口的一个接口，又是ECMAScript规定的Global对象。这意味着网页中定义的任何一个对象、变量和函数，都以window作为其Global对象，因此有权访问parseInt()等方法。 定义全局变量和在window对象">
+<meta name="keywords" content="红宝书">
+<meta property="og:type" content="article">
+<meta property="og:title" content="红宝书系列读书笔记（三）">
+<meta property="og:url" content="http://peterlhx.github.io/2017/05/13/红宝书系列读书笔记（三）/index.html">
+<meta property="og:site_name" content="Mr.JS">
+<meta property="og:description" content="BOM(浏览器对象模型)window对象BOM的核心对象是window，它表示浏览器的一个实例。在浏览器中，window对象有双重角色，它既是通过Javascript访问浏览器窗口的一个接口，又是ECMAScript规定的Global对象。这意味着网页中定义的任何一个对象、变量和函数，都以window作为其Global对象，因此有权访问parseInt()等方法。 定义全局变量和在window对象">
+<meta property="og:image" content="http://peterlhx.github.io/uploads/node_type.png">
+<meta property="og:image" content="http://peterlhx.github.io/uploads/node_name.png">
+<meta property="og:updated_time" content="2017-05-19T16:38:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="红宝书系列读书笔记（三）">
+<meta name="twitter:description" content="BOM(浏览器对象模型)window对象BOM的核心对象是window，它表示浏览器的一个实例。在浏览器中，window对象有双重角色，它既是通过Javascript访问浏览器窗口的一个接口，又是ECMAScript规定的Global对象。这意味着网页中定义的任何一个对象、变量和函数，都以window作为其Global对象，因此有权访问parseInt()等方法。 定义全局变量和在window对象">
+<meta name="twitter:image" content="http://peterlhx.github.io/uploads/node_type.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://peterlhx.github.io/2017/05/13/红宝书系列读书笔记（三）/"/>
+
+
+
+
+
+  <title>红宝书系列读书笔记（三） | Mr.JS</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mr.JS</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://peterlhx.github.io/2017/05/13/红宝书系列读书笔记（三）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Peter Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.JS">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">红宝书系列读书笔记（三）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-13T12:59:51+08:00">
+                2017-05-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/05/13/红宝书系列读书笔记（三）/" class="leancloud_visitors" data-flag-title="红宝书系列读书笔记（三）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="BOM-浏览器对象模型"><a href="#BOM-浏览器对象模型" class="headerlink" title="BOM(浏览器对象模型)"></a>BOM(浏览器对象模型)</h3><p><strong>window对象</strong><br>BOM的核心对象是window，它表示浏览器的一个实例。在浏览器中，window对象有双重角色，它既是通过Javascript访问浏览器窗口的一个接口，又是ECMAScript规定的Global对象。这意味着网页中定义的任何一个对象、变量和函数，都以window作为其Global对象，因此有权访问<br>parseInt()等方法。</p>
+<p>定义全局变量和在window对象上直接定义属性还是有一点差别：<br>全局变量不能通过delete操作符删除，而直接在window对象上定义的属性可以（IE9以下会报错）<br>尝试访问未声明的变量会抛出错误，但是通过查询window对象，可以知道某个可能未声明的变量是否存在。</p>
+<p><strong>窗口位置</strong><br>使用下列代码可以跨浏览器去得窗口左边和上边的位置：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> leftPos = (<span class="keyword">typeof</span> <span class="built_in">window</span>.screenLeft == <span class="string">"number"</span>) ?</div><div class="line">                        <span class="built_in">window</span>.screenLeft : <span class="built_in">window</span>.screenX;</div><div class="line"><span class="keyword">var</span> topPos = (<span class="keyword">typeof</span> <span class="built_in">window</span>.screenTop == <span class="string">"number"</span>) ?</div><div class="line">                        <span class="built_in">window</span>.screenTop : <span class="built_in">window</span>.screenY;</div></pre></td></tr></table></figure></p>
+<p>使用moveTo()和moveBy()方法有可能将窗口精确地移动到一个新位置。<br>这两个方法都接收两个参数，moveTo()接收的是新位置的x和y坐标值，<br>而moveBy()接收的是水平和垂直方向上移动的像素数。<br>eg:<br>window.moveTo(0,0);    //移往屏幕左上角<br>window.moveBy(0,100);    //将窗口向下移动100像素</p>
+<p>这两种方法可能被浏览器禁用，且都不适用于框架，只能对window对象使用。</p>
+<p><strong>窗口大小</strong><br>窗口的属性：innerWidth、innerHeight、outerWidth、outerHeight;<br>outerWidth和outerHeight返回浏览器窗口本身的尺寸。<br>但在Opera中，这两个属性的值表示页面视图容器的大小。<br>innerWidth和innerHeight则表示该容器中页面视图区的大小。<br>在Chrome中，innerWidth、innerHeight、outerWidth、outerHeight返回相同的值，即视口大小而非浏览器窗口大小。</p>
+<p>此外还可以使用DOM方法取得页面可见区域的相关信息：<br>标准模式下：document.documentElement.clientWidth 和 document.documentElement.clientHeight<br>混杂模式下：document.body.clientWidth 和 document.body.clientHeight。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> pageWidth = <span class="built_in">window</span>.innerWidth,</div><div class="line">      pageHeight = <span class="built_in">window</span>.innerHeight;</div><div class="line"></div><div class="line"><span class="keyword">if</span>(<span class="keyword">typeof</span> pageWidth != <span class="string">"number"</span>) &#123;</div><div class="line">    <span class="keyword">if</span>(<span class="built_in">document</span>.compatMode == <span class="string">"CSS1Compat"</span>) &#123;    <span class="comment">//判断页面是否处于标准模式</span></div><div class="line">        pageWidth = <span class="built_in">document</span>.documentElement.clientWidth;</div><div class="line">        pageHeight = <span class="built_in">document</span>.documentElement.clientHeight;</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        pageWidth = <span class="built_in">document</span>.body.clientWidth;</div><div class="line">        pageHeight = <span class="built_in">document</span>.body.clientHeight;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>调整浏览器窗口大小：resizeTo()和resizeBy()<br>resizeTo()接收浏览器窗口的新宽度和新高度，而resizeBy()接收新窗口与原窗口的宽度和高度之差。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//调整到100*100</span></div><div class="line"><span class="built_in">window</span>.resizeTo(<span class="number">100</span>,<span class="number">100</span>);</div><div class="line"><span class="comment">//调整到200*150</span></div><div class="line"><span class="built_in">window</span>.resizeBy(<span class="number">100</span>,<span class="number">50</span>);</div></pre></td></tr></table></figure></p>
+<p><strong>导航和打开窗口</strong><br>window.open()方法既可以导航到一个特定的URL，也可以打开一个新窗口。<br>接收四个参数：要加载的URL、窗口目标、一个特性子字符串以及一个新页面是否取代浏览器历史记录中当前加载页面的布尔值。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">window</span>.open(<span class="string">"http://www.wrox.com"</span>,<span class="string">"wroxWindow"</span>,<span class="string">"height=400,width=400,resizable=yes"</span>);</div><div class="line"><span class="comment">// 返回一个指向新窗口的引用，引用的对象与window对象大致相似。</span></div></pre></td></tr></table></figure></p>
+<p>可以调用close()方法关闭新打开的窗口，仅适用于通过window.open()打开的弹出窗口。<br>对于浏览器的主窗口，如果没有用户的允许是不能关</p>
+<p><strong>间歇调用和超时调用</strong><br>javascript是单线程语言，但它允许通过设置超时值和间歇时间值来调度代码在特定的时刻执行。<br>前者是在指定的时间过后执行代码，而后者则是每隔指定的时间就执行一次代码。</p>
+<p>超时调用使用window对象的setTimeout()，接收两个参数；<br>setTimeout()返回一个数值ID，表示超时调用。这个ID是执行代码的唯一标识符，可以通过它来取消超时调用。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> timeid=setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    alert(<span class="string">"hi"</span>);</div><div class="line">&#125;,<span class="number">1000</span>);</div><div class="line">clearTimeout(timeid);</div></pre></td></tr></table></figure></p>
+<p>间歇调用使用window对象的setInterval(),接收参数与setTimeout()相同，<br>也返回一个间歇调用ID，使用clearInterval()方法取消间歇调用。</p>
+<p>超时调用setTimeout()和间歇调用setInterval()的区别是：<br>setTimeout()是指在隔多久后就执行代码，仅仅执行一次；<br>setInterval()是指每隔多久就执行代码一次，执行次数不定。</p>
+<p>一般认为，使用超时调用来模拟间歇调用的是一种最佳模式。最好不要使用间歇调用。<br>在开发环境下，很少使用真正的间歇调用，原因是后一个间歇调用可能会在前一个间歇调用结束之前启动。</p>
+<p><strong>系统对话框</strong><br>alert()、confirm()和prompt();<br>javascript中可以打开的对话框：查找对话框：window.find()；打印对话框：window.print()</p>
+<p><strong>location对象</strong><br>BOM最有用的对象之一，同时它也是window对象是属性，也是document对象的属性。<br>查询字符串参数：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getQueryStringArgs</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">//取得查询字符串并去掉开头的问号</span></div><div class="line">    <span class="keyword">var</span> qs = (location.search.length &gt; <span class="number">0</span> ？ location.search.substring(<span class="number">1</span>) : <span class="string">""</span>);</div><div class="line">    <span class="keyword">var</span> args = &#123;&#125;,</div><div class="line">    items = qs.length ? qs.split(<span class="string">"&amp;"</span>) : [],</div><div class="line">    item = <span class="literal">null</span>, name = <span class="literal">null</span>, value = <span class="literal">null</span>;</div><div class="line">    <span class="keyword">var</span> len = items.length;</div><div class="line">    </div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</div><div class="line">        item = items[i].split(<span class="string">"="</span>);</div><div class="line">        name = <span class="built_in">decodeURIComponent</span>(item[<span class="number">0</span>]);</div><div class="line">        value = <span class="built_in">decodeURIComponent</span>(item[<span class="number">1</span>]);</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(name.length) &#123;</div><div class="line">            args[name] = value;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> args;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>位置操作</strong>：<br>立即打开新URL并在浏览器的历史记录中生成一条记录。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">location.assign(<span class="string">"http://www.wrox.com"</span>);</div><div class="line"><span class="comment">// 同等效果的代码：</span></div><div class="line"><span class="built_in">window</span>.location = <span class="string">"http://www.wrox.com"</span>;</div><div class="line">location.href =<span class="string">"http://www.wrox.com"</span></div><div class="line"></div><div class="line"><span class="comment">// location对象的其他属性：</span></div><div class="line"><span class="comment">// 假设初始URL为http://www.wrox.com/WileyCDA/</span></div><div class="line"></div><div class="line"><span class="comment">// 将URL修改为http://www.wrox.com/WileyCDA/#section1</span></div><div class="line">location.hash = <span class="string">"#section1"</span>;</div><div class="line"></div><div class="line"><span class="comment">// 将URL修改为http://www.wrox.com/WileyCDA/?q=javascript</span></div><div class="line">location.search = <span class="string">"?q=javascript"</span>;</div><div class="line"></div><div class="line"><span class="comment">// 将URL修改为http://www.yahoo.com/WileyCDA/</span></div><div class="line">location.hostname = <span class="string">"www.yahoo.com"</span>;</div><div class="line"></div><div class="line"><span class="comment">// 将URL修改为http://www.wrox.com/mydir/</span></div><div class="line">location.pathname = <span class="string">"mydir"</span>;</div><div class="line"></div><div class="line"><span class="comment">// 将URL修改为http://www.wrox.com:8080/WileyCDA/</span></div><div class="line">location.port=<span class="number">8080</span>;</div></pre></td></tr></table></figure></p>
+<p>每次修改location的属性（hash除外），页面都会以新URL重新加载<br>而调用replace方法，可以在修改URL之后，用户不可通过单击“后退”按钮导航到前一个页面。<br>location.replace(“<a href="http://www.wrox.com" target="_blank" rel="external">http://www.wrox.com</a>“);<br>最后一个是reload()方法，作用是重新加载当前显示的页面。</p>
+<p><strong>navigator对象</strong><br>navigator对象的属性通常是用来检测显示网页的浏览器类型<br>检测插件：使用plugins数组(包含的属性：name,description,filename,length)<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//IE中无效</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">hasPlugin</span>(<span class="params">name</span>) </span>&#123;</div><div class="line">    name = name.toLowerCase();</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; navigator.plugins.length; i++) &#123;</div><div class="line">        <span class="keyword">if</span>(navigator.plugins[i].name.toLowerCase().indexOf(name) &gt; <span class="number">-1</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">&#125;</div><div class="line"><span class="comment">//检测Flash</span></div><div class="line">alert(hasPlugin(<span class="string">"Flash"</span>));</div><div class="line"></div><div class="line"><span class="comment">//检测IE中的插件</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">hasPlugin</span>(<span class="params">name</span>)</span>&#123;</div><div class="line">    <span class="keyword">try</span>&#123;</div><div class="line">        <span class="keyword">new</span> ActiveXObject(name);</div><div class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">    &#125;<span class="keyword">catch</span>(ex)&#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">false</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">alert(hasPlugin(<span class="string">"ShockwaveFlash.ShockwaveFlash"</span>));</div></pre></td></tr></table></figure></p>
+<p><strong>screen对象</strong><br>在javascript编程中用处不大，略过</p>
+<p><strong>history对象</strong><br>history是window对象的属性，因此每个浏览器窗口、每个标签页乃至每个框架，都有自己的history对象与特定的window对象关联。<br>使用go()方法可以在用户的历史记录中任意跳转。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//后退一页</span></div><div class="line">history.go(<span class="number">-1</span>);</div><div class="line"><span class="comment">//前进一页</span></div><div class="line">history.go(<span class="number">1</span>);</div><div class="line"><span class="comment">//前进两页</span></div><div class="line">history.go(<span class="number">2</span>);</div></pre></td></tr></table></figure></p>
+<p>也可以给go()方法传递一个字符串参数，此时浏览器会跳转到历史记录中包含该字符串的第一个位置。<br>还有两个简写方法back()和forward()方法来代替go()的后退和前进<br>此外，还可以通过<em>检查history.length是否等于0，来检测当前页面是不是用户历史记录中的第一个页面</em>。</p>
+<h3 id="客户端检测"><a href="#客户端检测" class="headerlink" title="客户端检测"></a>客户端检测</h3><p>各个浏览器之间存在着差异，而客户端检测则是对此的一种补救措施，也是一种行之有效的开发策略。<br>最常用也最为人们广泛接受的客户端检测形式是<strong>能力检测（又称特性检测）</strong>。<br>能力检测的目标不是识别特定的浏览器，而是识别浏览器的能力。<br>基本模式：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(object.propertyInQuestion)&#123;</div><div class="line">    <span class="comment">//使用object.propertyInQuestion</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>能力检测的两个重要概念：<br>1.先检测达成目的的最常用的特性；<br>2.必须检测试剂要用到的特性</p>
+<p><strong>更可靠的能力检测</strong><br>检测某方法是不是一个函数。<br>如sort:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isSortable</span>(<span class="params">object</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> object.sort == <span class="string">"function"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong><em>尽量使用typeof进行能力检测</em></strong><br>IE8及以前版本中使用typeof document.createElement返回的是“object”,IE9已修复。<br>在浏览器环境下测试任何对象的某个特性是否存在，要使用下面这个函数。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isHostMethod</span>(<span class="params">object,property</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> t = <span class="keyword">typeof</span> object[property];</div><div class="line">    <span class="keyword">return</span> t == <span class="string">"function"</span> || (!!(t==<span class="string">'object'</span>&amp;&amp;object[property])) || t==<span class="string">"unknown"</span>;</div><div class="line">&#125;</div><div class="line">result = isHostMethod(xhr,<span class="string">"open"</span>);</div></pre></td></tr></table></figure></p>
+<p>能力检测不是浏览器检测<br>在开发中应该将能力检测作为确定下一步解决方案的依据，而不是用它来判断用户使用的是什么浏览器</p>
+<p><strong>怪癖检测</strong><br>是为了识别浏览器的特殊行为，主要是想知道浏览器存在什么缺陷。</p>
+<p><strong>用户代理检测</strong><br>争议最大的一种客户端检测技术，通过检测用户代理字符串来确定实际使用的浏览器。<br>在每一次HTTP请求过程中，用户代理字符串是作为响应首部发送的，可以通过navigator.userAgent访问<br>在服务器端常用用户代理检测，在客户端则是被当作一种万不得已的做法。</p>
+<p>用户代理字符串检测：<br>完整代码：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> client = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="comment">//rendering engines</span></div><div class="line">    <span class="keyword">var</span> engine = &#123;            </div><div class="line">        <span class="attr">ie</span>: <span class="number">0</span>,</div><div class="line">        <span class="attr">gecko</span>: <span class="number">0</span>,</div><div class="line">        <span class="attr">webkit</span>: <span class="number">0</span>,</div><div class="line">        <span class="attr">khtml</span>: <span class="number">0</span>,</div><div class="line">        <span class="attr">opera</span>: <span class="number">0</span>,</div><div class="line">        <span class="comment">//complete version</span></div><div class="line">        ver: <span class="literal">null</span>  </div><div class="line">    &#125;;</div><div class="line">   </div><div class="line">    <span class="comment">//browsers</span></div><div class="line">    <span class="keyword">var</span> browser = &#123;</div><div class="line">       </div><div class="line">        <span class="comment">//browsers</span></div><div class="line">        ie: <span class="number">0</span>,</div><div class="line">        <span class="attr">firefox</span>: <span class="number">0</span>,</div><div class="line">        <span class="attr">safari</span>: <span class="number">0</span>,</div><div class="line">        <span class="attr">konq</span>: <span class="number">0</span>,</div><div class="line">        <span class="attr">opera</span>: <span class="number">0</span>,</div><div class="line">        <span class="attr">chrome</span>: <span class="number">0</span>,</div><div class="line">        <span class="comment">//specific version</span></div><div class="line">        ver: <span class="literal">null</span></div><div class="line">    &#125;;</div><div class="line"><span class="comment">//platform/device/OS</span></div><div class="line">    <span class="keyword">var</span> system = &#123;</div><div class="line">        <span class="attr">win</span>: <span class="literal">false</span>,</div><div class="line">        <span class="attr">mac</span>: <span class="literal">false</span>,</div><div class="line">        <span class="attr">x11</span>: <span class="literal">false</span>,</div><div class="line">       </div><div class="line">        <span class="comment">//mobile devices</span></div><div class="line">        iphone: <span class="literal">false</span>,</div><div class="line">        <span class="attr">ipod</span>: <span class="literal">false</span>,</div><div class="line">        <span class="attr">ipad</span>: <span class="literal">false</span>,</div><div class="line">        <span class="attr">ios</span>: <span class="literal">false</span>,</div><div class="line">        <span class="attr">android</span>: <span class="literal">false</span>,</div><div class="line">        <span class="attr">nokiaN</span>: <span class="literal">false</span>,</div><div class="line">        <span class="attr">winMobile</span>: <span class="literal">false</span>,</div><div class="line">       </div><div class="line">        <span class="comment">//game systems</span></div><div class="line">        wii: <span class="literal">false</span>,</div><div class="line">        <span class="attr">ps</span>: <span class="literal">false</span></div><div class="line">    &#125;;    </div><div class="line">    <span class="comment">//detect rendering engines/browsers</span></div><div class="line">    <span class="keyword">var</span> ua = navigator.userAgent;    </div><div class="line">    <span class="keyword">if</span> (<span class="built_in">window</span>.opera) &#123;</div><div class="line">        engine.ver = browser.ver = <span class="built_in">window</span>.opera.version();</div><div class="line">        engine.opera = browser.opera = <span class="built_in">parseFloat</span>(engine.ver);</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="regexp">/AppleWebKit\/(\S+)/</span>.test(ua))&#123;</div><div class="line">        engine.ver = <span class="built_in">RegExp</span>[<span class="string">"$1"</span>];</div><div class="line">        engine.webkit = <span class="built_in">parseFloat</span>(engine.ver);</div><div class="line">       <span class="comment">//figure out if it's Chrome or Safari</span></div><div class="line">        <span class="keyword">if</span> (<span class="regexp">/Chrome\/(\S+)/</span>.test(ua))&#123;</div><div class="line">            browser.ver = <span class="built_in">RegExp</span>[<span class="string">"$1"</span>];</div><div class="line">            browser.chrome = <span class="built_in">parseFloat</span>(browser.ver);</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="regexp">/Version\/(\S+)/</span>.test(ua))&#123;</div><div class="line">            browser.ver = <span class="built_in">RegExp</span>[<span class="string">"$1"</span>];</div><div class="line">            browser.safari = <span class="built_in">parseFloat</span>(browser.ver);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="comment">//approximate version</span></div><div class="line">            <span class="keyword">var</span> safariVersion = <span class="number">1</span>;</div><div class="line">            <span class="keyword">if</span> (engine.webkit &lt; <span class="number">100</span>)&#123;</div><div class="line">                safariVersion = <span class="number">1</span>;</div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (engine.webkit &lt; <span class="number">312</span>)&#123;</div><div class="line">                safariVersion = <span class="number">1.2</span>;</div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (engine.webkit &lt; <span class="number">412</span>)&#123;</div><div class="line">                safariVersion = <span class="number">1.3</span>;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                safariVersion = <span class="number">2</span>;</div><div class="line">            &#125;  </div><div class="line">           </div><div class="line">            browser.safari = browser.ver = safariVersion;        </div><div class="line">        &#125;</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="regexp">/KHTML\/(\S+)/</span>.test(ua) || <span class="regexp">/Konqueror\/([^;]+)/</span>.test(ua))&#123;</div><div class="line">        engine.ver = browser.ver = <span class="built_in">RegExp</span>[<span class="string">"$1"</span>];</div><div class="line">        engine.khtml = browser.konq = <span class="built_in">parseFloat</span>(engine.ver);</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="regexp">/rv:([^\)]+)\) Gecko\/\d&#123;8&#125;/</span>.test(ua))&#123;    </div><div class="line">        engine.ver = <span class="built_in">RegExp</span>[<span class="string">"$1"</span>];</div><div class="line">        engine.gecko = <span class="built_in">parseFloat</span>(engine.ver);</div><div class="line">       </div><div class="line">        <span class="comment">//determine if it's Firefox</span></div><div class="line">        <span class="keyword">if</span> (<span class="regexp">/Firefox\/(\S+)/</span>.test(ua))&#123;</div><div class="line">            browser.ver = <span class="built_in">RegExp</span>[<span class="string">"$1"</span>];</div><div class="line">            browser.firefox = <span class="built_in">parseFloat</span>(browser.ver);</div><div class="line">        &#125;</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="regexp">/MSIE ([^;]+)/</span>.test(ua))&#123;    </div><div class="line">        engine.ver = browser.ver = <span class="built_in">RegExp</span>[<span class="string">"$1"</span>];</div><div class="line">        engine.ie = browser.ie = <span class="built_in">parseFloat</span>(engine.ver);</div><div class="line">    &#125;</div><div class="line">	<span class="comment">//detect browsers</span></div><div class="line">    browser.ie = engine.ie;</div><div class="line">    browser.opera = engine.opera;</div><div class="line">   </div><div class="line">    <span class="comment">//detect platform</span></div><div class="line">    <span class="keyword">var</span> p = navigator.platform;</div><div class="line">    system.win = p.indexOf(<span class="string">"Win"</span>) == <span class="number">0</span>;</div><div class="line">    system.mac = p.indexOf(<span class="string">"Mac"</span>) == <span class="number">0</span>;</div><div class="line">    system.x11 = (p == <span class="string">"X11"</span>) || (p.indexOf(<span class="string">"Linux"</span>) == <span class="number">0</span>);</div><div class="line">    <span class="comment">//detect windows operating systems</span></div><div class="line">    <span class="keyword">if</span> (system.win)&#123;</div><div class="line">        <span class="keyword">if</span> (<span class="regexp">/Win(?:dows )?([^do]&#123;2&#125;)\s?(\d+\.\d+)?/</span>.test(ua))&#123;</div><div class="line">            <span class="keyword">if</span> (<span class="built_in">RegExp</span>[<span class="string">"$1"</span>] == <span class="string">"NT"</span>)&#123;</div><div class="line">                <span class="keyword">switch</span>(<span class="built_in">RegExp</span>[<span class="string">"$2"</span>])&#123;</div><div class="line">                    <span class="keyword">case</span> <span class="string">"5.0"</span>:</div><div class="line">                        system.win = <span class="string">"2000"</span>;</div><div class="line">                        <span class="keyword">break</span>;</div><div class="line">                    <span class="keyword">case</span> <span class="string">"5.1"</span>:</div><div class="line">                        system.win = <span class="string">"XP"</span>;</div><div class="line">                        <span class="keyword">break</span>;</div><div class="line">                    <span class="keyword">case</span> <span class="string">"6.0"</span>:</div><div class="line">                        system.win = <span class="string">"Vista"</span>;</div><div class="line">                        <span class="keyword">break</span>;</div><div class="line">                    <span class="keyword">case</span> <span class="string">"6.1"</span>:</div><div class="line">                        system.win = <span class="string">"7"</span>;</div><div class="line">                        <span class="keyword">break</span>;</div><div class="line">                    <span class="keyword">default</span>:</div><div class="line">                        system.win = <span class="string">"NT"</span>;</div><div class="line">                        <span class="keyword">break</span>;                </div><div class="line">                &#125;                            </div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">RegExp</span>[<span class="string">"$1"</span>] == <span class="string">"9x"</span>)&#123;</div><div class="line">                system.win = <span class="string">"ME"</span>;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                system.win = <span class="built_in">RegExp</span>[<span class="string">"$1"</span>];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">	<span class="comment">//mobile devices</span></div><div class="line">    system.iphone = ua.indexOf(<span class="string">"iPhone"</span>) &gt; <span class="number">-1</span>;</div><div class="line">    system.ipod = ua.indexOf(<span class="string">"iPod"</span>) &gt; <span class="number">-1</span>;</div><div class="line">    system.ipad = ua.indexOf(<span class="string">"iPad"</span>) &gt; <span class="number">-1</span>;</div><div class="line">    system.nokiaN = ua.indexOf(<span class="string">"NokiaN"</span>) &gt; <span class="number">-1</span>;</div><div class="line">   </div><div class="line">    <span class="comment">//windows mobile</span></div><div class="line">    <span class="keyword">if</span> (system.win == <span class="string">"CE"</span>) &#123;</div><div class="line">        system.winMobile = system.win;</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (system.win == <span class="string">"Ph"</span>)&#123;</div><div class="line">        <span class="keyword">if</span>(<span class="regexp">/Windows Phone OS (\d+.\d+)/</span>.test(ua))&#123;;</div><div class="line">            system.win = <span class="string">"Phone"</span>;</div><div class="line">            system.winMobile = <span class="built_in">parseFloat</span>(<span class="built_in">RegExp</span>[<span class="string">"$1"</span>]);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">  </div><div class="line">    <span class="comment">//determine iOS version</span></div><div class="line">    <span class="keyword">if</span> (system.mac &amp;&amp; ua.indexOf(<span class="string">"Mobile"</span>) &gt; <span class="number">-1</span>)&#123;</div><div class="line">        <span class="keyword">if</span> (<span class="regexp">/CPU (?:iPhone )?OS (\d+_\d+)/</span>.test(ua))&#123;</div><div class="line">            system.ios = <span class="built_in">parseFloat</span>(<span class="built_in">RegExp</span>.$<span class="number">1.</span>replace(<span class="string">"_"</span>, <span class="string">"."</span>));</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            system.ios = <span class="number">2</span>;  <span class="comment">//can't really detect - so guess</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">   </div><div class="line">    <span class="comment">//determine Android version</span></div><div class="line">    <span class="keyword">if</span> (<span class="regexp">/Android (\d+\.\d+)/</span>.test(ua)) &#123;</div><div class="line">        system.android = <span class="built_in">parseFloat</span>(<span class="built_in">RegExp</span>.$<span class="number">1</span>);</div><div class="line">	&#125;</div><div class="line">    <span class="comment">//gaming systems</span></div><div class="line">    system.wii = ua.indexOf(<span class="string">"Wii"</span>) &gt; <span class="number">-1</span>;</div><div class="line">    system.ps = <span class="regexp">/playstation/i</span>.test(ua);</div><div class="line">   </div><div class="line">    <span class="comment">//return it</span></div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">        <span class="attr">engine</span>:     engine,</div><div class="line">        <span class="attr">browser</span>:    browser,</div><div class="line">        <span class="attr">system</span>:     system        </div><div class="line">    &#125;;</div><div class="line">&#125;();</div></pre></td></tr></table></figure></p>
+<h3 id="DOM文档对象模型"><a href="#DOM文档对象模型" class="headerlink" title="DOM文档对象模型"></a>DOM文档对象模型</h3><p>DOM描绘了一个层次化的节点树，允许开发人员添加、删除和修改页面的某一部分。<br>IE中DOM对象都是以COM对象的形式实现的。<br>文档节点是每个文档的根节点。<br>在HTML页面中，&lt;html&gt;是文档节点的唯一子节点，称之为文档元素。文档元素是文档的最外层元素，文档的其他所有元素都包含在文档元素中。每个文档只有一个文档元素。</p>
+<p><strong>Node类型（IE不支持）</strong><br>Javascript中的所有节点类型都继承自Node类型，因此所有节点类型都共享着相同的基本属性和方法。<br>每个节点都有一个nodeType属性：<br><img src="/uploads/node_type.png" alt="节点类型"><br>最常用：<br>如果节点是元素节点，则 nodeType 属性将返回 1。<br>如果节点是属性节点，则 nodeType 属性将返回 2。</p>
+<p>nodeName和nodeValue<br><img src="/uploads/node_name.png" alt="节点名和值"></p>
+<p><strong>节点关系</strong><br>文档中所有的节点之间都存在这样或那样的关系。<br>每个节点都有childNodes属性，其中保存着一个NodeList对象，这是个类数组对象（不是Array的实例），用于保存一组有序的节点。<br>NodeList的独特之处在于，它实际上是基于DOM结构动态执行查询的结果，因此DOM结构的变化能够自动反映在NodeList中。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> firstChild = someNode.childNodes[<span class="number">0</span>];</div><div class="line"><span class="keyword">var</span> secondChild = someNode.childNodes.item(<span class="number">1</span>);</div><div class="line"><span class="keyword">var</span> count = someNode.childNodes.length;</div></pre></td></tr></table></figure></p>
+<p>将NodeList对象转换为数组：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//IE8及之前版本无效</span></div><div class="line"><span class="keyword">var</span> arrayOfNodes = <span class="built_in">Array</span>.prototype.slice.call(some.childNodes,<span class="number">0</span>);</div></pre></td></tr></table></figure></p>
+<p>将NodeList对象转换为数组，适用于所有浏览器中<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">convertToArray</span>(<span class="params">nodes</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> array = <span class="literal">null</span>;</div><div class="line">    <span class="keyword">try</span>&#123;</div><div class="line">        array = <span class="built_in">Array</span>.prototype.slice.call(nodes,<span class="number">0</span>);</div><div class="line">    &#125;<span class="keyword">catch</span>(ex) &#123;</div><div class="line">        array = <span class="keyword">new</span> <span class="built_in">Array</span>();</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; nodes.length; i++) &#123;</div><div class="line">            array.push(nodes[i]);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> array;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>每个节点都有一个parentNode属性，该属性指向文档树中的父节点。<br>兄弟节点：previousSibling和nextSibling<br>第一个节点和最后一个节点：firstChild和lastChild<br>最后还有一个属性是ownerDocument，该属性指向表示整个文档的文档节点。</p>
+<p><strong>操作节点</strong><br>添加节点和插入节点：<br>appendChild()和insertBefore()<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> returnNode = someNode.appendChild(someNode.firstChild);</div><div class="line"><span class="keyword">var</span> returnNode = someNode.insertBefore(newNode,<span class="literal">null</span>);</div></pre></td></tr></table></figure></p>
+<p>自定义实现的insertAfter()函数<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">insertAfter</span>(<span class="params">newElement, targetElement</span>) </span>&#123;</div><div class="line">	<span class="keyword">var</span> parent = targetElement.parentNode;</div><div class="line">	<span class="keyword">if</span> (parent.lastChild == targetElement) &#123;</div><div class="line">		parent.appendChild(newElement);</div><div class="line">	&#125;<span class="keyword">else</span>&#123;</div><div class="line">		parent.insertBefore(newElement, targetElement.nextSibling);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>接收两个参数，需要插入的节点和目标节点（在该节点后插入）</p>
+<p>replaceNode()替换节点，接收两个参数：要插入的节点和要替换的节点。<br>cloneNode()克隆节点，用于创建调用这个方法的节点的一个完全相同的副本。<br>只接收一个布尔值参数，表示是否执行深复制。在参数为true时，执行深复制，也就是复制节点及其整个子节点树。<br>normalize()，唯一的作用是处理文档树中的文本节点。<br>当某个节点调用这个方法时，就会在该节点的后代节点中查找是否有空文本节点或连续两个文本节点，<br>如果有空文本节点，则删除；如果找到相邻的文本节点，则将他们合并为一个文本节点。</p>
+<h3 id="Document类型"><a href="#Document类型" class="headerlink" title="Document类型"></a>Document类型</h3><p>在浏览器中，document对象是HTMLDocument(继承自Document类型)的一个实例，表示整个HTML页面。<br>此外，document对象是window对象的一个属性，因此可以将其作为全局对象来访问。<br>1.文档的子节点<br>内置的访问其子节点的快捷方式：document.documentElement属性和childNode列表。<br>body属性，document.body直接指向&lt;body&gt;元素。</p>
+<p>通过document.doctype获取&lt;!DOCTYPE&gt;的引用（各个浏览器的支持不一致，因此这个属性的用处很有限）</p>
+<p>2.文档信息<br>获取文档标题：document.title；<br>设置文档标题：document.title = “New page title”<br>获取URL：document.URL<br>获取域名：document.domain<br>获取来源页面的URL：document.referrer<br>URL和domain属性是相互关联的。<br>eg：URL是<a href="http://www.wrox.com/WileyCDA/，那么域名domain则是www.wrox.com" target="_blank" rel="external">http://www.wrox.com/WileyCDA/，那么域名domain则是www.wrox.com</a><br>这三个属性，只有域名domain可以设置。<br>可以通过设置document.domain来实现js跨域通信。<br>浏览器对domain属性有一个限制，即如果域名一开始是”松散的“，那么不能将它再设置为”紧绷的“。<br>换句话说，原来的document.domain为”p2p.wrox.com“，在将document.domain设置为”wrox.com“之后，<br>就不能再将其设置回原来的域名”p2p.wrox.com“。</p>
+<p>3.查找元素<br>document.getElementById()和document.getElementsByTagName()<br>如果有多个相同的id，document.getElementById()则只返回文档中第一次出现的元素。<br>IE7及较低版本，不区分ID大小写，并且document.getElementById()中传入的是某个元素的name属性的值，也会返回相应元素。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">document</span>.getElementsByName(),这个方法会返回带有特定name特性的所有元素。最常用在获取单选按钮中。</div><div class="line"></div><div class="line"><span class="built_in">document</span>.getElementByClassName()（通过类名获取元素，只支持在较高级的浏览器中，且不完全支持，慎用）</div></pre></td></tr></table></figure></p>
+<p>4.特殊集合<br>document.anchors，包含文档中所有带name特性的&lt;a&gt;元素；<br>document.applets，包含文档中所有的&lt;applets&gt;元素；<br>document.forms，包含文档中所有d&lt;form&gt;元素；<br>document.images，包含文档中所有d&lt;img&gt;元素；<br>document.links，包含文档中所有带href特性的&lt;a&gt;元素；</p>
+<p>5.DOM一致性检测（应该在能力检测完成后进行）<br>DOM分为多个级别，也包含多个部分，因此检测浏览器实现了DOM的哪些部分就十分必要了。<br>document.implementation属性就是为此提供相应信息和功能的对象，与浏览器对DOM的实现直接对应。<br>DOM1级的document.implementation只有一个方法，hasFeature()。<br>该方法只接受两个参数：要检测的DOM功能的名称及版本号。如果浏览器支持给定名称和版本号，则返回true.</p>
+<p>6.文档写入<br>document.write()、document.writeln()、document.open()、document.close()</p>
+<h3 id="Element类型"><a href="#Element类型" class="headerlink" title="Element类型"></a>Element类型</h3><p>1.HTML元素<br>属性：id，title，lang，dir（语言方向），className</p>
+<p>2.取得特性<br>getAttribute();<br>特别的，获取元素的类名是getAttribute(“class”)，而不是getAttribute(“className”)。<br>有两类特殊的特性：style和类似onclick这样的事件处理程序<br>通过getAttribute()获取的style，返回的是CSS文本，而通过属性访问它则返回一个对象。<br>通过getAttribute()获取的onclick，返回的是相应的js代码字符串，而通过属性访问它则返回一个javascript函数。</p>
+<p>3.设置特性<br>setAttribute();<br>如果设置的特性不存在，setAttribute()则创建该属性并设置相应的值。</p>
+<p>4.清除特性<br>removeAttribute();</p>
+<p>5.attributes属性<br>Element类型是使用attributes属性的唯一一个DOM节点类型。<br>attributes属性包含一个NameNodeMap，与NodeList类似。<br>NameNodeMap拥有下列方法：<br>getNamedItem(name)：返回nodeName属性等于name的节点；<br>removeNamedItem(name)：从列表中删除nodeName属性等于name的节点；<br>setNamedItem(node)：向列表添加节点，以节点的nodeName属性为索引；<br>item(pos)：返回位于数字pos位置处的节点。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> id = element.attributes.getNamedItem(<span class="string">"id"</span>).nodeValue;</div><div class="line"><span class="keyword">var</span> id = element.attributes[<span class="string">"id"</span>].nodeValue;</div></pre></td></tr></table></figure></p>
+<p>6.创建元素<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">document</span>.createElement()</div><div class="line"><span class="keyword">var</span> div =<span class="built_in">document</span>.createElement(<span class="string">"&lt;div id=\"myNewDiv\" class=\"box\"&gt;&lt;/div&gt;"</span>);</div></pre></td></tr></table></figure></p>
+<p>7.元素的子节点<br>元素可以有任意数目的子节点和后代节点。<br>获取子节点时通常要判断节点类型，进行相应的操作。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>,len=element.childNodes.length;i&lt;len;i++)&#123;</div><div class="line">    <span class="keyword">if</span>(element.childNodes[i].nodeType==<span class="number">1</span>)&#123;</div><div class="line">        <span class="comment">//dosomething</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>Text类型</strong><br>nodeType=3，不支持子节点；<br>appendData(text)：将text添加到节点末尾<br>deleteData(offset,count)：从offset指定的位置开始删除count个字符<br>insertData(offset,text)：从offset指定位置插入text<br>replaceData(offset,count,text)：用text替换从offset指定的位置开始到offset+count为止处的文本<br>splitData(offset)：从offset指定的位置将当前文本节点分成两个文本节点。<br>substringData(offset,count)：提取从offset指定的位置开始到offset+count为止处的字符串空格和换行也算一个文本节点<br>1.创建文本节点<br>document.createTextNode();</p>
+<p>2.规范化文本节点<br>使用normalize()方法，将空文本节点删除，将连续的两个文本节点合并</p>
+<p>3.分割文本节点<br>使用splitText()，将一个文本节点分成两个文本节点，与normalize相反</p>
+<p><strong>Comment类型</strong><br>DOM中的注释类型，与Text类型继承自相同的基类，因此它拥有除splitText()之外的所有字符串操作方法<br>可以通过nodeValue或data属性来获取注释的内容<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div id=<span class="string">"mydiv"</span>&gt;<span class="xml"><span class="comment">&lt;!--A comment--&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></div><div class="line"><span class="keyword">var</span> div = documemt.getElementById(<span class="string">"mydiv"</span>);</div><div class="line"><span class="keyword">var</span> comment = div.firstChild;</div><div class="line">alert(comment.data);    <span class="comment">//A comment</span></div></pre></td></tr></table></figure></p>
+<p><strong>CDATASection类型</strong><br>只针对于XML的文档，表示的是CDATA区域</p>
+<p><strong>DocumentType类型</strong><br>仅有firefox、Safari和Opera支持，包含着与文档的doctype相关的信息。没有子节点。</p>
+<p><strong>DocumentFragment类型</strong><br>所有节点类型中，只有DocumentFragment在文档中没有对应的标记。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> fragment = <span class="built_in">document</span>.createDocumentFragment();</div><div class="line"><span class="keyword">var</span> ul = <span class="built_in">document</span>.getElementById(<span class="string">"mylist"</span>);</div><div class="line"><span class="keyword">var</span> li = <span class="literal">null</span>;</div><div class="line"></div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++)&#123;</div><div class="line">    li = <span class="built_in">document</span>.createElement(<span class="string">"li"</span>);</div><div class="line">    li.appendChild(<span class="built_in">document</span>.createTextNode(<span class="string">"Item "</span>+(i+<span class="number">1</span>)));</div><div class="line">    fragment.appendChild(li);</div><div class="line">&#125;</div><div class="line">ul.appendChild(fragment);</div></pre></td></tr></table></figure></p>
+<p><strong>Attr类型</strong><br>元素的特性在DOM中已Attr类型来表示。特性就是存在于attributes属性中的节点。<br>Attr有3个属性：name、value和specified（布尔值，用以区别特性是在代码中指定的，还是默认的）。<br>有下列方法（不常用）：<br>createAttribute()、setAttributeNode()和getAttributeNode()</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/weixin.png" alt="Peter Lee WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/zhifubao.png" alt="Peter Lee Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/红宝书/" rel="tag"># 红宝书</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/12/红宝书系列读书笔记（二）/" rel="next" title="红宝书系列读书笔记（二）">
+                <i class="fa fa-chevron-left"></i> 红宝书系列读书笔记（二）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/14/红宝书系列读书笔记（四）/" rel="prev" title="红宝书系列读书笔记（四）">
+                红宝书系列读书笔记（四） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="Peter Lee" />
+          <p class="site-author-name" itemprop="name">Peter Lee</p>
+           
+              <p class="site-description motion-element" itemprop="description">积累JavaScript，HTML 5，CSS3等前端基础知识，探究vue.js，webpack等前端主流技术，了解前端界内最新动态</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/peterlhx" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://stackoverflow.com/users/4940899/peter-lee" target="_blank" title="stack-overflow">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  stack-overflow
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/Peterlhx" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-zhihu"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#BOM-浏览器对象模型"><span class="nav-number">1.</span> <span class="nav-text">BOM(浏览器对象模型)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端检测"><span class="nav-number">2.</span> <span class="nav-text">客户端检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM文档对象模型"><span class="nav-number">3.</span> <span class="nav-text">DOM文档对象模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Document类型"><span class="nav-number">4.</span> <span class="nav-text">Document类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Element类型"><span class="nav-number">5.</span> <span class="nav-text">Element类型</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Peter Lee</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("ljcUFcjlR98hxBxhTA3k6lCA-gzGzoHsz", "f2BpBAbcvA7z8NuroKVyJTVp");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

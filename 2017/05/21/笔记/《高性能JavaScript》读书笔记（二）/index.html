@@ -1,0 +1,1344 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="高性能JavaScript," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="第四章 算法和流程控制代码的整体结构是执行速度的决定因素之一。性能损失与代码组织方式和具体问题解决办法直接相关。 循环循环是最常用的模式之一，理解JavaScript中循环对性能的影响至关重要，因为死循环或者长时间的循环会严重影响用户体验。 循环的类型ECMA标准定义了四种类型的循环。第一个是标准的for循环。for循环是最常用的JavaScript循环结构，它由四部分组成：初始化体，前测条件，后">
+<meta name="keywords" content="高性能JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《高性能JavaScript》读书笔记（二）">
+<meta property="og:url" content="http://peterlhx.github.io/2017/05/21/笔记/《高性能JavaScript》读书笔记（二）/index.html">
+<meta property="og:site_name" content="Mr.JS">
+<meta property="og:description" content="第四章 算法和流程控制代码的整体结构是执行速度的决定因素之一。性能损失与代码组织方式和具体问题解决办法直接相关。 循环循环是最常用的模式之一，理解JavaScript中循环对性能的影响至关重要，因为死循环或者长时间的循环会严重影响用户体验。 循环的类型ECMA标准定义了四种类型的循环。第一个是标准的for循环。for循环是最常用的JavaScript循环结构，它由四部分组成：初始化体，前测条件，后">
+<meta property="og:image" content="http://peterlhx.github.io/uploads/thread.png">
+<meta property="og:updated_time" content="2017-05-21T16:22:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《高性能JavaScript》读书笔记（二）">
+<meta name="twitter:description" content="第四章 算法和流程控制代码的整体结构是执行速度的决定因素之一。性能损失与代码组织方式和具体问题解决办法直接相关。 循环循环是最常用的模式之一，理解JavaScript中循环对性能的影响至关重要，因为死循环或者长时间的循环会严重影响用户体验。 循环的类型ECMA标准定义了四种类型的循环。第一个是标准的for循环。for循环是最常用的JavaScript循环结构，它由四部分组成：初始化体，前测条件，后">
+<meta name="twitter:image" content="http://peterlhx.github.io/uploads/thread.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://peterlhx.github.io/2017/05/21/笔记/《高性能JavaScript》读书笔记（二）/"/>
+
+
+
+
+
+  <title>《高性能JavaScript》读书笔记（二） | Mr.JS</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mr.JS</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://peterlhx.github.io/2017/05/21/笔记/《高性能JavaScript》读书笔记（二）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Peter Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.JS">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">《高性能JavaScript》读书笔记（二）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-21T23:15:18+08:00">
+                2017-05-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/05/21/笔记/《高性能JavaScript》读书笔记（二）/" class="leancloud_visitors" data-flag-title="《高性能JavaScript》读书笔记（二）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="第四章-算法和流程控制"><a href="#第四章-算法和流程控制" class="headerlink" title="第四章 算法和流程控制"></a>第四章 算法和流程控制</h2><p>代码的整体结构是执行速度的决定因素之一。性能损失与代码组织方式和具体问题解决办法直接相关。</p>
+<p><strong>循环</strong><br>循环是最常用的模式之一，理解JavaScript中循环对性能的影响至关重要，因为死循环或者长时间的循环会严重影响用户体验。</p>
+<p><strong>循环的类型</strong><br>ECMA标准定义了四种类型的循环。<br>第一个是标准的for循环。for循环是最常用的JavaScript循环结构，它由四部分组成：初始化体，前测条件，后执行体，循环体。for循环封装上的直接性是开发者喜欢的原因。</p>
+<p>第二种循环是while循环。while循环是一个简单的预测试循环，由一个预测条件和一个循环体构成。任何for循环都可以写成while循环。</p>
+<p>第三种循环类型是do-while循环。do-while循环是JavaScript中唯一一种后测试的循环，它包括两部分：循环体和后测试条件体。do-while循环中，循环体至少运行一次。</p>
+<p>第四种循环称为for-in循环。此循环有一个非常特殊的用途：它可以枚举任何对象的命名属性，基本格式如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> prop <span class="keyword">in</span> object)&#123;</div><div class="line">    <span class="comment">//loop body</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>每次循环执行，属性变量被填充以对象属性的名字（一个字符串），直到所有的对象属性遍历完成才返回。返回<br>的属性包括对象的实例属性和它从原型链继承而来的属性。</p>
+<p><strong>循环性能</strong><br>在四种循环中，只有for-in循环比其他循环明显要慢。<br>因此推荐的做法是：除非你需要对数目不详的对象属性进行操作，否则避免使用for-in循环。如果迭代遍历一个有限的，已知的属性列表，使用如下模式：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> props = [<span class="string">"prop1"</span>,<span class="string">"prop2"</span>],i = <span class="number">0</span>;</div><div class="line"><span class="keyword">while</span>(i &lt; props.length)&#123;</div><div class="line">    process(object[props[i]]);</div><div class="line">    i++;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>其他三种循环性能相当，选择循环应基于需求而不是性能。考虑如下两个因素：</p>
+<blockquote>
+<p>每次迭代干什么？<br>迭代的次数。<br>通过减少这两者中一个或全部（的执行时间），你可以积极地影响循环的整体性能。</p>
+</blockquote>
+<p><strong>减少迭代的工作量</strong><br>限制在循环体内进行耗时操作的数量是一个加快循环的好方法。</p>
+<p>在一个典型的数组处理循环中，每次运行循环体都要发生如下几个操作：<br>1.在控制条件中读一次属性（items.length）;<br>2.在控制条件中执行一次比较（i &lt; items.length）;<br>3.比较操作，察看条件控制体的运算结果是否为true（i &lt; items.length == true）；<br>4.一次自加操作（i++）；<br>5.一次数组查找（items[i]）;<br>6.一次函数调用（process(items[i])）。</p>
+<p>在简单的循环中，每次迭代也要进行许多操作。减少每次迭代中操作的总数可以大幅度提高循环整体性能。</p>
+<blockquote>
+<p>优化循环工作量的第一步是减少对象成员和数组项查找的次数。例如，将数组的长度（items.length）赋值给一个局部变量，在控制条件中使用这个局部变量，从而提高循环的性能。<br>还可以通过改变数组元素的顺序提高循环性能。倒序循环是编程语言中常用的性能优化方法。</p>
+</blockquote>
+<p>采用倒序循环后，每次迭代只进行如下操作：<br>1.在控制条件中进行一次比较（i == true）；<br>2.一次减法操作（i–）;<br>3.一次数组查询（items[i]）;<br>4.一次函数调用（process(items[i])）；</p>
+<p>倒序循环的每次迭代中减少两个操作，随着迭代次数的增长，性能将显著提升。</p>
+<p><strong>减少迭代次数</strong><br>即使循环体中最快的代码，累计迭代上千次（也将是不小的负担）。所以，减少循环的迭代次数可获得显著的性能提升。最广为人知的限制循环迭代次数的模式称作“达夫设备”。</p>
+<blockquote>
+<p>达夫设备是一个循环体展开技术，在一次迭代中实际上执行了多次迭代操作。典型实现如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> iterations = <span class="built_in">Math</span>.floor(items.length/<span class="number">8</span>),</div><div class="line">    startAt = items.length%<span class="number">8</span>,i = <span class="number">0</span>;</div><div class="line"></div><div class="line"><span class="keyword">do</span>&#123;</div><div class="line">    <span class="keyword">switch</span>(startAt)&#123;</div><div class="line">        <span class="keyword">case</span> <span class="number">0</span>:process(items[i++]);</div><div class="line">        <span class="keyword">case</span> <span class="number">7</span>:process(items[i++]);</div><div class="line">        <span class="keyword">case</span> <span class="number">6</span>:process(items[i++]);</div><div class="line">        <span class="keyword">case</span> <span class="number">5</span>:process(items[i++]);</div><div class="line">        <span class="keyword">case</span> <span class="number">4</span>:process(items[i++]);</div><div class="line">        <span class="keyword">case</span> <span class="number">3</span>:process(items[i++]);</div><div class="line">        <span class="keyword">case</span> <span class="number">2</span>:process(items[i++]);</div><div class="line">        <span class="keyword">case</span> <span class="number">1</span>:process(items[i++]);</div><div class="line">    &#125;</div><div class="line">    startAt = <span class="number">0</span>;</div><div class="line">&#125;<span class="keyword">while</span>(--iterations);</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p>达夫设备背后的基本理念是：每次循环中最多可8次调用process()函数。循环迭代次数为元素总数除以8.<br>因为总数不一定是8的整数倍，所以startAt变量存放余数，指出第一次循环中应当执行多少次process();</p>
+<p>此算法一个稍快的版本取消了switch表达式，将余数处理和主循环分开：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> i = items.length%<span class="number">8</span>;</div><div class="line"><span class="keyword">while</span>(i)&#123;</div><div class="line">    process(items[i--]);</div><div class="line">&#125;</div><div class="line">i = <span class="built_in">Math</span>.floor(items.length/<span class="number">8</span>);</div><div class="line"><span class="keyword">while</span>(i)&#123;</div><div class="line">   process(items[i--]);</div><div class="line">    process(items[i--]);</div><div class="line">    process(items[i--]);</div><div class="line">    process(items[i--]);</div><div class="line">    process(items[i--]);</div><div class="line">    process(items[i--]);</div><div class="line">    process(items[i--]);</div><div class="line">    process(items[i--]);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>是否值得使用达夫设备，取决于迭代的次数，如果循环迭代次数少于1000次，它提升的性能微不足道，但迭代次数超过1000次，达夫设备的效率将明显提升。</p>
+<p><strong>基于函数的迭代</strong><br>ECMA-262标准介绍了本地数组对象的一个新方法forEach()。此方法遍历一个数组的所有成员，并在每个成员上执行一个函数。在每个元素上执行的函数作为forEach()的参数传进去，并在调用时接收三个参数，它们是：数组项的值，数组项的索引和数组自身。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">items.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">value,index,array</span>)</span>&#123;</div><div class="line">    process(value);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>forEach()函数在Firefox,Chrome和Safari中为原生函数。另外在JavaScript库都有等价实现：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//YUI 3</span></div><div class="line">Y.Array.each(items, <span class="function"><span class="keyword">function</span>(<span class="params">value, index, array</span>)</span>&#123;</div><div class="line">	process(value);</div><div class="line">&#125;);</div><div class="line"><span class="comment">//jQuery</span></div><div class="line">jQuery.each(items, <span class="function"><span class="keyword">function</span>(<span class="params">index, value</span>)</span>&#123;</div><div class="line">	process(value);</div><div class="line">&#125;);</div><div class="line"><span class="comment">//Dojo</span></div><div class="line">dojo.forEach(items, <span class="function"><span class="keyword">function</span>(<span class="params">value, index, array</span>)</span>&#123;</div><div class="line">	process(value);</div><div class="line">&#125;);</div><div class="line"><span class="comment">//Prototype</span></div><div class="line">items.each(<span class="function"><span class="keyword">function</span>(<span class="params">value, index</span>)</span>&#123;</div><div class="line">	process(value);</div><div class="line">&#125;);</div><div class="line"><span class="comment">//MooTools</span></div><div class="line">$each(items, <span class="function"><span class="keyword">function</span>(<span class="params">value, index</span>)</span>&#123;</div><div class="line">	process(value);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>基于函数的迭代更加便利，但还是比基于循环的迭代要慢一些。每一个数组项要关联额外的函数调用是造成速度慢的原因。<br>在所有情况下，基于函数的迭代占用时间是基于循环的迭代的八倍，因此在关注执行时间的情况下它并不是一个合适的方法。</p>
+<p><strong>条件表达式</strong><br>与循环相似，条件表达式决定JavaScript运行流的走向。</p>
+<p><strong>if-else与switch比较</strong><br>使用if-else或者switch的流行理论是基于测试条件的数量：条件数量较大，倾向于使用switch而不是if-else。<br>在大多数情况下switch表达式比if-else更快，但只有当条件数量很大时才明显更快。两者间的主要性能区别在于：<br>当条件体增加时，if-else性能负担增加的程度比switch更多。<br>一般来说，if-else适用于判断两个离散的值或者判断几个不同的值域。如果判断多于两个离散值，switch表达式会更好。</p>
+<p><strong>优化if-else</strong><br>优化if-else的目标总是最小化找到正确分支之前所判断条件体的数量。最简单的优化方法是将最常见的条件体放在首位。if-else 中的条件体应当总是按照从最大概率到最小概率的顺序排列，以保证理论运行速度最快。</p>
+<p>另一种减少条件判断数量的方法是将if-else组织成一系列嵌套的if-else表达式。使用一个单独的一长串的if-else通常导致运行缓慢，因为每个条件体都要被计算。</p>
+<p><strong>查表法</strong><br>有些情况下要避免使用if-else或switch。当有大量离散值需要测试时，if-else和switch都比使用查表法要慢得多。<br>在JavaScript中，<em>查表法可使用数组或普通对象实现</em>。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> results = [result0,result1,result2,result3,result4,result5,result6,result7,result8,result9,result10]</div><div class="line"><span class="keyword">return</span> results[value];</div></pre></td></tr></table></figure></p>
+<p>使用查表法时，必须完全消除所有条件判断。操作转换成一个数组项查询或者一个对象成员查询。<br>使用查表法的一个优点是：由于没有条件判断，当候选值数量增加时，很少，甚至没有增加额外的性能开销。</p>
+<p><strong>递归</strong><br>复杂算法通常比较容易使用递归实现。但递归也存在些问题：一个错误定义，或者缺少终结条件可导致长时间运行，冻结用户界面。此外，递归函数还会遇到浏览器调用栈大小的限制。</p>
+<p><strong>调用栈限制</strong><br>JavaScript引擎所支持的递归数量与JavaScript调用栈大小直接相关。只有IE例外，它的调用栈与可用系统内存相关，其他浏览器有固定的调用栈限制。Chrome 是唯一不显示调用栈溢出错误的浏览器。<br>关于调用栈溢出错误，最令人感兴趣的部分大概是：在某些浏览器中，他们的确是 JavaScript 错误，可以用一个 try-catch 表达式捕获。异常类型因浏览器而不同。在 Firefox 中，它是一个 InternalError；在 Safari和 Chrome 中，它是一个 RangeError；在 Internet Explorer 中抛出一个一般性的 Error 类型。 （Opera 不抛出错误；它终止 JavaScript 引擎）。这使得我们能够在 JavaScript 中正确处理这些错误：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">try</span>&#123;</div><div class="line">    recurse();</div><div class="line">&#125;<span class="keyword">catch</span>(ex)&#123;</div><div class="line">    alert(<span class="string">"Too much recursion!"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>递归模式</strong><br>1.直接递归模式（函数调用自身）<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">recurse</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">arguments</span>.callee();</div><div class="line">&#125;</div><div class="line">recurse();</div></pre></td></tr></table></figure></p>
+<p>2.精巧模式<br>包含两个函数：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">first</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    second();</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">second</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    first();</div><div class="line">&#125;</div><div class="line">first();</div></pre></td></tr></table></figure></p>
+<p>常见的栈溢出原因是一个不正确的终止条件，所以定位模式错误的第一步是验证终止条件。如果终止条件正确，那么算法包含了太多层递归，为了能够安全地在浏览器中运行，应该改用迭代，制表，或两者兼而有之。</p>
+<p><strong>迭代</strong><br>任何可以用递归实现的算法都可以用迭代实现。使用优化的循环替代长时间运行的递归函数可以提高性能，因为运行一个循环比反复调用一个函数的开销要低。<br>合并排序算法是最常用的以递归实现的算法。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">merge</span>(<span class="params">left, right</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> result = [];</div><div class="line">    <span class="keyword">while</span>(left.length &gt; <span class="number">0</span> &amp;&amp; right.length &gt; <span class="number">0</span>)&#123;</div><div class="line">        <span class="keyword">if</span>(left[<span class="number">0</span>] &lt; right[<span class="number">0</span>])&#123;</div><div class="line">            result.push(left.shift());</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            result.push(right.shift());</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> result.concat(left).concat(right);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">mergeSort</span>(<span class="params">items</span>)</span>&#123;</div><div class="line">    <span class="keyword">if</span>(items.length == <span class="number">1</span>)&#123;</div><div class="line">        <span class="keyword">return</span> items;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">var</span> middle = <span class="built_in">Math</span>.floor(items.length/<span class="number">2</span>),</div><div class="line">        left = items.slice(<span class="number">0</span>,middle),</div><div class="line">        right = items.slice(middle);</div><div class="line">        <span class="keyword">return</span> merge(mergeSort(left), mergeSort(right));</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上述合并排序代码相当简单，但是 mergeSort()函数被调用非常频繁，可能在Firefox上导致栈溢出。<br>改用迭代实现合并排序算法：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">merge</span>(<span class="params">left, right</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> result = [];</div><div class="line">    <span class="keyword">while</span>(left.length &gt; <span class="number">0</span>&amp;&amp;right.length &gt; <span class="number">0</span>)&#123;</div><div class="line">        <span class="keyword">if</span>(left[<span class="number">0</span>] &lt; right[<span class="number">0</span>])&#123;</div><div class="line">            result.push(left.shift());</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            result.push(right.shift());</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> result.concat(left).concat(right);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">mergeSort</span>(<span class="params">items</span>)</span>&#123;</div><div class="line">    <span class="keyword">if</span>(items.length == <span class="number">1</span>)&#123;</div><div class="line">        <span class="keyword">return</span> items;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">var</span> work = [];</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>,len = items.length; i &lt; len; i++)&#123;</div><div class="line">        work.push([items[i]]);</div><div class="line">    &#125;</div><div class="line">    work.push([]);</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> lim = len; lim &gt; <span class="number">1</span>; lim = (lim + <span class="number">1</span>) / <span class="number">2</span>)&#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> j = <span class="number">0</span>, k = <span class="number">0</span>; k &lt; lim; j++, k += <span class="number">2</span>)&#123;</div><div class="line">            work[j] = merge(work[k], work[k + <span class="number">1</span>]);</div><div class="line">        &#125;</div><div class="line">        work[j] = [];</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> work[<span class="number">0</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>此mergeSort()函数采用迭代而不是递归，虽然迭代版本的合并排序可能比递归版本慢些，但它不会像递归版本那样影响调用栈。将递归算法切换为迭代是避免栈溢出错误的方法之一。</p>
+<p><strong>制表</strong><br>减少工作量就是最好的性能优化技术。<br>制表，通过缓存先前计算结果为后续计算所重复使用，避免了重复工作。因此，常常结合制表来实现递归算法。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">memfactorial</span>(<span class="params">n</span>)</span>&#123;</div><div class="line">	<span class="keyword">if</span>(!memfactorial.cache)&#123;</div><div class="line">		memfactorial.cache = &#123;</div><div class="line">			<span class="string">"0"</span>: <span class="number">1</span>,</div><div class="line">			<span class="string">"1"</span>: <span class="number">1</span></div><div class="line">		&#125;;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">if</span> (!memfactorial.cache.hasOwnProperty(n)) &#123;</div><div class="line">		memfactorial.cache[n] = n * memfactorial(n<span class="number">-1</span>);</div><div class="line">	</div><div class="line">	<span class="keyword">return</span> memfactorial.cache[n];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上述代码使用了制表技术的阶乘函数的关键是建立一个缓存对象。此对象位于函数内部，并预置了两个最简单的阶乘：<br>0和1。在计算阶乘之前，首先检查缓存中是否已经存在相应的计算结果。没有对应的缓冲值说明这是第一次进行此数值的计算，计算完成之后结果被存入缓存之中，以备今后使用。</p>
+<p>为了使一个函数的制表过程更加容易，可定义一个memoize()函数封装基本功能：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">memoize</span>(<span class="params">fundamental,cache</span>)</span>&#123;</div><div class="line">	cache = cache || &#123;&#125;;</div><div class="line">	<span class="keyword">var</span> shell = <span class="function"><span class="keyword">function</span>(<span class="params">arg</span>)</span>&#123;</div><div class="line">		<span class="keyword">if</span>(!cache.hasOwnProperty(arg))&#123;</div><div class="line">			cache[arg] = fundamental(arg);</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> cache[arg];</div><div class="line">	&#125;;</div><div class="line">	<span class="keyword">return</span> shell;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>此memoize()函数接收两个参数：一个用来制表的函数和一个可选的缓存对象。<br>调用如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> memfactorial = memoize(factoroal, &#123;<span class="string">"0"</span>: <span class="number">1</span>,<span class="string">"1"</span>:<span class="number">1</span>&#125;);</div></pre></td></tr></table></figure></p>
+<p><strong>总结</strong><br>与其它语言不同的是，JavaScript可用资源有限。<br>1、for,while,do-while循环的性能特性相似，谁也不比谁更快或更慢；<br>2、除非你要迭代遍历一个属性未知的对象，否则不要使用for-in循环；<br>3、改善循环性能的最好办法是减少每次迭代中的运算量，并减少循环迭代次数；<br>4、一般来说，switch总是比if-else更快，但并不总是最好的解决方法；<br>5、当判断条件较多时，查表法比if-else或者switch更快；<br>6、浏览器的调用栈尺寸限制了递归算法在JavaScript中的应用：栈溢出错误导致其他代码也不能正常执行；<br>7、如果遇到一个栈溢出错误，将方法修改为一个迭代算法或者使用制表法可以避免重复工作；</p>
+<h2 id="第五章-字符串和正则表达式"><a href="#第五章-字符串和正则表达式" class="headerlink" title="第五章 字符串和正则表达式"></a>第五章 字符串和正则表达式</h2><p><strong>字符串拼接</strong><br>字符串拼接表现出惊人的性能紧张。</p>
+<p>字符串拼接的方法：</p>
+<blockquote>
+<p>“+”和“+=”操作符；<br>数组的join()方法；<br>字符串的concat()方法。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">str += <span class="string">"one"</span>+<span class="string">"two"</span>;</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p>此代码执行时，发生四个步骤：</p>
+<blockquote>
+<ul>
+<li>内存中创建了一个临时字符串</li>
+<li>临时字符串的值被赋予“onetwo”</li>
+<li>临时字符串与str的值进行连接</li>
+<li>结果赋予str</li>
+</ul>
+</blockquote>
+<p>下面的代码通过两个离散表达式直接将内容附加在str上，避免了临时字符串。在大多数浏览器上这样做可加快10%-40%。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">str += <span class="string">"one"</span>;</div><div class="line">str += <span class="string">"two"</span>;</div></pre></td></tr></table></figure></p>
+<p>或者<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">str = str + <span class="string">"one"</span> +<span class="string">"two"</span>;</div></pre></td></tr></table></figure></p>
+<p>使用这种方法进行拼接字符串，必须把str放在第一个拼接的字符串。</p>
+<p>除IE以外，浏览器尝试扩展表达式左端字符串的内存，然后简单地将第二个字符串拷贝到它的尾部。<br>如果一个循环中，基本字符串位于最左端，就可以避免多次复制一个越来越大的基本字符串。</p>
+<p>在 IE8 中，连接字符串只是记录下构成新字符串的各部分字符串的引用。在最后时刻（当你真正使用连接后的字符串时），各部分字符串才被逐个拷贝到一个新的“真正的”字符串中，然后用它取代先前的字符串引用，所以并非每次使用字符串时都发生合并操作。</p>
+<p>IE7 和更早的浏览器在连接字符串时使用更糟糕的实现方法，每连接一对字符串都要把它们复制到一块<br>新分配的内存中。</p>
+<p><strong>Firefox和编译期合并</strong><br>在赋值表达式中所有字符串连接都属于编译期常量，Firefox自动地在编译过程中合并它们。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foldingDemo</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> str = <span class="string">"compile"</span> + <span class="string">"time"</span> + <span class="string">"folding"</span>;</div><div class="line">    str += <span class="string">"this"</span> + <span class="string">"works"</span> + <span class="string">"too"</span>;</div><div class="line">    str = str + <span class="string">"but"</span> + <span class="string">"not"</span> + <span class="string">"this"</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">alert(foldingDemo.toString());</div><div class="line"><span class="comment">// 输出：</span></div><div class="line"><span class="comment">/*</span></div><div class="line">function foldingDemo()&#123;</div><div class="line">    var str = "compile" + "time" + "folding";</div><div class="line">    str += "this" + "works" + "too";</div><div class="line">    str = str + "but" + "not" + "this";</div><div class="line">&#125;</div><div class="line">*/</div></pre></td></tr></table></figure></p>
+<p>当字符串是这样合并在一起时，由于运行时没有中间字符串，所有连接它们的时间和内存可以减少到零。<br>这种功能非常了不起，但它并不经常起作用，因为通常从运行期数据创建字符串而不是编译期常量。</p>
+<p><strong>数组联结（在IE7以及更早的浏览器中，效果显著）</strong><br>Array.prototype.join方法将数组的所有元素合并成一个字符串，并在每个元素之间插入一个分隔符字符串。<br>在大多数浏览器上，数组联结比连接字符串的其他方法更慢，但事实上，为一种补偿方法，在IE7和更早的浏览器上，<br>它是连接大量字符串唯一高效的途径。</p>
+<p><strong>String.prototype.concat</strong><br>原生字符串连接函数接受任意数目的参数，并将每一个参数都追加在调用函数的字符串上。可以追加任意个字符串，或者一个完整的字符串数组。<br>但在大多数情况下concat比简单的”+”和”+=”慢一些，而且在IE，Opera和Chrome上大幅变慢。</p>
+<p>正则表达式优化<br>粗浅地编写正则表达式是造成性能瓶颈的主要原因。</p>
+<h2 id="第六章-响应接口"><a href="#第六章-响应接口" class="headerlink" title="第六章 响应接口"></a>第六章 响应接口</h2><p>确保网页应用程序的响应速度也是一个重要的性能关注点。</p>
+<p>大多数浏览器有一个单独的处理进程，它由两个任务所共享：JavaScript任务和用户界面更新任务。<br>每个时刻只有其中一个操作得以执行，即当JavaScript运行时，用户界面就被”锁定“了。</p>
+<p><strong>浏览器UI线程</strong><br>JavaScript和UI更新共享的进程通常被称作浏览器UI线程。此UI线程围绕一个简单的队列系统工作，任务被保存到队列中直至进程空闲。一旦空闲，队列中的下一个任务将被检索和运行。<br>此进程中最令人感兴趣的部分是每次输入均导致一个或多个任务被加入队列。<br>按下一个按钮，然后屏幕上显示出一个消息：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>Browser UI Thread Example<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"handleClick()"</span>&gt;</span>Click Me<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">handleClick</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> div = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</div><div class="line">	div.innerHTML = <span class="string">"Clicked!"</span>;</div><div class="line">	<span class="built_in">document</span>.body.appendChild(div);</div><div class="line">&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>线程触发的过程<br><img src="/uploads/thread.png" alt="线程触发"></p>
+<p>浏览器限制<br>浏览器在JavaScript运行时间上采取了限制。这是一个有必要的限制，确保恶意代码编写者不能通过无尽的密集操作<br>锁定用户浏览器或计算机。<br>此类限制有两个：调用栈尺寸限制和长时间脚本限制。</p>
+<p>长运行脚本限制有时被称作长运行脚本定时器或者失控脚本定时器，但其基本思想是浏览器记录一个脚本的运行时间，一旦到达一定限度时就终止它。</p>
+<p>有两种测量脚本运行时间的方法：<br>1）统计自脚本开始运行以来执行过多少语句；<br>2）统计脚本运行的总时间。</p>
+<p>长运行脚本最好的处理办法首先是避免他们。</p>
+<p><strong>多久才算”太久“</strong><br>一个单一的JavaScript操作应当使用的总时间（最大）是100毫秒。<br>如果某个接口在100毫秒内响应用户输入，用户认为自己是”直接操作用户界面的对象“，超过100毫秒意味着用户认为自己与接口断开了。</p>
+<p><strong>用定时器让出时间片</strong><br>在某些情况下，还是有一些JavaScript任务因为复杂性原因不能再100毫秒或更少时间内完成。这种情况下，理想办法是让出对UI线程的控制，使UI更新可以进行。</p>
+<p><strong>定时器基础</strong><br>在JavaScript中使用setTimeout()或setInterval()创建定时器。<br>setTimeout()函数创建一个定时器只运行一次，而setInterval()函数创建一个周期性重复运行的定时器。</p>
+<p>定时器与UI线程交互的方式有助于分解长运行脚本成为较短的片断。调用setTimeout()或setInterval()告诉JavaScript引擎等待一定时间，然后将JavaScript任务添加到UI队列中。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">greeting</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    alert(<span class="string">"Hello world!"</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">setTimeout(greeting, <span class="number">250</span>);</div></pre></td></tr></table></figure></p>
+<p>第二个参数”250“指出的是什么时候应当将任务添加到UI队列，并不是说那时代码就将被执行，这个任务必须等到队列中的其他任务都执行之后才能被执行。</p>
+<p>定时器代码只有等创建它的函数运行完成之后，才有可能被执行。<br>在任何一种情况下，创建一个定时器造成UI线程暂停，如同它从一个任务切换到下一个任务。因此，定时器代码复位所有相关的浏览器限制，包括长运行脚本时间。此外调用栈也在定时器代码中复位为零。</p>
+<p>如果调用 setTimeout()的函数又调用了其他任务，耗时超过定时器延时，定时器代码将立即被执行，它与主调函数之间没有可察觉的延迟。<br><em>最小定时器延时应设置25毫秒。</em></p>
+<p><strong>在数组处理中使用定时器</strong><br>一个常见的长运行脚本就是循环占用了太长的运行时间。经过循环优化后，还是不能缩减足够的运行时间，那么定时器还能更进一步地优化。基本方法是：将循环工作分解到定时器序列中。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>,len = items.length; i &lt; len; i++)&#123;</div><div class="line">    process(items[i]);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上述循环结构运行时间过长的原因有二：process()的复杂度，items的大小。</p>
+<p>判断是否可用定时器取代循环的两个决定性因素？<br>1）此处理过程必须是同步处理吗？<br>2）数据必须按顺序处理吗？</p>
+<p>如果两个回答都是“否”，那么代码将适于使用定时器分解工作。<br>一种基本异步代码模式如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">processArray</span>(<span class="params">items, process, callback</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> todo = items.concat(); </div><div class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        process(todo.shift());</div><div class="line">        <span class="keyword">if</span>(todo.length &gt; <span class="number">0</span>)&#123;</div><div class="line">            setTimeout(<span class="built_in">arguments</span>.callee,<span class="number">25</span>);</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            callback(items);</div><div class="line">        &#125;</div><div class="line">    &#125;, <span class="number">25</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> items = [<span class="number">123</span>, <span class="number">789</span>, <span class="number">323</span>, <span class="number">778</span>, <span class="number">232</span>, <span class="number">654</span>, <span class="number">219</span>, <span class="number">543</span>, <span class="number">321</span>, <span class="number">160</span>];</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">outputValue</span>(<span class="params">value</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(value);</div><div class="line">&#125;</div><div class="line">processArray(items, outputValue, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"Done!"</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>上述代码的基本思想是：</p>
+<blockquote>
+<p>创建一个原始数组的克隆，将它作为处理对象。第一次调用setTimeout()创建一个定时器处理队列中的第一个项。<br>调用todo.shift()返回它的第一个项然后将它从数组中删除。此值作为参数传给process()。<br>然后，检查是否还有更多项需要处理。如果todo队列中还有内容，那么再启动一个定时器。如果不再有内容需要处理，将调用callback()函数。</p>
+</blockquote>
+<p><strong>分解任务</strong><br>我们通常将一个任务分解成一系列子任务。可将一行代码简单地看作一个原子任务，多行代码组合在一起构成一个独立任务。如果函数运行时间太长，它可以拆分成一系列更小的步骤，把独立方法放在定时器中调用。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">saveDocument</span>(<span class="params">id</span>)</span>&#123;</div><div class="line">    openDocument(id)</div><div class="line">    writeText(id);</div><div class="line">    closeDocument(id);</div><div class="line">    updateUI(id);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">saveDocument</span>(<span class="params">id</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> tasks = [openDocument, writeText, closeDocument, updateUI];</div><div class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">var</span> task = tasks.shift();</div><div class="line">        task(id);</div><div class="line">        <span class="keyword">if</span> (tasks.length &gt; <span class="number">0</span>)&#123;</div><div class="line">            setTimeout(<span class="built_in">arguments</span>.callee, <span class="number">25</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;, <span class="number">25</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>不要让任何JavaScript代码持续运行超过50毫秒，确保代码永远不会影响用户体验。<br>通过原生的Date对象跟踪代码的运行时间。这是大多数JavaScript分析工具所采用的工作方式：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> start = +<span class="keyword">new</span> <span class="built_in">Date</span>(),    <span class="comment">//加号“+”将Date对象转换为一个数字</span></div><div class="line">      stop;</div><div class="line">someLongProcess();</div><div class="line">stop = +<span class="keyword">new</span> <span class="built_in">Date</span>();</div><div class="line"><span class="keyword">if</span>(stop - start &lt;<span class="number">50</span>)&#123;</div><div class="line">    alert(<span class="string">"something"</span>);</div><div class="line">&#125;<span class="keyword">else</span>&#123;</div><div class="line">    alert(<span class="string">"taking too long."</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>有时每次只执行一个任务效率不高。在定时器循环中加入时间检测机制，使得每次处理多个数据，这样避免了将任务分解成过于碎小的片断。</p>
+<p><strong>定时器和性能</strong><br>定时器使得JavaScript代码整体性能表现出巨大差异，但过度使用它们会对性能产生负面影响。<br>使用定时器序列时，同一时间只有一个定时器存在，只有当这个定时器结束才创建一个新的定时器。<br>此外，还应该在web应用中限制高频率重复定时器的数量。建议创建一个单独的重复定时器，每次执行多个操作。</p>
+<p><strong> Web Workers(网页工人线程)</strong><br>自JavaScript诞生以来，还没有办法在浏览器UI线程之外运行代码。Web workers API 改变了这种状况，它引入一个接口，使代码运行而不占用浏览器UI线程的时间。<br>web workers在自己的线程中运行JavaScript，意味着，web workers中的代码运行不仅不会影响浏览器UI，而且也不会影响其他web workers中运行的代码。</p>
+<p><strong>工人线程运行环境</strong><br>由于web workers不绑定UI线程，这也意味着它们将不能访问更多的浏览器资源。Web workers 修改DOM将导致用户界面出错，但每个web worker都有自己的全局运行环境，只有JavaScript特性的一个子集可用。</p>
+<p>工人线程的运行环境由下列部分组成：</p>
+<blockquote>
+<p>一个浏览器对象，只包含四个属性：appName，appVersion，userAgent和platform；<br>一个location对象（和window对象一样，只是所有属性都是只读的）；<br>一个self对象指向全局工人线程对象；<br>一个importScript()方法，使得工人线程可以加载外部JavaScript文件；<br>所有ECMAScript对象，诸如Object，Array，Date等等；<br>XMLHTTPRequest构造器；<br>setTimeout()和setInterval()方法；<br>一个close()方法，可以立即停止工人线程。</p>
+</blockquote>
+<p>因为web worker有不同的全局运行环境，你不能在JavaScript代码中创建。需要创建一个完全独立的JavaScript文件，包含那些在工人线程中运行的代码。要创建web workers，必须要传入这个JavaScript文件的URL:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> worker = <span class="keyword">new</span> Worker(<span class="string">"code.js"</span>);</div></pre></td></tr></table></figure></p>
+<p>此代码一旦执行，将为指定文件创建一个新线程和一个新的工人线程运行环境。此文件被异步下载，直到下载并运行完之后才启动工人线程。</p>
+<p><strong>工人线程交互</strong><br>工人线程和网页代码通过事件接口进行交互。网页代码可通过postMessage()方法向工人线程传递数据，它接收单个参数，即传递给工人线程的数据。此外，在工人线程中还有onmessage事件句柄用于接收信息。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//WEB页主线程</span></div><div class="line"><span class="keyword">var</span> worker = <span class="keyword">new</span> Worker(<span class="string">"worker.js"</span>); </div><div class="line"><span class="comment">//创建一个Worker对象并向它传递将在新线程中执行的脚本的URL</span></div><div class="line">worker.postMessage(<span class="string">"hello world"</span>);     </div><div class="line"><span class="comment">//向worker发送数据</span></div><div class="line">worker.onmessage =<span class="function"><span class="keyword">function</span>(<span class="params">evt</span>)</span>&#123;     </div><div class="line">	<span class="comment">//接收worker传过来的数据函数</span></div><div class="line">	<span class="built_in">console</span>.log(evt.data);         </div><div class="line">    <span class="comment">//输出worker发送来的数据</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//worker.js</span></div><div class="line">onmessage =<span class="function"><span class="keyword">function</span> (<span class="params">evt</span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> d = evt.data;</div><div class="line">	<span class="comment">//通过evt.data获得发送来的数据</span></div><div class="line">	postMessage( d );</div><div class="line">	<span class="comment">//将获取到的数据发送会主线程</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>消息系统是页面和工人线程之间唯一的交互途径。<br>只有某些类型的数据可以使用postMessage()传递。可以传递的类型有：string，number，boolean，null，undefined以及Objec和Array的实例。</p>
+<p><strong>加载外部文件</strong><br>当工人线程用过importScripts()方法加载外部JavaScript文件，它接收一个或多个URL参数，指出要加载的JavaScript文件网址。<br>工人线程以阻塞方式调用importScripts()，直到所有文件加载完成并执行之后，脚本才继续运行。但由于工人线程在UI线程之外运行，这种阻塞不会影响UI响应。</p>
+<p><strong>Web Workers的实际用途</strong><br>Web Workers适合于那些纯数据的，或者与浏览器UI没关系的长运行脚本。<br>例如：解析一个很大的 JSON 字符串（JSON 解析将在后面第七章讨论）。假设数据足够<br>大，至少需要 500 毫秒才能完成解析任务。很显然时间太长了以至于不能允许 JavaScript 在客户端上运行<br>它，因为它会干扰用户体验。此任务难以分解成用于定时器的小段任务，所以工人线程成为理想的解决方<br>案。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> worker = <span class="keyword">new</span> Worker(<span class="string">"jsonparser.js"</span>);</div><div class="line">worker.onmessage = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> jsonData = event.data;</div><div class="line">    evaluateData(jsonData);</div><div class="line">&#125;;</div><div class="line">worker.postMessage(jsonText);</div><div class="line"></div><div class="line"><span class="comment">//jsonparser.js</span></div><div class="line">self.onmessage = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> jsonText = event.data;</div><div class="line">    <span class="keyword">var</span> jsonData = <span class="built_in">JSON</span>.parse(jsonText);</div><div class="line">    self.postMessage(jsonData);</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>此工程只能在Firefox 3.5和更高版本中运行，而Safari 4 和Chrome 3中，页面和工人线程之间只允许传递字符串。</p>
+<p>解析一个大字符串只是许多受益于web workers的任务之一。其他可能受益的任务如下：</p>
+<blockquote>
+<p>编/解码一个大字符串；<br>复杂数学运算（包括图像或视频处理）；<br>给一个大数组排序。</p>
+</blockquote>
+<p>任何超过100毫秒的处理，都应当考虑工人线程方案是不是比基于定时器的方案更合适。当然，还要基于浏览器是否支持工人线程。</p>
+<p><strong>总结</strong><br>JavaScript和用户界面更新在同一个进程内运行，同一时刻只有其中一个可以运行。有效管理UI线程就是要确保JavaScript不能运行太长时间，以免影响用户体验。牢记以下几点：</p>
+<blockquote>
+<p>JavaScript运行时间不应该超过100毫秒；<br>JavaScript运行期间，浏览器响应用户交互的行为存在差异。无论如何，JavaScript长时间运行将导致用户体验混乱和脱节；<br>定时器可用于安排代码推迟执行，它使得你可以将长运行脚本分解成一系列较小的任务；<br>Web Workers是新式浏览器才支持的特性，它允许你在UI线程之外运行JavaScript代码而避免锁定UI。</p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/weixin.png" alt="Peter Lee WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/zhifubao.png" alt="Peter Lee Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/高性能JavaScript/" rel="tag"># 高性能JavaScript</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/20/笔记/《高性能JavaScript》读书笔记（一）/" rel="next" title="《高性能JavaScript》读书笔记（一）">
+                <i class="fa fa-chevron-left"></i> 《高性能JavaScript》读书笔记（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/22/笔记/《高性能JavaScript》读书笔记（三）/" rel="prev" title="《高性能JavaScript》读书笔记（三）">
+                《高性能JavaScript》读书笔记（三） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="Peter Lee" />
+          <p class="site-author-name" itemprop="name">Peter Lee</p>
+           
+              <p class="site-description motion-element" itemprop="description">积累JavaScript，HTML 5，CSS3等前端基础知识，探究vue.js，webpack等前端主流技术，了解前端界内最新动态</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/peterlhx" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://stackoverflow.com/users/4940899/peter-lee" target="_blank" title="stack-overflow">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  stack-overflow
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/Peterlhx" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-zhihu"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第四章-算法和流程控制"><span class="nav-number">1.</span> <span class="nav-text">第四章 算法和流程控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五章-字符串和正则表达式"><span class="nav-number">2.</span> <span class="nav-text">第五章 字符串和正则表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第六章-响应接口"><span class="nav-number">3.</span> <span class="nav-text">第六章 响应接口</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Peter Lee</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("ljcUFcjlR98hxBxhTA3k6lCA-gzGzoHsz", "f2BpBAbcvA7z8NuroKVyJTVp");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

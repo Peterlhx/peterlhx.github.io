@@ -1,0 +1,1319 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="高性能JavaScript," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="第七章 Ajax 异步JavaScript和XMLAjax可以通过延迟下载大量资源使页面加载更快。它通过在客户端和服务器之间异步传送数据，避免页面集体加载。还用于在一次HTTP请求中获取整个页面的资源。 数据传输Ajax，在它最基本的层面，是一种与服务器通讯而不重载当前页面的方法，数据可从服务器获得或发送给服务器。 请求数据有以下五种常用技术用于向服务器请求数据：  XMLHttpRequest(">
+<meta name="keywords" content="高性能JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《高性能JavaScript》读书笔记（三）">
+<meta property="og:url" content="http://peterlhx.github.io/2017/05/22/笔记/《高性能JavaScript》读书笔记（三）/index.html">
+<meta property="og:site_name" content="Mr.JS">
+<meta property="og:description" content="第七章 Ajax 异步JavaScript和XMLAjax可以通过延迟下载大量资源使页面加载更快。它通过在客户端和服务器之间异步传送数据，避免页面集体加载。还用于在一次HTTP请求中获取整个页面的资源。 数据传输Ajax，在它最基本的层面，是一种与服务器通讯而不重载当前页面的方法，数据可从服务器获得或发送给服务器。 请求数据有以下五种常用技术用于向服务器请求数据：  XMLHttpRequest(">
+<meta property="og:updated_time" content="2017-05-22T15:04:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《高性能JavaScript》读书笔记（三）">
+<meta name="twitter:description" content="第七章 Ajax 异步JavaScript和XMLAjax可以通过延迟下载大量资源使页面加载更快。它通过在客户端和服务器之间异步传送数据，避免页面集体加载。还用于在一次HTTP请求中获取整个页面的资源。 数据传输Ajax，在它最基本的层面，是一种与服务器通讯而不重载当前页面的方法，数据可从服务器获得或发送给服务器。 请求数据有以下五种常用技术用于向服务器请求数据：  XMLHttpRequest(">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://peterlhx.github.io/2017/05/22/笔记/《高性能JavaScript》读书笔记（三）/"/>
+
+
+
+
+
+  <title>《高性能JavaScript》读书笔记（三） | Mr.JS</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mr.JS</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://peterlhx.github.io/2017/05/22/笔记/《高性能JavaScript》读书笔记（三）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Peter Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.JS">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">《高性能JavaScript》读书笔记（三）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-22T22:24:09+08:00">
+                2017-05-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/05/22/笔记/《高性能JavaScript》读书笔记（三）/" class="leancloud_visitors" data-flag-title="《高性能JavaScript》读书笔记（三）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="第七章-Ajax-异步JavaScript和XML"><a href="#第七章-Ajax-异步JavaScript和XML" class="headerlink" title="第七章 Ajax 异步JavaScript和XML"></a>第七章 Ajax 异步JavaScript和XML</h2><p>Ajax可以通过延迟下载大量资源使页面加载更快。它通过在客户端和服务器之间异步传送数据，避免页面集体加载。还用于在一次HTTP请求中获取整个页面的资源。</p>
+<p><strong>数据传输</strong><br>Ajax，在它最基本的层面，是一种与服务器通讯而不重载当前页面的方法，数据可从服务器获得或发送给服务器。</p>
+<p><strong>请求数据</strong><br>有以下五种常用技术用于向服务器请求数据：</p>
+<blockquote>
+<p>XMLHttpRequest(XHR);<br>动态脚本标签插入；<br>iframes;<br>Comet;<br>多部分的XHR。</p>
+</blockquote>
+<p><strong>XMLHttpRequest</strong><br>目前最常用的方法中，XMLHttpRequest(XHR)用来异步收发数据。所有现代浏览器都能够很好地支持它，而且能够精细地控制发送请求和数据接收。你可以向请求报文中添加任意的头信息和参数（包括GET和POST），并读取从服务器返回的头信息，以及响应文本自身。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> url =<span class="string">'/data.php'</span>;</div><div class="line"><span class="keyword">var</span> params = [</div><div class="line">    <span class="string">'id=934875'</span>,</div><div class="line">    <span class="string">'limit=20'</span></div><div class="line">]; </div><div class="line"><span class="keyword">var</span> req = <span class="keyword">new</span> XMLHttpRequest();</div><div class="line">req.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">if</span>(red.readyState === <span class="number">4</span>)&#123;    <span class="comment">//表示整个响应已经接收完并可用于操作</span></div><div class="line">        <span class="keyword">var</span> responseHeaders = req.getAllRequestHeaders();</div><div class="line">        <span class="keyword">var</span> data = req.responseText;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">req.open(<span class="string">'GET'</span>,url+<span class="string">'?'</span>+params.join(<span class="string">'&amp;'</span>,<span class="literal">true</span>));</div><div class="line">req.setRequestHeader(<span class="string">'X-Requested-With'</span>,<span class="string">'XMLHttpRequest'</span>);</div><div class="line">req.send(<span class="literal">null</span>);</div></pre></td></tr></table></figure></p>
+<p>根据readyState的属性值来判别当前响应的状态；readyState等于4表示接收完并可用于操作；等于3时表示此时正在与服务器交互，响应报文还在传输中。这就是所谓的“流”，它是提高数据请求性能的强大工具。<br>老版本的 IE 也不提供 readyState 3，它不支持流。从请求返回的数据像一个字符串或者一个 XML 对象那样对待，这意味着处理大量数据将相当缓慢。</p>
+<p><strong>使用XHR时，应使用POST还是GET</strong><br>如果 请求不改变服务器状态 只是取回数据（又称作 幂等动作）则使用GET操作。GET请求被缓存起来，如果你多次提取相同的数据可提高性能。</p>
+<p>只有当URL和参数长度超过了2048个字符时才使用POST提取数据。因为IE限制了URL的长度，过长将导致请求（参数）被截断。</p>
+<p><strong>动态脚本标签插入</strong><br>动态脚本标签插入这以技术克服了XHR的最大限制：它可以从不同域的服务器上获取数据。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">"script"</span>);</div><div class="line">script.src = <span class="string">"http://any-domain.com/js/index.js"</span>;</div><div class="line"><span class="built_in">document</span>.getElementsByTagName(<span class="string">"head"</span>)[<span class="number">0</span>].appendChild(script);</div></pre></td></tr></table></figure></p>
+<p>动态脚本标签插入与XHR相比只提供更少的控制。 你不能通过请求发送信息头。 参数只能通过GET方法传递，不能用POST。你必须等待所有数据返回之后才可以访问它们。你不能访问响应信息头或者像访问字符串那样访问整个响应报文。</p>
+<p>因为响应报文 被用作脚本标签的源码，它必须是可执行的JavaScript。你不能使用裸XML，或裸JSON，任何数据，无论什么格式，必选在一个回调函数之中被组装起来。</p>
+<p>其响应结果是运行JavaScript。</p>
+<p>请小心使用这种技术从你不能直接控制的服务器上请求数据。JavaScript 没有权限或访问控制的概念，所以你的页面上任何使用动态脚本标签插入的代码都可以完全控制整个页面。包括修改任何内容、将用户重定向到另一个站点，或跟踪他们在页面上的操作并将数据发送给第三方。使用外部来源的代码时务必非常小心。</p>
+<p><strong>多部分XHR</strong><br>多部分XHR允许你一个HTTP请求就可以从服务器端获取多个资源。它通过将资源（可以是CSS文件，HTML片段，JavaScript代码或base64编码的图片）打包成一个由特定分隔符界定的大字符串，从服务器端发送到客户端。</p>
+<p>让我们从头到尾跟随这个过程。首先，发送一个请求向服务器索取几个图像资源：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> req = <span class="keyword">new</span> XMLHttpRequest(); </div><div class="line">req.open(<span class="string">'GET'</span>,<span class="string">'rollup_images.php'</span>,<span class="literal">true</span>);</div><div class="line">req.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">if</span>(req.readyState == <span class="number">4</span>)&#123;</div><div class="line">		splitImages(req.responseText);</div><div class="line">	&#125;</div><div class="line">&#125;;</div><div class="line">req.send(<span class="literal">null</span>);</div><div class="line"></div><div class="line"><span class="comment">//rollup_images.php</span></div><div class="line">$images = array(<span class="string">'kitten.jpg'</span>, <span class="string">'sunset.jpg'</span>, <span class="string">'baby.jpg'</span>);</div><div class="line">foreach ($images <span class="keyword">as</span> $image) &#123;</div><div class="line">$image_fh = fopen($image, <span class="string">'r'</span>);</div><div class="line">$image_data = fread($image_fh, filesize($image));</div><div class="line">fclose($image_fh);</div><div class="line">$payloads[] = base64_encode($image_data);</div><div class="line">&#125;</div><div class="line">$newline = chr(<span class="number">1</span>); </div><div class="line">echo implode($newline, $payloads);</div><div class="line"></div><div class="line"><span class="comment">//splitImages()</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">splitImages</span>(<span class="params">imageString</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> imageData = imageString.split(<span class="string">"\u0001"</span>);</div><div class="line">    <span class="keyword">var</span> imageElement;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, len = imageData.length; i &lt; len; i++) &#123;</div><div class="line">        imageElement = <span class="built_in">document</span>.createElement(<span class="string">'img'</span>);</div><div class="line">        imageElement.src = <span class="string">'data:image/jpeg;base64,'</span> + imageData[i];</div><div class="line">        <span class="built_in">document</span>.getElementById(<span class="string">'container'</span>).appendChild(imageElement);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上述代码中，图像不是从 base64 转换成二进制，而是使用 data:URL 并指定 image/jpeg 媒体类型。</p>
+<p>下面的函数用于将 JavaScript 代码、CSS 样式表和图片转换为浏览器可用的资源：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">handleImageData</span>(<span class="params">data, mimeType</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> img = <span class="built_in">document</span>.createElement(<span class="string">'img'</span>);</div><div class="line">    img.src = <span class="string">'data:'</span> + mimeType + <span class="string">';base64,'</span> + data;</div><div class="line">    <span class="keyword">return</span> img;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">handleCss</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> style = <span class="built_in">document</span>.createElement(<span class="string">'style'</span>);</div><div class="line">    style.type = <span class="string">'text/css'</span>;</div><div class="line">    <span class="keyword">var</span> node = <span class="built_in">document</span>.createTextNode(data);</div><div class="line">    style.appendChild(node);</div><div class="line">    <span class="built_in">document</span>.getElementsByTagName_r(<span class="string">'head'</span>)[<span class="number">0</span>].appendChild(style);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">handleJavaScript</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">    (data);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>由于MXHR响应报文越来越大，有必要在每个资源收到时立即处理，而不是等待整个响应报文接收完成。<br>通过监听readyState3实现：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> req = <span class="keyword">new</span> XMLHttpRequest();</div><div class="line"><span class="keyword">var</span> getLatestPacketInterval, lastLength = <span class="number">0</span>;</div><div class="line">req.open(<span class="string">'GET'</span>, <span class="string">'rollup_images.php'</span>, <span class="literal">true</span>);</div><div class="line">req.onreadystatechange = readyStateHandler;</div><div class="line">req.send(<span class="literal">null</span>);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">readyStateHandler</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">if</span>(req.readyState === <span class="number">3</span> &amp;&amp;getLatestPacketInterval === <span class="literal">null</span>)&#123;</div><div class="line">        getLatestPacketInterval = <span class="built_in">window</span>.setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            getLatestPacket();</div><div class="line">        &#125;,<span class="number">15</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(req.readyState === <span class="number">4</span>)&#123;</div><div class="line">        clearInterval(getLatestPacketInterval);</div><div class="line">        getLatestPacket();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getLatestPacket</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> length = req.responseText.length;</div><div class="line">    <span class="keyword">var</span> packet = req.responseText.substring(lastLeng,length);</div><div class="line">    processPacket(packet);</div><div class="line">    lastLength = length;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>当 readyState 3 第一次发出时，启动了一个定时器。每隔 15 毫秒检查一次响应报文中的新数据。数据片<br>段被收集起来直到发现一个分隔符，然后一切都作为一个完整的资源处理。</p>
+<p>使用MXHR的最大缺点是：以此方法 获得的资源不能被浏览器缓存。<br>此外，在IE7及其更低版本不支持readyState或data:URL。</p>
+<p>尽管有这些缺点，但某些情况下 MXHR 仍然显著提高了整体页面的性能：<br>网页包含许多其他地方不会用到的资源（所以不需要缓存），尤其是图片；<br>网站为每个页面使用了独一无二的打包的JavaScript或CSS文件以减少HTTP请求，因为它们对每个页面都是独一无二的，所以不需要从缓存中读取，除非重新载入特定页面。</p>
+<p>由于HTTP请求是Ajax中最极端的瓶颈之一，减少其需求数量对整个页面性能有很大影响。</p>
+<p><strong>发送数据</strong><br>当数据只需发送服务器时，有两种广泛应用的技术：XHR和灯标。</p>
+<p>XMLHttpRequest<br>XHR主要用于从服务器获取数据， 它也可以用来将数据发回。 数据可以用 GET 或 POST 方式发回，<br>以及任意数量的 HTTP 信息头。当你向服务器发回的数据量超过浏览器的最大URL长度时XHR特别有用。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> url = <span class="string">'/data.php'</span>;</div><div class="line"><span class="keyword">var</span> params = [</div><div class="line">    <span class="string">'id=934875'</span>,</div><div class="line">    <span class="string">'limit=20'</span></div><div class="line">];</div><div class="line"><span class="keyword">var</span> req = <span class="keyword">new</span> XMLHttpRequest();</div><div class="line">req.onerror = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        xhrPost(url, params, callback);</div><div class="line">    &#125;, <span class="number">1000</span>);</div><div class="line">&#125;;</div><div class="line">req.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (req.readyState == <span class="number">4</span>) &#123;</div><div class="line">        <span class="keyword">if</span> (callback &amp;&amp; <span class="keyword">typeof</span> callback === <span class="string">'function'</span>) &#123;</div><div class="line">            callback();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line">req.open(<span class="string">'POST'</span>, url, <span class="literal">true</span>);</div><div class="line">req.setRequestHeader(<span class="string">'Content-Type'</span>, <span class="string">'application/x-www-form-urlencoded'</span>);</div><div class="line">req.setRequestHeader(<span class="string">'Content-Length'</span>, params.length);</div><div class="line">req.send(params.join(<span class="string">'&amp;'</span>));</div></pre></td></tr></table></figure></p>
+<p>当使用 XHR 将数据发回服务器时，它比使用 GET 要快。这是因为对少量数据而言，向服务器发送一个<br>GET 请求要占用一个单独的数据包。另一方面，一个 POST 至少发送两个数据包，一个用于信息头。另一<br>个用于 POST 体。</p>
+<p><strong>灯标</strong><br>此技术与动态脚本标签插入非常相似。JavaScript用于创建一个新的Image对象，将src设置为服务器上一个脚本文件的URL.此URL包含我们打算通过GET格式传回的键值对数据。注意，并没有创建img元素或者将它们插入到DOM中。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> url = <span class="string">'/status_tracker.php'</span>;</div><div class="line"><span class="keyword">var</span> params = [<span class="string">'step=2'</span>,<span class="string">'time=124802'</span>];</div><div class="line">(<span class="keyword">new</span> Image()).src=url+<span class="string">'?'</span>+params.join(<span class="string">'&amp;'</span>);</div></pre></td></tr></table></figure></p>
+<p>这是将信息返回服务器最有效的方法。可以通过监听Image对象的load事件，它可以告知服务器是否成功接收了数据。<br>还可以检查服务器返回图片的宽度和高度（如果返回了一张图片），并用这些数字通知你服务器的状态。例如，宽度为1表示“成功”，2表示“重试”。</p>
+<p>如果你不需要为此响应返回数据，那么你应当发送一个 204 No Content 响应代码，无消息正文。它将阻止客户端继续等待永远不会到来的消息体。</p>
+<p>灯标是向服务器回送数据最快和最有效的方法。唯一的缺点是接收到的响应类型是受限的。<br>如果需要向客户端发送大量数据，那么使用XHR。如果只关心将数据发送到服务器端，那么使用图像灯标。</p>
+<p><strong>数据格式</strong><br>在考虑数据格式时，唯一需要比较的尺度的就是速度。</p>
+<p><strong>XML</strong><br>当Ajax开始流行时，它选择了XML数据格式。很多事情是围绕着它做的：极端的互通性（服务器端和客户端都能够良好保持），格式严格，易于验证。</p>
+<p>与其他格式相比，XML极其冗长。每个离散的数据片断需要大量结构，所以有效数据的比例非常低。此外，解析XML也比较繁琐。<br>一个更有效的方式是将每个值都存储为&lt;user&gt;标签的属性。数据相同而文件尺寸却更小。</p>
+<p><strong>JSON</strong><br>JSON是一个轻量级并易于解析的数据格式，它按照JavaScript对象和数组字面语法所编写。<br>在解析JSON数据的过程中，需要保持数据的顺序。</p>
+<p>使用()可以将字符串转换为JavaScript代码。<br>数组形式的json数据文件尺寸最小，下载最快，平均解析时间最短。</p>
+<p><strong>JSON-P</strong><br>当使用XHR时JSON数据作为一个字符串返回，该字符串使用()转换为一个本地对象。然而，当使用动态脚本标签插入时，<br>JSON数据被视为另一个JavaScript文件并作为本地代码执行。为做到这一点，数据必须被包装在回调函数之中。这就是<br>“JSON填充”或JSON-P。</p>
+<p>JSON-P 因为回调包装的原因略微增加了文件尺寸，但与其解析性能的改进相比这点增加微不足道。由于数据作为本地 JavaScript 处理，它的解析速度像本地 JavaScript 一样快。</p>
+<p>最快的JSON格式是：使用数组的JSON-P格式。</p>
+<p>还有一个与性能无关的原因要避免使用 JSON-P：因为 JSON-P 必须是可执行的 JavaScript，它使用动态脚本标签注入技术可在任何网站中被任何人调用。从另一个角度说，JSON 在运行之前并不是有效的。<br>JavaScript，使用 XHR 时只是被当作字符串获取。不要将任何敏感的数据编码为 JSON-P，因为你无法确定它是否包含私密信息，或者包含随机的 URL 或 cookie。</p>
+<p><strong>HTML</strong><br>JavaScript能够比较快地将一个大数据结构转化为简单的HTML，但是服务器完成同样工作更快。<br>一种技术考虑是在服务器端构建整个 HTML 然后传递给客户端，JavaScript 只是简单地下载它然后放入 innerHTML。<br>此技术的问题在于，HTML是一种详细的数据格式，比XML更加冗长。因此，只有当客户端 CPU 比带宽更受限时才使用此技术。</p>
+<p>字符串操作是JavaScript最慢的操作之一。</p>
+<p><strong>自定义格式</strong><br>最理想的数据格式只包含必要的结构，使你能够分解出每个字段。可以自定义一种格式只是简单地用一个分隔符将数据连接起来。然后调用字符串的split()方法将分隔符作为参数传入，即可分解数据。</p>
+<p>split()是最快的字符串操作之一。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">parseCustomFormat</span>(<span class="params">responseText</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> users = [];</div><div class="line">    <span class="keyword">var</span> usersEncoded = responseText.split(<span class="string">';'</span>);</div><div class="line">    <span class="keyword">var</span> userArray;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, len = usersEncoded.length; i &lt; len; i++) &#123;</div><div class="line">        userArray = usersEncoded[i].split(<span class="string">':'</span>);</div><div class="line">        users[i] = &#123;</div><div class="line">            <span class="attr">id</span>: userArray[<span class="number">0</span>],</div><div class="line">            <span class="attr">username</span>: userArray[<span class="number">1</span>],</div><div class="line">            <span class="attr">realname</span>: userArray[<span class="number">2</span>],</div><div class="line">            <span class="attr">email</span>: userArray[<span class="number">3</span>]</div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> users;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>对于非常大的数据集，它是最快的传输格式，甚至可以在解析速度和下载时间上击败本机执行的JSON。用此格式向客户端传送大量数据只用很少的时间。</p>
+<p><strong>数据格式总结</strong><br>最好的格式是JSON和字符分隔的自定义格式。<br>JSON-P数据，用动态脚本标签插入法获取。它将数据视为可运行的JavaScript代码而不是字符串，解析速度极快，并且可实现跨域。<br>字符分隔的自定义格式，使用XHR或动态脚本标签插入技术提取，使用split()解析。</p>
+<p><strong>Ajax性能向导</strong><br><strong>缓存数据</strong><br>最快的Ajax就是你不要用它。有两种主要方法避免发出一个不必要的请求：<br>在服务器端，设置HTTP头，确保返回报文将被缓存在浏览器中；<br>在客户端，于本地缓存已获取的数据，不要多次请求同一个数据；</p>
+<p><strong>设置HTTP头</strong><br>如果希望Ajax响应报文能够被浏览器所缓存，你必须在发起请求时使用GET方法，并且必须在响应报文中发送正确的HTTP头。Expires头告诉浏览器应当缓存响应报文多长时间。</p>
+<p>什么是Expires头？<br>Expires存储的是一个用来控制缓存失效的日期。当浏览器看到响应中有一个Expires头时，它会和相应的组件一起保存到其缓存中，只要组件没有过期，浏览器就会使用缓存版本而不会进行任何的HTTP请求。Expires设置的日期格式必须为GMT（格林尼治标准时间）。</p>
+<p>Expires 头示例如下：<br>Expires: Mon, 28 Jul 2014 23:30:00 GMT</p>
+<p>一个 Expires 头是确保浏览器缓存 Ajax 响应报文最简单的方法。</p>
+<p><strong>本地存储数据</strong><br>除了依赖浏览器处理缓存之外，还可以使用本地存储数据的方法，将从服务器接收到的响应报文存储。<br>将响应报文存放在一个对象中，以URL为键值索引。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> localCache =&#123;&#125;;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">xhrRequest</span>(<span class="params">url, callback</span>)</span>&#123;</div><div class="line">    <span class="keyword">if</span>(localCache[url])&#123;    <span class="comment">//检查URL此前是否被取用过</span></div><div class="line">        callback.success(localCache[url]);</div><div class="line">        <span class="keyword">return</span> ;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">var</span> req = createXhrObject();</div><div class="line">    req.onerror = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        callback.error();</div><div class="line">    &#125;;</div><div class="line">    req.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">if</span>(req.readyState === <span class="number">4</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(req.responseText === <span class="string">''</span> || req.status == <span class="string">'404'</span>)&#123;</div><div class="line">                callback.error();</div><div class="line">                <span class="keyword">return</span>;</div><div class="line">            &#125;</div><div class="line">            localCache[url] = req.responseText;</div><div class="line">            callback.success(req.responseText);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    req.open(<span class="string">'GET'</span>,url,<span class="literal">true</span>);</div><div class="line">    req.send(<span class="literal">null</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>了解Ajax库的限制</strong><br>所有 JavaScript 库允许你访问一个 Ajax 对象，它屏蔽浏览器之间的差异，给你一个一致的接口。大多数情况下这非常好，因为它使你可以关注你的项目，而不是那些古怪的浏览器上 XHR 的工作细节。<br>然而，为了给你一个统一的接口，这些库必须简化接口，因为不是所有浏览器都实现了每个功能。这使得你不能访问 XMLHttpRequest的完整功能。</p>
+<p><strong>总结</strong><br>高性能Ajax包括：知道你项目的具体需求，选择正确的数据格式和与之相配的传输技术。</p>
+<p>作为数据格式，纯文本和 HTML 是高度限制的，但它们可节省客户端的 CPU 周期。XML 被广泛应用普遍支持，<br>但它非常冗长且解析缓慢。JSON 是轻量级的，解析迅速（作为本地代码而不是字符串），交互性与 XML 相当。<br>字符分隔的自定义格式非常轻量，在大量数据集解析时速度最快，但需要编写额外的程序在服务器端构造格式，<br>并在客户端解析。</p>
+<p>进一步提高Ajax的速度的方法：</p>
+<blockquote>
+<p>减少请求数量，可通过JavaScript和CSS文件打包，或者使用MXHR；<br>缩短页面加载时间，在页面其他内容加载之后，使用Ajax获取少量重要文件；<br>确保代码错误不要直接显示给用户，并在服务器端处理错误。<br>学会何时使用一个健壮的 Ajax 库，何时编写自己的底层 Ajax 代码。</p>
+</blockquote>
+<h2 id="第八章-编程实践"><a href="#第八章-编程实践" class="headerlink" title="第八章 编程实践"></a>第八章 编程实践</h2><p><strong>避免二次解析</strong><br>JavaScript与其他的许多脚本语言一样，允许你在程序中获取一个包含代码的字符串然后运行它。<br>有四种方法可以实现：eval()，Function()构造器，setTimeout()和setInterval()。每个函数运行传入<br>一串JavaScript代码，然后运行它。</p>
+<p>当在JavaScript代码中执行（另一段）JavaScript代码时，需要付出二次解析的代价。<br>此代码先被解析为正常代码，然后在运行过程中，运行字符串中的代码时发生另一次解析。<br>二次解析是非常昂贵的操作，与直接包含相应代码相比将占用更多的时间。</p>
+<p>每次调用eval()/Function()构造器/setTimeout()/setInterval()时要创建一个新的解释/编译实例，使得代码执行速度变慢。</p>
+<p>因此，应尽量避免使用eval()和Function()构造器，在使用setTimeout()和 setInterval()时，建议第一个参数传入一个函数而不是一个字符串。</p>
+<p><strong>使用对象/数组直接量</strong><br>在JavaScript中有多种方法创建对象和数组，但没有什么比创建对象和数组直接量速度更快了。<br>直接量赋值很快，并且在代码中占用较少空间，所以整个文件尺寸可以更小。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//对象直接量</span></div><div class="line"><span class="keyword">var</span> myObject = &#123;</div><div class="line">    <span class="attr">name</span> : <span class="string">"Peter"</span>,</div><div class="line">    <span class="attr">count</span> : <span class="number">50</span>,</div><div class="line">    <span class="attr">flag</span> : <span class="literal">true</span>,</div><div class="line">    <span class="attr">pointer</span> : <span class="literal">null</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">//数组直接量</span></div><div class="line"><span class="keyword">var</span> myArray = [<span class="string">"Peter"</span>,<span class="number">50</span>,<span class="literal">true</span>,<span class="literal">null</span>];</div></pre></td></tr></table></figure></p>
+<p><strong>不要重复工作</strong><br>在计算机科学领域最重要的性能优化技术之一是避免工作。<br>避免工作的概念实际上意味着两件事：不要做不必要的工作；不要做重复做已经完成的工作。</p>
+<p>最常见的重复工作类型是浏览器检测。<br>有多种办法可以避免重复工作：<br><strong>延迟加载（lazy loading）</strong><br>延迟加载意味着在信息被使用之前不做任何工作。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">addHandler</span>(<span class="params">target, eventType, handler</span>)</span>&#123;</div><div class="line">    <span class="keyword">if</span>(target.addEventListener)&#123;</div><div class="line">        <span class="comment">//重写addHandler()函数</span></div><div class="line">        addHandler = <span class="function"><span class="keyword">function</span>(<span class="params">target,eventType,handler</span>)</span>&#123;</div><div class="line">            target.addEventListener(eventType,handler,<span class="literal">false</span>);</div><div class="line">        &#125;;</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        <span class="comment">//重写addHandler()函数</span></div><div class="line">        addHandler =  <span class="function"><span class="keyword">function</span>(<span class="params">target,eventType,handler</span>)</span>&#123;</div><div class="line">            target.attachEvent(<span class="string">"on"</span>+eventType,handler);</div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//调用函数</span></div><div class="line">    addHandler(target,eventType,handler);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeHandler</span>(<span class="params">target, eventType, handler</span>)</span>&#123;</div><div class="line">    <span class="keyword">if</span> (target.removeEventListener)&#123; </div><div class="line">        removeHandler = <span class="function"><span class="keyword">function</span>(<span class="params">target, eventType, handler</span>)</span>&#123;</div><div class="line">            target.addEventListener(eventType, handler, <span class="literal">false</span>);</div><div class="line">        &#125;;</div><div class="line">    &#125; <span class="keyword">else</span> &#123; </div><div class="line">        removeHandler = <span class="function"><span class="keyword">function</span>(<span class="params">target, eventType, handler</span>)</span>&#123;</div><div class="line">            target.detachEvent(<span class="string">"on"</span> + eventType, handler);</div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line">    removeHandler(target, eventType, handler);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上述两个方法第一次被调用时，检查一次并决定使用哪种方法附加或分离事件句柄。然后原始函数就被包含适当操作的<br>新函数覆盖了。</p>
+<p><em>延迟加载适用于函数不会在页面上立即被用到的场合。</em></p>
+<p><strong>条件预加载</strong><br>条件预加载，在脚本加载之前提前检查，而不等待函数调用。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//使用三元操作符进行判断</span></div><div class="line"><span class="keyword">var</span> addHandler = <span class="built_in">document</span>.body.addEventListener ?</div><div class="line"><span class="function"><span class="keyword">function</span>(<span class="params">target,eventType,handler</span>)</span>&#123;</div><div class="line">    target.addEventListener(eventType,handler,<span class="literal">false</span>);</div><div class="line">&#125; :  </div><div class="line"><span class="function"><span class="keyword">function</span>(<span class="params">target,eventType,handler</span>)</span>&#123;</div><div class="line">    target.attachEvent(<span class="string">"on"</span>+eventType,handler);</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">//使用三元操作符进行判断</span></div><div class="line"><span class="keyword">var</span> removeHandler = <span class="built_in">document</span>.body.removeEventListener ?</div><div class="line"><span class="function"><span class="keyword">function</span>(<span class="params">target, eventType, handler</span>)</span>&#123;</div><div class="line">    target.removeEventListener(eventType, handler, <span class="literal">false</span>);</div><div class="line">&#125; : </div><div class="line"><span class="function"><span class="keyword">function</span>(<span class="params">target, eventType, handler</span>)</span>&#123;</div><div class="line">    target.detachEvent(<span class="string">"on"</span> + eventType, handler);</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>条件预加载确保所有函数调用时间相同。适用于一个函数马上就会被用到，而且在整个页面生命周期中经常使用的场合。</p>
+<p><strong>使用速度快的部分</strong><br>虽然 JavaScript 速度慢很容易被归咎于引擎，然而引擎通常是处理过程中最快的部分，实际上速度慢的是你的代码。</p>
+<p>位操作运算符<br>JavaScript中有四种位逻辑操作符<br>位与：两个操作数的位都是1，结果才是1；<br>位或：有一个操作数的位是1，结果就是1；<br>位异或：两个操作数的位中只有一个1，结果才是1；<br>位非：遇0返回1，反之亦然。</p>
+<p>有许多方法可以使用位运算提高JavaScript的速度。首先可以用位运算替代纯数学操作。<br>例如，通常采用对2取模运算实现表行颜色交替显示。<br>在32 位数字的底层（二进制）表示法，偶数的最低位是 0， 奇数的最低位是 1。 如果此数为偶数， 那么它和 1 进行位与操作的结果就是 0；如果此数为奇数，那么它和 1 进行位与操作的结果就是 1。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>,len = rows.length; i &lt; len; i++)&#123;</div><div class="line">    <span class="keyword">if</span>(i&amp;<span class="number">1</span>)&#123;</div><div class="line">        className=<span class="string">"odd"</span>;</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        className=<span class="string">"even"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>第二种使用位操作的技术称作位掩码。位掩码可以同时判断多个布尔选项，快速地将数字转换为布尔标志数组。<br>掩码中每个选项的值等于2的幂。</p>
+<p><strong>原生方法</strong><br>JavaScript 的原生部分——在你写代码之前它们已经存在于浏览器之中了——都是用低级语言写的，速度非常快。<br>例如JavaScript中的Math对象，处理复杂的数学计算应该优先考虑。</p>
+<p>当原生方法可用时，尽量使用它们，尤其是数学运算和DOM操作。</p>
+<p><strong>总结</strong><br>通过避免使用 eval()和 Function()构造器避免二次解析。此外，给 setTimeout()和 setInterval()传递函数参数而不是字符串参数；<br>创建新对象和数组时使用对象直接量和数组直接量；<br>避免重复进行相同工作。当需要检测浏览器时，使用延迟加载或条件预加载；<br>当执行数学运算时，考虑使用位操作，它直接在数字底层进行操作；<br>原生方法总是比 JavaScript 写的东西要快。尽量使用原生方法。</p>
+<h2 id="第九章-创建并部署高性能JavaScript应用程序"><a href="#第九章-创建并部署高性能JavaScript应用程序" class="headerlink" title="第九章 创建并部署高性能JavaScript应用程序"></a>第九章 创建并部署高性能JavaScript应用程序</h2><p><strong>Apache Ant</strong><br>Apache Ant 是一个自动构建软件的工具。类似于make，在Java中实现，并使用XML来描述生成。<br>Ant具有可移植性。默认的 Ant 开发文件为 XMl 格式的 build.xml。每个开发文件只包含一个项目和至少一个目标体。一个<br>Ant 目标体可依赖于其他目标体。</p>
+<p><strong>合并JavaScript文件</strong><br>第一个也是最重要的提高速度的准则是：减少渲染页面所需的HTTP请求。合并资源文件能够减少HTTP请求。<br>Apache Ant 通过 concat 任务提供合并几个文件的能力</p>
+<p><strong>预处理JavaScript文件</strong><br>预处理器的任务是将输入数据处理成另一种编程语言所使用的数据。<br>没有专门为 JavaScript 设计的预处理器。</p>
+<p><strong>JavaScript紧凑</strong><br>JavaScript 紧凑指的是剔除一个 JavaScript 文件中一切运行无关内容的过程。包括注释和不必要的空格。<br>常用YUI压缩器对JavaScript进行压缩。</p>
+<p>除了剔除注释和不必要的空格，YUI 压缩器还提供以下功能：<br>将局部变量名替换以更短的形式（1 个，2 个，或 3 个字符），以优化后续的 gzip 压缩工作；<br>尽可能将中括号操作符替换为点操作符（例如 foo:[“bar”]变成 foo.bar）；<br>尽可能替换引号直接量属性名（例如{“foo”:”bar”}变成{foo:”bar”}）；<br>替换字符串中的转义引号（例如’aaa\’bbb’变成”aaa’bbb”）；<br>常量折叠（例如”foo”+”bar”变成”foobar”）。</p>
+<p>通过以下步骤，还可以进一步优化，节省空间：</p>
+<blockquote>
+<p>将局部引用存储在对象/值中，用闭包封装代码，使用常量替代重复值，避免 eval（以及相似的 Function 构造器，<br>setTimeout 和 setInterval 使用字符串直接量作为第一个参数），with 关键字，JScript 条件注释，都有助于进一步精缩文件。</p>
+</blockquote>
+<p><strong>开发过程中的编译时和运行时</strong><br>连接，预处理，和紧凑既可以在编译时发生，也可以在运行时发生。</p>
+<p>开发高性能应用程序的一个普遍规则是，只要能够在编译时完成的工作，就不要在运行时去做。</p>
+<p><strong>JavaScript 压缩</strong><br>当网页浏览器请求一个资源时，它通常发送一个Accept-Encoding的HTTP头（以HTTP/1.1开始）让网页服务器知道传输所支持的编码类型。<br>Accept-Encoding 的取值范围是：gzip，compress，deflate和 identity。<br>gzip通常可将有效载荷减少到70%，主要用于文本报文，包括JavaScript文件。</p>
+<p><strong>缓存JavaScript文件</strong><br>使用HTTP组件可缓存将大大提高用户再次访问网站时的用户体验。<br>网页服务器使用 Expires 响应报文 HTTP 头让客户端知道缓存资源的时间。<br>另一种技术是使用HTML5离线应用程序缓存。此技术依赖一个配置文件，列出应当被缓存的资源。此配置文件通过&lt;html&gt;标签的manifest属性。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">manifest</span>=<span class="string">"demo.manifest"</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p><strong>关于缓存的问题</strong><br>充分利用缓存控制可真正提高用户体验，但它有一个缺点：当应用程序更新之后，你希望确保用户得到<br>静态内容的最新版本。这通过对改动的静态资源进行重命名实现。</p>
+<p><strong>使用内容分发网络（cdn）</strong><br>内容分发网络（CDN）是按照地理位置分布的计算机网络，通过以太网负责向最终用户分发内容。<br>使用CDN的主要原因是可靠性，可扩展性，但更主要的是性能。事实上，通过地理位置上最近的位置向用户提供服务，CDN可以极大地减少网络延迟。</p>
+<p><strong>总结</strong><br>开发和部署过程对基于 JavaScript 的应用程序可以产生巨大影响，最重要的几个步骤如下：<br>合并 JavaScript 文件，减少 HTTP 请求的数量；<br>使用 YUI 压缩器紧凑处理 JavaScript 文件；<br>以压缩形式提供 JavaScript 文件（gzip 编码）；<br>通过设置 HTTP 响应报文头使 JavaScript 文件可缓存，通过向文件名附加时间戳解决缓存问题；<br>使用内容传递网络（CDN）提供 JavaScript 文件，CDN 不仅可以提高性能，它还可以为你管理压缩和缓存。</p>
+<h2 id="第十章-工具"><a href="#第十章-工具" class="headerlink" title="第十章 工具"></a>第十章 工具</h2><p>当确定脚本加载和运行时的瓶颈所在时，合手的工具是必不可少的。</p>
+<p><strong>性能分析</strong><br>在脚本运行期定时执行不同函数和操作，找出需要优化的部分。性能分析工具确保优化工作花费在系统中最慢，<br>影响大多数浏览器的地方，而不是去判定那些函数或操作缓慢。</p>
+<p><strong>网络分析</strong><br>检查图片，样式表和脚本的加载过程，汇报它们对整个页面加载和渲染的影响</p>
+<p><strong>YUI分析器</strong><br>YUI 分析器是用 JavaScript 编写的JavaScript 分析器。除了计时功能，它还提供了用于函数、<br>对象、和构造器的性能分析接口，还包括性能分析数据的详细报告。它可以跨浏览器工作，<br>其输出数据可提供更强大的报告和分析。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Y.Profiler.registerFunction(<span class="string">"initUI"</span>);</div></pre></td></tr></table></figure></p>
+<p><strong>Firebug</strong><br>Firebug 提供了一个控制台日志输出， 当前页面的 DOM 树显示， 样式信息， 能够反观 DOM 和 JavaScript<br>对象，以及更多功能。它还包括一个性能和网络分析器，这是本节的重点。Firebug 易于扩展，可添加自定<br>义面板。</p>
+<p><strong>脚本阻塞</strong><br>浏览器每次只能发出一个脚本请求。这样做是为了管理文件之间的以来关系。只要一个文件依赖于<br>另一个在源码中靠后的文件，它所依赖的文件将保证在它运行之前被准备好。脚本之间的差距表明脚<br>本被阻塞了。<br>脚本阻塞将因为一个或多个文件初始化缓慢而变得更加严重，值得对它做某些类型的分析，并有可能优<br>化或重构。脚本加载会减慢或停止页面渲染，造成用户等待。</p>
+<p><strong>总结</strong><br>使用网络分析器找出加载脚本和其它页面资源的瓶颈所在，这有助于决定哪些脚本需要延迟加载，或者进行进一步分析；<br>应尽量减少 HTTP 请求的数量，尽量延迟加载脚本以使页面渲染速度更快，向用户提供更好的整体体验；<br>使用性能分析器找出脚本运行时速度慢的部分，检查每个函数所花费的时间，以及函数被调用的次数，<br>通过调用栈自身提供的一些线索来找出哪些地方应当努力优化。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/weixin.png" alt="Peter Lee WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/zhifubao.png" alt="Peter Lee Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/高性能JavaScript/" rel="tag"># 高性能JavaScript</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/21/笔记/《高性能JavaScript》读书笔记（二）/" rel="next" title="《高性能JavaScript》读书笔记（二）">
+                <i class="fa fa-chevron-left"></i> 《高性能JavaScript》读书笔记（二）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/24/JavaScript设计模式（单例）/" rel="prev" title="JavaScript设计模式（单例）">
+                JavaScript设计模式（单例） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="Peter Lee" />
+          <p class="site-author-name" itemprop="name">Peter Lee</p>
+           
+              <p class="site-description motion-element" itemprop="description">积累JavaScript，HTML 5，CSS3等前端基础知识，探究vue.js，webpack等前端主流技术，了解前端界内最新动态</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/peterlhx" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://stackoverflow.com/users/4940899/peter-lee" target="_blank" title="stack-overflow">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  stack-overflow
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/Peterlhx" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-zhihu"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第七章-Ajax-异步JavaScript和XML"><span class="nav-number">1.</span> <span class="nav-text">第七章 Ajax 异步JavaScript和XML</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第八章-编程实践"><span class="nav-number">2.</span> <span class="nav-text">第八章 编程实践</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第九章-创建并部署高性能JavaScript应用程序"><span class="nav-number">3.</span> <span class="nav-text">第九章 创建并部署高性能JavaScript应用程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十章-工具"><span class="nav-number">4.</span> <span class="nav-text">第十章 工具</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Peter Lee</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("ljcUFcjlR98hxBxhTA3k6lCA-gzGzoHsz", "f2BpBAbcvA7z8NuroKVyJTVp");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
