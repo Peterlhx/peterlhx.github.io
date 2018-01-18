@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[零配置打包工具——Parcel]]></title>
+    <url>%2F2017%2F12%2F27%2F%E6%96%B0%E6%8A%80%E6%9C%AF%2F%E9%9B%B6%E9%85%8D%E7%BD%AE%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94Parcel%2F</url>
+    <content type="text"><![CDATA[前言：Parcel 是零配置、极速的 web 应用打包工具。主要特点包括：快速打包，多核编译并且拥有文件系统缓存；原生支持打包JS、CSS、HTML、文件资源等；内置支持模块热替换 Parcel 是基于资源的，资源可以是任意文件。Parcel 会自动分析这些文件和包中引用的依赖。 Parcel 是一个约定大于配置的打包工具。 官网极速零配置Web应用打包工具——Parcel 安装NPM 1$ npm install -g parcel-bundler Yarn 1$ yarn global add parcel-bundler 运行Parcel可以以任何文件作为入口，但最好使用HTML或JS文件。 开发环境 1$ parcel index.html 生产环境 1$ parcel build index.html 如果使用了 Sass ，需要另外安装 node-sass ，使用 ES6、JSX 等，需要另外安装 babel ，并写好相应的 .babelrc 文件。 代码拆分Parcel 支持零配置代码拆分。通过使用动态 import() 函数来控制。与普通的 import 和 require 类似，但返回 Promise 对象，并且支持 async/await。 1234// page/about.jsexport function render () &#123; // 渲染页面&#125; 1234567import('./page/about').then((page) =&gt; &#123; page.render()&#125;)// 或者使用 async/awaitconst page = await import('./page/about')page.render() 如何运作Parcel 会将资源树转换成文件束（bundle）树。打包流程有三个步骤： 构建资源树，资源会被解析，资源的依赖会被提取，资源会被转换成最终编译好的形态； 构建文件束（bundle）树，资源树被构建好，资源会被放置在文件束树中，一个入口资源会被构建成一个文件束（bundle），动态 import 会构建一个子文件束（bundle），这过程会引起代码拆分。如果资源被多于一个文件束（bundle）引用，它会被提升到文件束树中最近的公共祖先。 打包，文件束树构建成功后，每个文件束都会被 packager 写到一个特定文件类型的文件中，然后 packager 会自动从每个资源中将代码合并，生成到最终被浏览器加载的文件中 与其他打包工具的比对Parcel 与其他打包工具最大的不同就是零配置和速度快。零配置，这使得无论是新手还是老司机都能够很快把项目构建打包，同时在构建过程中速度要明显快于其他打包工具 browserify：22.98s webpack：20.71s parcel：9.98s parcel - with cache：2.64s 基于一个合理大小的应用，包含1726个模块， 6.5M 未压缩大小. 在一台有4个物理核心 CPU 的 2016 MacBook Pro 上构建。（以上数据来源于官网） 其他打包工具基本上是基于 JavaScript 资源，还有附加在其上的其它格式的资源。例如在 JS 文件中内联成字符串。 比如 webpack ，代码转译主要是靠 loader 进行字符串处理。一个 loader 处理完后，再将字符串传给下一个 loader，接着再进行 parse 为AST（抽象语法树），然后再 uglify（混淆代码） 和压缩。 Parcel 是先将代码转译成 AST，然后再进行转换，即便在某些场景下需要多次转译，然后 uglify ，最后也只需要 parse 一次。在这过程中，每一步都能够利用到已经解析过后的 AST，并且 Parcel 拥有多核处理和文件系统缓存，能够大大减少构建打包的速度。 总结总而言之，Parcel 简单易学，零配置和极速打包给开发者带来了更好的开发体验，但还是不够灵活，零配置相对的会增加更多约定，同时现在生态圈不完善。所以，现在 Parcel 应该比较适合于一些小型项目，或者是未应用前端框架的一些项目。当然我们还是要对 Parcel 保持关注，期待越来越好]]></content>
+      <categories>
+        <category>新技术</category>
+      </categories>
+      <tags>
+        <tag>新技术</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[JavaScript Event Loop]]></title>
     <url>%2F2017%2F12%2F22%2FJavaScript%2FJavaScript_Event_Loop%2F</url>
     <content type="text"><![CDATA[单线程的JavaScript JavaScript 是单线程的，主要是因为 JavaScript 的主要用途是与用户交互，以及操作 DOM。如果 JavaScript 是多线程，那么当多个线程同时操作一个 DOM 元素时，那么就无法保证哪个线程优先去操作该 DOM 元素。 也许，有小伙伴会说：“我们可以通过HTML 5的 web worker 来创建 JavaScript 的多个线程啊”。是的，web worker 允许我们创建多个线程来执行 JavaScript，但创建的都是子线程，这些子线程都受到 JavaScript 唯一的主线程控制，而且这些子线程是不能够操作 DOM 元素的. 由于 JavaScript 的单线程机制，JavaScript代码是按照任务执行的，而任务分为同步任务和异步任务 同步任务：在主线程中执行，一个接着一个按顺序执行 异步任务：一开始就进入到一个任务队列中，主线程执行完当前任务后，就会去读取任务队列，某个异步任务可以开始了，该任务则会进入主线程执行 所以，JavaScript 执行的顺序是，先执行主线程上已有的任务，然后再读取“任务队列”，将“任务队列”中的任务加到主线程中继续执行。 任务队列，是一个事件队列，如果事件指定过回调函数，这些事件发生时就进入“任务队列”，等待主线程读取。我们常说的回调函数，也就是被主线程暂时挂起不执行的代码，当事件发生时，主线程才会将这代码加入进来执行。注意，同步任务总是在主线程读取“任务队列”之前执行的 事件循环（Event Loop）主线程读取“任务列表”这一过程是循环不断的，这种运行机制称为事件循环。 定时器任务队列，不仅仅存放了异步任务的事件，还存放了定时事件（setTimeout，setInterval）定时器 setTimeout 和 setInterval 只是把事件放置到任务队列中，必须等待任务队列中的事件执行完毕，主线程才会调用定时器相应的回调函数。 Microtasks 和 Macrotasks任务队列布置一个，还包括了 microtasks（微任务） 和 macrotasks（宏任务） microtasks process.nextTick promise Object.observe MutationObserver macrotasks setTimeout setInterval setImmediate I/O UI渲染 一个事件循环中会有一个或多个任务队列 任务队列就是宏任务（macrotasks） 每个事件循环都有一个microtasks queue task queue == macrotasks queue != microtasks queue 主线程拥有一个执行栈和一个事件循环 因此，JavaScript 运行机制是这样的： 首先，全部代码的script是一个macrotask。第一次事件循环，主线程先执行同步任务（其实也是macrotask），执行过程中会创造新的macrotask，接着继续执行，然后会把一些事件，如promise，放置在microtask中。如果有microtasks则执行microtasks，没有则进入下一次循环。 最后，看以下这道面试题 123456789101112131415161718192021222324252627282930313233343536373839console.log('start')const interval = setInterval(() =&gt; &#123; console.log('setInterval')&#125;, 0)setTimeout(() =&gt; &#123; console.log('setTimeout 1') Promise.resolve() .then(() =&gt; &#123; console.log('promise 3') &#125;) .then(() =&gt; &#123; console.log('promise 4') &#125;) .then(() =&gt; &#123; setTimeout(() =&gt; &#123; console.log('setTimeout 2') Promise.resolve() .then(() =&gt; &#123; console.log('promise 5') &#125;) .then(() =&gt; &#123; console.log('promise 6') &#125;) .then(() =&gt; &#123; clearInterval(interval) &#125;) &#125;, 0) &#125;)&#125;, 0)Promise.resolve() .then(() =&gt; &#123; console.log('promise 1') &#125;) .then(() =&gt; &#123; console.log('promise 2') &#125;) 输出: 1234567891011startpromise1promise2setIntervalsetTimeout1promise3promise4setIntervalsetTimeout2promise5promise6]]></content>
@@ -246,6 +257,9 @@
     <title><![CDATA[Hello World]]></title>
     <url>%2F2017%2F05%2F07%2Fhexo%2Fhello-world%2F</url>
     <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
       <tags>
         <tag>hexo-command</tag>
       </tags>
