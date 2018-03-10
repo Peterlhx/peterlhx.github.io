@@ -48,7 +48,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="JavaScript, Hexo, NexT" />
+  <meta name="keywords" content="JavaScript核心," />
 
 
 
@@ -64,15 +64,17 @@
 
 
 
-<meta name="description" content="积累JavaScript，HTML 5，CSS3等前端基础知识，探究vue.js，webpack等前端主流技术，了解前端界内最新动态">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Mr.JS">
-<meta property="og:url" content="http://peterlhx.github.io/archives/page/2/index.html">
+<meta name="description" content="Babel 官方定义，Babel 是一个 JavaScript 编译器。用于将现在浏览器未兼容的 JavaScript 语法（如：ES6+、JSX、TypeScript等）编译转换为 ES5 语法，使得浏览器能够正常运行代码  Babel 安装及使用安装使用 Babel CLI 工具进行babel编译进入项目目录，安装 babel-cli 以及想要编译转换的类型代码，babel-preset-en">
+<meta name="keywords" content="JavaScript核心">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Babel 安装使用及基本原理">
+<meta property="og:url" content="http://peterlhx.github.io/2018/03/10/JavaScript/Babel安装使用及基本原理/index.html">
 <meta property="og:site_name" content="Mr.JS">
-<meta property="og:description" content="积累JavaScript，HTML 5，CSS3等前端基础知识，探究vue.js，webpack等前端主流技术，了解前端界内最新动态">
+<meta property="og:description" content="Babel 官方定义，Babel 是一个 JavaScript 编译器。用于将现在浏览器未兼容的 JavaScript 语法（如：ES6+、JSX、TypeScript等）编译转换为 ES5 语法，使得浏览器能够正常运行代码  Babel 安装及使用安装使用 Babel CLI 工具进行babel编译进入项目目录，安装 babel-cli 以及想要编译转换的类型代码，babel-preset-en">
+<meta property="og:updated_time" content="2018-03-10T15:45:56.020Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mr.JS">
-<meta name="twitter:description" content="积累JavaScript，HTML 5，CSS3等前端基础知识，探究vue.js，webpack等前端主流技术，了解前端界内最新动态">
+<meta name="twitter:title" content="Babel 安装使用及基本原理">
+<meta name="twitter:description" content="Babel 官方定义，Babel 是一个 JavaScript 编译器。用于将现在浏览器未兼容的 JavaScript 语法（如：ES6+、JSX、TypeScript等）编译转换为 ES5 语法，使得浏览器能够正常运行代码  Babel 安装及使用安装使用 Babel CLI 工具进行babel编译进入项目目录，安装 babel-cli 以及想要编译转换的类型代码，babel-preset-en">
 
 
 
@@ -100,13 +102,13 @@
 
 
 
-  <link rel="canonical" href="http://peterlhx.github.io/archives/page/2/"/>
+  <link rel="canonical" href="http://peterlhx.github.io/2018/03/10/JavaScript/Babel安装使用及基本原理/"/>
 
 
 
 
 
-  <title>归档 | Mr.JS</title>
+  <title>Babel 安装使用及基本原理 | Mr.JS</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -131,7 +133,7 @@
     
   
 
-  <div class="container sidebar-position-left  page-archive  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -269,403 +271,221 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      嗯..! 目前共计 27 篇日志。 继续努力。
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://peterlhx.github.io/2018/03/10/JavaScript/Babel安装使用及基本原理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Peter Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.JS">
     </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Babel 安装使用及基本原理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-10T23:11:30+08:00">
+                2018-03-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/积累/" itemprop="url" rel="index">
+                    <span itemprop="name">积累</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/03/10/JavaScript/Babel安装使用及基本原理/" class="leancloud_visitors" data-flag-title="Babel 安装使用及基本原理">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
 
       
       
-      
 
+      
+        <h2 id="Babel"><a href="#Babel" class="headerlink" title="Babel"></a>Babel</h2><blockquote>
+<p>官方定义，Babel 是一个 JavaScript 编译器。用于将现在浏览器未兼容的 JavaScript 语法（如：ES6+、JSX、TypeScript等）编译转换为 ES5 语法，使得浏览器能够正常运行代码</p>
+</blockquote>
+<h2 id="Babel-安装及使用"><a href="#Babel-安装及使用" class="headerlink" title="Babel 安装及使用"></a>Babel 安装及使用</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>使用 Babel CLI 工具进行babel编译<br>进入项目目录，安装 babel-cli 以及想要编译转换的类型代码，babel-preset-env 是可以转换 ES6+ 的代码<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install --save-dev babel-cli babel-preset-env</div></pre></td></tr></table></figure></p>
+<p>接着，创建并配置 .babelrc 文件<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="string">"presets"</span>: [<span class="string">"env"</span>] <span class="comment">// 设置转码规则</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>根据自己项目需求去设置相应的转码规则，如 ES2015，则 install babel-preset-es2015，并设置 .babelrc 文件中 presets 新增’es2015’</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>在项目目录下，终端执行以下代码<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./node_modules/.bin/babel src <span class="_">-d</span> lib</div></pre></td></tr></table></figure></p>
+<p>或者在 package.json 中，新增 npm script<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">  &#123;</div><div class="line">    <span class="string">"name"</span>: <span class="string">"my-project"</span>,</div><div class="line">    <span class="string">"version"</span>: <span class="string">"1.0.0"</span>,</div><div class="line">+   <span class="string">"scripts"</span>: &#123;</div><div class="line">+     <span class="string">"build"</span>: <span class="string">"babel src -d lib"</span></div><div class="line">+   &#125;,</div><div class="line">    <span class="string">"devDependencies"</span>: &#123;</div><div class="line">      <span class="string">"babel-cli"</span>: <span class="string">"^6.0.0"</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<h3 id="结合-Webpack-安装使用"><a href="#结合-Webpack-安装使用" class="headerlink" title="结合 Webpack 安装使用"></a>结合 Webpack 安装使用</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install --save-dev babel-loader babel-core babel-preset-env</div></pre></td></tr></table></figure>
+<p>接着，配置 webpack.config.js<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>: &#123;</div><div class="line">  <span class="attr">rules</span>: [</div><div class="line">    &#123; <span class="attr">test</span>: <span class="regexp">/\.js$/</span>, <span class="attr">exclude</span>: <span class="regexp">/node_modules/</span>, <span class="attr">loader</span>: <span class="string">"babel-loader"</span> &#125;</div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>然后创建并配置 .babelrc 文件<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="string">"presets"</span>: [<span class="string">"env"</span>] <span class="comment">// 设置转码规则</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h2><p>Babel 是一款 JavaScript 编译器，基本就是将代码以字符串的形式读取，然后进行转换处理，最后返回新的代码字符串<br>主要有以下三个步骤：</p>
+<ul>
+<li>解析，读取代码字符串，然后解析构建抽象语法树</li>
+<li>转换，将构建好的抽象语法树根据设置的转码规则进行相应的转换</li>
+<li>输出，根据转码规则变换后的抽象语法树再重新生成代码字符串输出</li>
+</ul>
+<h3 id="创建抽象语法树"><a href="#创建抽象语法树" class="headerlink" title="创建抽象语法树"></a>创建抽象语法树</h3><p>对代码字符串进行遍历分词，分割出最小的语法单元，如：关键字、标识符、运算符、括号等，将分割出的结果保存在数组中，然后对这个数组中存放的语法单元进行递归遍历，逐渐生成抽象语法树。</p>
+<h3 id="转换代码"><a href="#转换代码" class="headerlink" title="转换代码"></a>转换代码</h3><p>遍历抽象语法树，然后根据转码规则，判断哪一节点需要转换，则进行转换</p>
+<h3 id="重新输出代码字符串"><a href="#重新输出代码字符串" class="headerlink" title="重新输出代码字符串"></a>重新输出代码字符串</h3><p>递归遍历抽象语法树，生成代码字符串</p>
+
+      
+    </div>
+
+    <div>
       
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/weixin.png" alt="Peter Lee WeChat Pay"/>
+          <p>微信打赏</p>
         </div>
       
       
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/zhifubao.png" alt="Peter Lee Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
 
       
+    </div>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
+    <div>
+      
         
-            <a class="post-title-link" href="/2017/06/13/Mac终端环境配置-iTerm2/" itemprop="url">
-              
-                <span itemprop="name">Mac终端环境配置-iTerm2</span>
-              
-            </a>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript核心/" rel="tag"># JavaScript核心</a>
+          
+        </div>
+      
+
+      
         
-      </h2>
+      
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-13T22:21:34+08:00"
-              content="2017-06-13" >
-          06-13
-        </time>
-      </div>
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/07/HTTP/HTTP/" rel="next" title="HTTP">
+                <i class="fa fa-chevron-left"></i> HTTP
+              </a>
+            
+          </div>
 
-    </header>
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
 
-    
-
+    <div class="post-spread">
       
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/05/27/设计模式/JavaScript设计模式（工厂模式）/" itemprop="url">
-              
-                <span itemprop="name">JavaScript设计模式（工厂模式）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-05-27T00:32:11+08:00"
-              content="2017-05-27" >
-          05-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/05/24/设计模式/JavaScript设计模式（单例）/" itemprop="url">
-              
-                <span itemprop="name">JavaScript设计模式（单例）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-05-24T01:01:09+08:00"
-              content="2017-05-24" >
-          05-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/05/22/笔记/《高性能JavaScript》读书笔记（三）/" itemprop="url">
-              
-                <span itemprop="name">《高性能JavaScript》读书笔记（三）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-05-22T22:24:09+08:00"
-              content="2017-05-22" >
-          05-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/05/21/笔记/《高性能JavaScript》读书笔记（二）/" itemprop="url">
-              
-                <span itemprop="name">《高性能JavaScript》读书笔记（二）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-05-21T23:15:18+08:00"
-              content="2017-05-21" >
-          05-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/05/20/笔记/《高性能JavaScript》读书笔记（一）/" itemprop="url">
-              
-                <span itemprop="name">《高性能JavaScript》读书笔记（一）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-05-20T00:35:34+08:00"
-              content="2017-05-20" >
-          05-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/05/18/笔记/红宝书系列读书笔记（九）/" itemprop="url">
-              
-                <span itemprop="name">红宝书系列读书笔记（九）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-05-18T23:00:44+08:00"
-              content="2017-05-18" >
-          05-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/05/17/笔记/红宝书系列读书笔记（八）/" itemprop="url">
-              
-                <span itemprop="name">红宝书系列读书笔记（八）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-05-17T21:49:44+08:00"
-              content="2017-05-17" >
-          05-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/05/16/笔记/红宝书系列读书笔记（七）/" itemprop="url">
-              
-                <span itemprop="name">红宝书系列读书笔记（七）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-05-16T21:58:40+08:00"
-              content="2017-05-16" >
-          05-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/05/15/笔记/红宝书系列读书笔记（六）/" itemprop="url">
-              
-                <span itemprop="name">红宝书系列读书笔记（六）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-05-15T22:22:39+08:00"
-              content="2017-05-15" >
-          05-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-  </section>
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/page/3/">3</a><a class="extend next" rel="next" href="/archives/page/3/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
-
+    </div>
+  </div>
 
 
           </div>
@@ -673,6 +493,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -692,8 +516,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.png"
@@ -784,6 +617,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Babel"><span class="nav-number">1.</span> <span class="nav-text">Babel</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Babel-安装及使用"><span class="nav-number">2.</span> <span class="nav-text">Babel 安装及使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">2.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">2.2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结合-Webpack-安装使用"><span class="nav-number">2.3.</span> <span class="nav-text">结合 Webpack 安装使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本原理"><span class="nav-number">3.</span> <span class="nav-text">基本原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建抽象语法树"><span class="nav-number">3.1.</span> <span class="nav-text">创建抽象语法树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#转换代码"><span class="nav-number">3.2.</span> <span class="nav-text">转换代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重新输出代码字符串"><span class="nav-number">3.3.</span> <span class="nav-text">重新输出代码字符串</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -897,11 +746,9 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
 
 
   
