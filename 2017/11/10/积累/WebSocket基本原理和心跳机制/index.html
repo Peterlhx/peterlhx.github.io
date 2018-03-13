@@ -48,7 +48,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="JavaScript, Hexo, NexT" />
+  <meta name="keywords" content="项目总结," />
 
 
 
@@ -64,16 +64,17 @@
 
 
 
-<meta name="description" content="李鸿贤职业经历：  随手记：大数据平台，前端开发云之家：融合通讯部，前端开发  擅长技能：  原生js、HTML5、CSS3以及chrome下的调试查错  常用技术栈：   Vue + Vue-Router + Vuex + Webpack2 + ES6 Electron + Vue + Vuex + gulp + Webpack jQuery + HTML5/CSS3 + gulp HTML5">
-<meta property="og:type" content="website">
-<meta property="og:title" content="个人简介">
-<meta property="og:url" content="http://peterlhx.github.io/about/index.html">
+<meta name="description" content="WebSocket 基本概念WebSocket 是HTML5下一种新的计算机网络应用层的协议，是基于HTTP协议的，实现了客户端与服务端的全双工通信，客户端可以主动向服务端发起请求，服务端也可以主动向客户端推送数据。并且只需要第一次由客户端发起请求连接，连接成功后，客户端与服务端保持长久的连接，后续数据都以帧序列的形式传输。   单工通信，只支持数据传输在一个方向传输 半双工通信，允许数据在两个方">
+<meta name="keywords" content="项目总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WebSocket基本原理和心跳机制">
+<meta property="og:url" content="http://peterlhx.github.io/2017/11/10/积累/WebSocket基本原理和心跳机制/index.html">
 <meta property="og:site_name" content="Mr.JS">
-<meta property="og:description" content="李鸿贤职业经历：  随手记：大数据平台，前端开发云之家：融合通讯部，前端开发  擅长技能：  原生js、HTML5、CSS3以及chrome下的调试查错  常用技术栈：   Vue + Vue-Router + Vuex + Webpack2 + ES6 Electron + Vue + Vuex + gulp + Webpack jQuery + HTML5/CSS3 + gulp HTML5">
-<meta property="og:updated_time" content="2017-12-12T16:32:33.035Z">
+<meta property="og:description" content="WebSocket 基本概念WebSocket 是HTML5下一种新的计算机网络应用层的协议，是基于HTTP协议的，实现了客户端与服务端的全双工通信，客户端可以主动向服务端发起请求，服务端也可以主动向客户端推送数据。并且只需要第一次由客户端发起请求连接，连接成功后，客户端与服务端保持长久的连接，后续数据都以帧序列的形式传输。   单工通信，只支持数据传输在一个方向传输 半双工通信，允许数据在两个方">
+<meta property="og:updated_time" content="2018-03-13T17:09:41.716Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="个人简介">
-<meta name="twitter:description" content="李鸿贤职业经历：  随手记：大数据平台，前端开发云之家：融合通讯部，前端开发  擅长技能：  原生js、HTML5、CSS3以及chrome下的调试查错  常用技术栈：   Vue + Vue-Router + Vuex + Webpack2 + ES6 Electron + Vue + Vuex + gulp + Webpack jQuery + HTML5/CSS3 + gulp HTML5">
+<meta name="twitter:title" content="WebSocket基本原理和心跳机制">
+<meta name="twitter:description" content="WebSocket 基本概念WebSocket 是HTML5下一种新的计算机网络应用层的协议，是基于HTTP协议的，实现了客户端与服务端的全双工通信，客户端可以主动向服务端发起请求，服务端也可以主动向客户端推送数据。并且只需要第一次由客户端发起请求连接，连接成功后，客户端与服务端保持长久的连接，后续数据都以帧序列的形式传输。   单工通信，只支持数据传输在一个方向传输 半双工通信，允许数据在两个方">
 
 
 
@@ -101,13 +102,13 @@
 
 
 
-  <link rel="canonical" href="http://peterlhx.github.io/about/"/>
+  <link rel="canonical" href="http://peterlhx.github.io/2017/11/10/积累/WebSocket基本原理和心跳机制/"/>
 
 
 
 
 
-  <title>个人简介 | Mr.JS</title>
+  <title>WebSocket基本原理和心跳机制 | Mr.JS</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -132,7 +133,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -271,41 +272,232 @@
             
 
   <div id="posts" class="posts-expand">
-  <header class="post-header">
+    
 
-	<h1 class="post-title" itemprop="name headline">个人简介</h1>
+  
 
+  
+  
+  
 
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://peterlhx.github.io/2017/11/10/积累/WebSocket基本原理和心跳机制/">
 
-</header>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Peter Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.JS">
+    </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">WebSocket基本原理和心跳机制</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-10T22:07:53+08:00">
+                2017-11-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/积累/" itemprop="url" rel="index">
+                    <span itemprop="name">积累</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/11/10/积累/WebSocket基本原理和心跳机制/" class="leancloud_visitors" data-flag-title="WebSocket基本原理和心跳机制">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
     
-      <h2 id="李鸿贤"><a href="#李鸿贤" class="headerlink" title="李鸿贤"></a><strong>李鸿贤</strong></h2><p>职业经历：</p>
-<blockquote>
-<p>随手记：大数据平台，前端开发<br>云之家：融合通讯部，前端开发</p>
-</blockquote>
-<p>擅长技能：</p>
-<blockquote>
-<p>原生js、HTML5、CSS3以及chrome下的调试查错</p>
-</blockquote>
-<p>常用技术栈：</p>
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="WebSocket-基本概念"><a href="#WebSocket-基本概念" class="headerlink" title="WebSocket 基本概念"></a>WebSocket 基本概念</h2><p>WebSocket 是HTML5下一种新的计算机网络应用层的协议，是基于HTTP协议的，实现了客户端与服务端的全双工通信，客户端可以主动向服务端发起请求，服务端也可以主动向客户端推送数据。并且只需要第一次由客户端发起请求连接，连接成功后，客户端与服务端保持长久的连接，后续数据都以帧序列的形式传输。</p>
 <blockquote>
 <ul>
-<li>Vue + Vue-Router + Vuex + Webpack2 + ES6</li>
-<li>Electron + Vue + Vuex + gulp + Webpack</li>
-<li>jQuery + HTML5/CSS3 + gulp</li>
-<li>HTML5 + weui + vipspa + requireJS</li>
+<li>单工通信，只支持数据传输在一个方向传输</li>
+<li>半双工通信，允许数据在两个方向上传输，但同一时间只允许一个方向上的数据通信</li>
+<li>全双工通信，允许数据在两个方向上同时传输</li>
 </ul>
-<hr>
 </blockquote>
-<p>其他：</p>
+<h3 id="建立-WebSocket-连接"><a href="#建立-WebSocket-连接" class="headerlink" title="建立 WebSocket 连接"></a>建立 WebSocket 连接</h3><p>客户端创建 WebSocket 对象（new WebSocket()），发起请求（ws://www.example.com/），与服务端进行 tcp 三次握手建立连接。<br>请求报文：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">GET /webfin/websocket/ HTTP/<span class="number">1.1</span></div><div class="line">Host: localhost</div><div class="line">Upgrade: websocket</div><div class="line">Connection: Upgrade</div><div class="line">Sec-WebSocket-Key: xqBt3ImNzJbYqRINxEFlkg==</div><div class="line">Origin: http:<span class="comment">//localhost:8080</span></div><div class="line">Sec-WebSocket-Version: <span class="number">13</span></div></pre></td></tr></table></figure></p>
+<p><strong>Upgrade: websocket</strong> 和 <strong>Connection: Upgrade</strong> 两个字段告知服务端，此次发起的是 Websocket 协议的请求。<strong>Sec-WebSocket-Key</strong> 则是客户端随机生成的，用于于服务端进行通信认证。<br>响应报文：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">HTTP/<span class="number">1.1</span> <span class="number">101</span> Switching Protocols</div><div class="line">Upgrade: websocket</div><div class="line">Connection: Upgrade</div><div class="line">Sec-WebSocket-Accept: K7DJLdLooIwIG/MOpvWFB3y3FE8=</div></pre></td></tr></table></figure></p>
+<p><strong>Sec-WebSocket-Accept</strong> 的值是服务端通过与客户端相同的密钥计算得到的<br>与服务端建立连接后，则没有 HTTP 啥事了，后续将直接由 WebSocket 协议负责客户端与服务端之间的通信。</p>
+<h3 id="WebSocket-基本属性和方法"><a href="#WebSocket-基本属性和方法" class="headerlink" title="WebSocket 基本属性和方法"></a>WebSocket 基本属性和方法</h3><p>构造函数 WebSocket()，客户端通过 new WebSocket()，传入 url 创建 WebSocket 实例。通过 onopen() 方法用于指定连接成功后的回调函数，onclose() 方法用于指定连接关闭后的回调函数，onmessage() 方法用于指定收到服务端数据后的回调函数，onerror() 方法用于指定连接失败后的回调函数</p>
+<p>客户端实现<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> ws = <span class="keyword">new</span> WebSocket(<span class="string">'ws://localhost:8080/'</span>)</div><div class="line"></div><div class="line">ws.onopen = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  ws.send(<span class="string">'Hello world'</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line">ws.onclose = <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(event.code)</div><div class="line">  <span class="comment">// or reconnect...</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">ws.onmessage = <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</div><div class="line">  <span class="keyword">let</span> data = event.data</div><div class="line">  <span class="comment">// handle data</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">ws.onerror = <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</div><div class="line">  <span class="comment">// handle error event or reconnect</span></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>服务端实现<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> WebSocketServer = <span class="built_in">require</span>(<span class="string">'ws'</span>).Server,</div><div class="line">wss = <span class="keyword">new</span> WebSocketServer(&#123; <span class="attr">port</span>: <span class="number">8080</span> &#125;);</div><div class="line">wss.on(<span class="string">'connection'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">ws</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'client connected'</span>);</div><div class="line">    ws.on(<span class="string">'message'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">message</span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(message);</div><div class="line">    &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h2 id="WebSocket-重连机制"><a href="#WebSocket-重连机制" class="headerlink" title="WebSocket 重连机制"></a>WebSocket 重连机制</h2><p>基本思路就是，在 WebSocket 连接关闭或者连接异常时，重新发起连接就可以了<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">ws.onclose = <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</div><div class="line">  reconnect()</div><div class="line">&#125;</div><div class="line"></div><div class="line">ws.onerror = <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</div><div class="line">  reconnect()</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>但是在使用 WebSocket 过程中，可能会出现网络断开的情况，比如信号不好，或者网络临时性关闭，这时候 WebSocket 的连接已经断开，而浏览器不会执行 WebSocket 的 onclose 方法，我们无法知道是否断开连接，也就无法进行重连操作。<br>这时候需要另一种重连机制—— WebSocket 心跳重连机制<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> timeout = <span class="number">10000</span> <span class="comment">// 与服务端断开后需要重连的时间</span></div><div class="line"><span class="keyword">let</span> timer = <span class="literal">null</span></div><div class="line"></div><div class="line"><span class="keyword">let</span> heartConnect = &#123;</div><div class="line">  reset () &#123;</div><div class="line">    clearTimeout(timer)</div><div class="line">    <span class="keyword">this</span>.start()</div><div class="line">  &#125;,</div><div class="line">  start () &#123;</div><div class="line">    timer = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">      ws.send(<span class="string">'Heart beat'</span>)</div><div class="line">    &#125;, timeout)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> ws = <span class="keyword">new</span> WebSocket(<span class="string">'ws://localhost:8080/'</span>)</div><div class="line"></div><div class="line">ws.onopen = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">   heartConnect.start()</div><div class="line">&#125;;</div><div class="line">ws.onmessage = <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</div><div class="line">    heartConnect.reset()</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <blockquote>
-<p>熟悉HTTP协议，node.js，Mac重度用户</p>
+<p>心跳的基本思路是：通过定时器，当成功连接上时，开始计时，如果在定时器间隔内，收到服务端推送的消息，则重置定时器。如果超过60s还没收到服务端消息，则执行心跳检测，WebSocket 会向服务端发送消息，发送超时后，客户端会自动触发 onclose 方法，WebSocket 重连也就执行了。</p>
 </blockquote>
-<p>github：<a href="https://github.com/Peterlhx" target="_blank" rel="external">https://github.com/Peterlhx</a><br>知乎：<a href="https://www.zhihu.com/people/Peterlhx/" target="_blank" rel="external">https://www.zhihu.com/people/Peterlhx/</a><br>邮箱：<em>13580730379@163.com</em>&nbsp;&nbsp;&nbsp;<em>lhx84927445@gmail.com</em></p>
+<h2 id="WebSocket-的优劣势"><a href="#WebSocket-的优劣势" class="headerlink" title="WebSocket 的优劣势"></a>WebSocket 的优劣势</h2><blockquote>
+<p>优：只要建立一次连接，就可以连续不断的得到服务器推送的消息，节省带宽和服务器端的压力</p>
+<p>劣：不兼容低版本浏览器</p>
+</blockquote>
+<p>与Ajax 轮询、长轮询(long poll)比较</p>
+<blockquote>
+<p>ajax轮询的原理非常简单，让浏览器隔个几秒就发送一次请求，询问服务器是否有新信息。</p>
+<p>long poll 其实原理跟 ajax轮询 差不多，都是采用轮询的方式，不过采取的是阻塞模型，客户端发起连接后，如果没消息，就一直不返回 Response 给客户端。直到有消息才返回，返回完之后，客户端再次建立连接。</p>
+<p>Ajax轮询需要服务器有很快的处理速度与快速响应。long poll 需要很高的并发，体现在同时容纳请求的能力</p>
+</blockquote>
 
-    
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/weixin.png" alt="Peter Lee WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/zhifubao.png" alt="Peter Lee Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/项目总结/" rel="tag"># 项目总结</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/03/JavaScript/JavaScript匿名函数以及括号运算符/" rel="next" title="JavaScript匿名函数以及括号运算符">
+                <i class="fa fa-chevron-left"></i> JavaScript匿名函数以及括号运算符
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/10/积累/文件断点续传（上传）以及秒传/" rel="prev" title="文件断点续传（上传）以及秒传">
+                文件断点续传（上传）以及秒传 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -337,8 +529,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.png"
@@ -429,6 +630,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#WebSocket-基本概念"><span class="nav-number">1.</span> <span class="nav-text">WebSocket 基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#建立-WebSocket-连接"><span class="nav-number">1.1.</span> <span class="nav-text">建立 WebSocket 连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WebSocket-基本属性和方法"><span class="nav-number">1.2.</span> <span class="nav-text">WebSocket 基本属性和方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WebSocket-重连机制"><span class="nav-number">2.</span> <span class="nav-text">WebSocket 重连机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WebSocket-的优劣势"><span class="nav-number">3.</span> <span class="nav-text">WebSocket 的优劣势</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -542,6 +759,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
 
   
 
