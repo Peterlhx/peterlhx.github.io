@@ -64,17 +64,17 @@
 
 
 
-<meta name="description" content="前言，本书书名有点夸张，任何一门编程语言都无法在短期内学会，必须坚持不懈进行学习，才能够学有所成。但这本书是挺适合入门的，通过这本书能够了解到node.js的一些基本知识，了解node.js能够实现什么场景下的业务。同时推荐另一本node.js入门书籍，名字就叫做《node.js入门》（The Node Beginner Book）。基本入门之后，那么必须要拜读下朴灵大神的著作《node.js深">
+<meta name="description" content="前言，本书书名有点夸张，任何一门编程语言都无法在短期内学会，必须坚持不懈进行学习，才能够学有所成。但这本书是挺适合入门的，通过这本书能够了解到node.js的一些基本知识，了解node.js能够实现什么场景下的业务。同时推荐另一本node.js入门书籍，名字就叫做《node.js入门》（The Node Beginner Book）。基本入门之后，那么必须要拜读下朴灵大神的著作《深入浅出Node">
 <meta name="keywords" content="node.js">
 <meta property="og:type" content="article">
 <meta property="og:title" content="7-days-nodejs读书笔记">
 <meta property="og:url" content="http://peterlhx.github.io/2017/06/13/笔记/7-days-nodejs读书笔记/index.html">
 <meta property="og:site_name" content="Mr.JS">
-<meta property="og:description" content="前言，本书书名有点夸张，任何一门编程语言都无法在短期内学会，必须坚持不懈进行学习，才能够学有所成。但这本书是挺适合入门的，通过这本书能够了解到node.js的一些基本知识，了解node.js能够实现什么场景下的业务。同时推荐另一本node.js入门书籍，名字就叫做《node.js入门》（The Node Beginner Book）。基本入门之后，那么必须要拜读下朴灵大神的著作《node.js深">
-<meta property="og:updated_time" content="2017-06-13T15:55:49.000Z">
+<meta property="og:description" content="前言，本书书名有点夸张，任何一门编程语言都无法在短期内学会，必须坚持不懈进行学习，才能够学有所成。但这本书是挺适合入门的，通过这本书能够了解到node.js的一些基本知识，了解node.js能够实现什么场景下的业务。同时推荐另一本node.js入门书籍，名字就叫做《node.js入门》（The Node Beginner Book）。基本入门之后，那么必须要拜读下朴灵大神的著作《深入浅出Node">
+<meta property="og:updated_time" content="2018-03-15T01:49:44.451Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="7-days-nodejs读书笔记">
-<meta name="twitter:description" content="前言，本书书名有点夸张，任何一门编程语言都无法在短期内学会，必须坚持不懈进行学习，才能够学有所成。但这本书是挺适合入门的，通过这本书能够了解到node.js的一些基本知识，了解node.js能够实现什么场景下的业务。同时推荐另一本node.js入门书籍，名字就叫做《node.js入门》（The Node Beginner Book）。基本入门之后，那么必须要拜读下朴灵大神的著作《node.js深">
+<meta name="twitter:description" content="前言，本书书名有点夸张，任何一门编程语言都无法在短期内学会，必须坚持不懈进行学习，才能够学有所成。但这本书是挺适合入门的，通过这本书能够了解到node.js的一些基本知识，了解node.js能够实现什么场景下的业务。同时推荐另一本node.js入门书籍，名字就叫做《node.js入门》（The Node Beginner Book）。基本入门之后，那么必须要拜读下朴灵大神的著作《深入浅出Node">
 
 
 
@@ -379,7 +379,7 @@
 
       
         <blockquote>
-<p>前言，本书书名有点夸张，任何一门编程语言都无法在短期内学会，必须坚持不懈进行学习，才能够学有所成。但这本书是挺适合入门的，通过这本书能够了解到node.js的一些基本知识，了解node.js能够实现什么场景下的业务。同时推荐另一本node.js入门书籍，名字就叫做《node.js入门》（The Node Beginner Book）。基本入门之后，那么必须要拜读下朴灵大神的著作《node.js深入浅出》，这是进阶学习node.js的必读之书！</p>
+<p>前言，本书书名有点夸张，任何一门编程语言都无法在短期内学会，必须坚持不懈进行学习，才能够学有所成。但这本书是挺适合入门的，通过这本书能够了解到node.js的一些基本知识，了解node.js能够实现什么场景下的业务。同时推荐另一本node.js入门书籍，名字就叫做《node.js入门》（The Node Beginner Book）。基本入门之后，那么必须要拜读下朴灵大神的著作《深入浅出Node.js》，这是进阶学习node.js的必读之书！</p>
 </blockquote>
 <h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2><p>require函数用于在当前模块中加载和使用别的模块，传入一个模块名，返回一个模块导出对象<br>exports对象是当前模块的导出对象，用于导出模块公有方法和属性。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">exports.hello = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Hello World!'</span>);</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
 <p>通过module对象可以访问到当前模块的一些相关信息，但最多的用途是替换当前模块的导出对象。</p>
@@ -449,7 +449,7 @@
 <p>通过create()方法创建子域对象，并通过run()方法进入需要在子域中运行的代码的入口点。</p>
 <p><strong>陷阱</strong><br>无论是通过process对象的uncaughtException事件捕获到全局异常，还是通过子域对象的error事件捕获到了子域异常，在NodeJS官方文档中都强烈建议处理完异常后立即重启程序，而不是让程序继续运行。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><blockquote>
-<p>本书讲得相对浅显易懂，能够让新手快速入门node.js，基本了解node.js，但要想学好，并且更好地应用于实践中，还需要继续学习专研，再次推荐下《node.js深入浅出》！</p>
+<p>本书讲得相对浅显易懂，能够让新手快速入门node.js，基本了解node.js，但要想学好，并且更好地应用于实践中，还需要继续学习专研，再次推荐下《深入浅出Node.js》！</p>
 </blockquote>
 
       
@@ -598,7 +598,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -620,7 +620,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
