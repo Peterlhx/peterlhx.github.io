@@ -1,0 +1,1284 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="node.js," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="前言：简要翻译 RisingStack 上关于 Node.js 的面试题，包括 2015 年和 2017年  2015 年 RisingStack Node.js 面试题 2017 年 RisingStack Node.js 面试题 1. What is an error-first callback? 什么是错误优先回调？在异步编程的回调函数中，第一个参数一般是传递 error 对象，用于检查">
+<meta name="keywords" content="node.js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node-Interview-QA">
+<meta property="og:url" content="http://peterlhx.github.io/2018/01/26/Node/Node-Interview-QA/index.html">
+<meta property="og:site_name" content="Mr.JS">
+<meta property="og:description" content="前言：简要翻译 RisingStack 上关于 Node.js 的面试题，包括 2015 年和 2017年  2015 年 RisingStack Node.js 面试题 2017 年 RisingStack Node.js 面试题 1. What is an error-first callback? 什么是错误优先回调？在异步编程的回调函数中，第一个参数一般是传递 error 对象，用于检查">
+<meta property="og:updated_time" content="2018-03-20T13:14:58.803Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Node-Interview-QA">
+<meta name="twitter:description" content="前言：简要翻译 RisingStack 上关于 Node.js 的面试题，包括 2015 年和 2017年  2015 年 RisingStack Node.js 面试题 2017 年 RisingStack Node.js 面试题 1. What is an error-first callback? 什么是错误优先回调？在异步编程的回调函数中，第一个参数一般是传递 error 对象，用于检查">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://peterlhx.github.io/2018/01/26/Node/Node-Interview-QA/"/>
+
+
+
+
+
+  <title>Node-Interview-QA | Mr.JS</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mr.JS</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://peterlhx.github.io/2018/01/26/Node/Node-Interview-QA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Peter Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.JS">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Node-Interview-QA</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-26T23:00:45+08:00">
+                2018-01-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/积累/" itemprop="url" rel="index">
+                    <span itemprop="name">积累</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/01/26/Node/Node-Interview-QA/" class="leancloud_visitors" data-flag-title="Node-Interview-QA">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>前言：简要翻译 RisingStack 上关于 Node.js 的面试题，包括 2015 年和 2017年</p>
+</blockquote>
+<p><a href="https://blog.risingstack.com/node-js-interview-questions/" target="_blank" rel="external">2015 年 RisingStack Node.js 面试题</a></p>
+<p><a href="https://blog.risingstack.com/node-js-interview-questions-and-answers-2017/" target="_blank" rel="external">2017 年 RisingStack Node.js 面试题</a></p>
+<h3 id="1-What-is-an-error-first-callback-什么是错误优先回调？"><a href="#1-What-is-an-error-first-callback-什么是错误优先回调？" class="headerlink" title="1. What is an error-first callback? 什么是错误优先回调？"></a>1. What is an error-first callback? 什么是错误优先回调？</h3><p>在异步编程的回调函数中，第一个参数一般是传递 error 对象，用于检查程序是否运行正常。正常时，error 对象为 null 。例如 fs.readFile<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">fs.readFile(<span class="string">'./test.js'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">err, data</span>) </span>&#123;</div><div class="line">  <span class="keyword">if</span> (err) &#123;</div><div class="line">      <span class="comment">// something went wrong</span></div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      <span class="comment">// handle the data</span></div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>为什么在回调函数中，第一个参数是 error 对象呢？<br>这是一种约定，是 node 设计的原则，当执行回调时，检测程序是否报错，如果存在，则优先处理错误信息，反之继续执行。</p>
+</blockquote>
+<h3 id="2-How-can-you-avoid-callback-hells-怎样避免回调地狱？"><a href="#2-How-can-you-avoid-callback-hells-怎样避免回调地狱？" class="headerlink" title="2. How can you avoid callback hells?  怎样避免回调地狱？"></a>2. How can you avoid callback hells?  怎样避免回调地狱？</h3><blockquote>
+<ul>
+<li>利用 Promise，ES6 已原生支持 Promise 对象</li>
+<li>ES6 的 Generator</li>
+<li>ES7 提出的 async/await (未标准化)</li>
+<li>使用 koa (底层使用的还是 async/await )<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</div><div class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">    resolve(<span class="string">'result'</span>)</div><div class="line">  &#125;, <span class="number">100</span>)</div><div class="line">&#125;)</div><div class="line">  .then(<span class="built_in">console</span>.log)</div><div class="line">  .catch(<span class="built_in">console</span>.error)</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">handleData</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">let</span> data = <span class="keyword">await</span> getData() <span class="comment">// 异步获取数据的方法</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<h3 id="3-How-can-you-listen-on-port-80-with-Node-如何让-Node-监听-80-端口？"><a href="#3-How-can-you-listen-on-port-80-with-Node-如何让-Node-监听-80-端口？" class="headerlink" title="3. How can you listen on port 80 with Node? 如何让 Node 监听 80 端口？"></a>3. How can you listen on port 80 with Node? 如何让 Node 监听 80 端口？</h3><blockquote>
+<p>Node 程序其实不应该监听 80 端口，需要超级管理员权限，同时这也不是一个好的实践。如果实在是要让程序监听 80 端口，应该使用 Ngnix 一类的反向代理服务器去代理 80 端口<br>HTTP 默认端口是 80，HTTPS默认端口是 443</p>
+</blockquote>
+<h3 id="4-What’s-the-event-loop-什么是事件循环？"><a href="#4-What’s-the-event-loop-什么是事件循环？" class="headerlink" title="4. What’s the event loop? 什么是事件循环？"></a>4. What’s the event loop? 什么是事件循环？</h3><blockquote>
+<p><strong>Node 支持多线程（通过 libuv ），但是只能运行在单线程环境</strong>。<br>每一次 I/O 都会有一个回调函数。<br>当进程启动时，Node 会创建类似 while(true) 循环，每一次循环称为 Tick 。每个 Tick 的过程就是查看任务队列中有没有事件，有则取出事件及相关回调，并执行回调。接着进入下一个 Tick。</p>
+</blockquote>
+<h3 id="5-What-tools-can-be-used-to-assure-consistent-style-哪些工具可以让项目代码风格保持一致？"><a href="#5-What-tools-can-be-used-to-assure-consistent-style-哪些工具可以让项目代码风格保持一致？" class="headerlink" title="5. What tools can be used to assure consistent style? 哪些工具可以让项目代码风格保持一致？"></a>5. What tools can be used to assure consistent style? 哪些工具可以让项目代码风格保持一致？</h3><p>ESLint</p>
+<h3 id="6-What’s-the-difference-between-operational-and-programmer-errors-运行错误与编码错误有什么区别？"><a href="#6-What’s-the-difference-between-operational-and-programmer-errors-运行错误与编码错误有什么区别？" class="headerlink" title="6. What’s the difference between operational and programmer errors? 运行错误与编码错误有什么区别？"></a>6. What’s the difference between operational and programmer errors? 运行错误与编码错误有什么区别？</h3><blockquote>
+<p>运行错误并不算是 bug，可能是由于系统的一些故障导致的；而编码错误是真正的 bug。</p>
+</blockquote>
+<h3 id="7-Why-npm-shrinkwrap-is-useful-为啥-NPM-shrinkwrap很有用？"><a href="#7-Why-npm-shrinkwrap-is-useful-为啥-NPM-shrinkwrap很有用？" class="headerlink" title="7. Why npm shrinkwrap is useful? 为啥 NPM shrinkwrap很有用？"></a>7. Why npm shrinkwrap is useful? 为啥 NPM shrinkwrap很有用？</h3><blockquote>
+<p>当开发 Node 应用时，使用 shrinkwrap 可以锁定依赖包的版本。目前推荐使用 yarn ，默认提供了 lock 功能，只要不执行 yarn upgrade，删除后再重新安装模块的版本不会发生变化。</p>
+</blockquote>
+<h3 id="8-What’s-a-stub-Name-a-use-case-什么是-stub-举个栗子"><a href="#8-What’s-a-stub-Name-a-use-case-什么是-stub-举个栗子" class="headerlink" title="8. What’s a stub? Name a use case. 什么是 stub? 举个栗子"></a>8. What’s a stub? Name a use case. 什么是 stub? 举个栗子</h3><blockquote>
+<p>Stub 是用于模拟组件/模块的行为的函数或程序。Stub 在测试用例期间进行模拟的函数调用，并返回虚构的结果。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</div><div class="line"></div><div class="line"><span class="keyword">var</span> readFileStub = sinon.stub(fs, <span class="string">'readFile'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">path, cb</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> cb(<span class="literal">null</span>, <span class="string">'filecontent'</span>)</div><div class="line">&#125;)</div><div class="line"></div><div class="line">expect(readFileStub).to.be.called</div><div class="line">readFileStub.restore()</div></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="9-What’s-a-test-pyramid-How-can-you-implement-it-when-talking-about-HTTP-APIs-什么是测试金字塔？当涉及到-HTTP-APIs-时，要如何实现它？"><a href="#9-What’s-a-test-pyramid-How-can-you-implement-it-when-talking-about-HTTP-APIs-什么是测试金字塔？当涉及到-HTTP-APIs-时，要如何实现它？" class="headerlink" title="9. What’s a test pyramid? How can you implement it when talking about HTTP APIs? 什么是测试金字塔？当涉及到 HTTP APIs 时，要如何实现它？"></a>9. What’s a test pyramid? How can you implement it when talking about HTTP APIs? 什么是测试金字塔？当涉及到 HTTP APIs 时，要如何实现它？</h3><blockquote>
+<p>测试金字塔，指的是编写测试用例时，底层的单元测试要比上层端到端的单元测试多得多。<br>当涉及到 HTTP APIs 时，总结如下</p>
+<ul>
+<li>很多针对模型的底层单元测试</li>
+<li>当测试模型如何交互时，应减少集成测试</li>
+<li>当测试实际的 HTTP 端时，减少验收测试</li>
+</ul>
+</blockquote>
+<h3 id="10-What’s-your-favourite-HTTP-framework-and-why"><a href="#10-What’s-your-favourite-HTTP-framework-and-why" class="headerlink" title="10. What’s your favourite HTTP framework and why?"></a>10. What’s your favourite HTTP framework and why?</h3><blockquote>
+<p>无标准答案，自由发挥。目前推荐讲述下 koa 的优缺点，以及与 Express 的对比</p>
+</blockquote>
+<h3 id="11-When-are-background-worker-processes-useful-How-can-you-handle-worker-tasks-后台进程什么时候有用？你是如何处理后台任务？"><a href="#11-When-are-background-worker-processes-useful-How-can-you-handle-worker-tasks-后台进程什么时候有用？你是如何处理后台任务？" class="headerlink" title="11. When are background/worker processes useful? How can you handle worker tasks? 后台进程什么时候有用？你是如何处理后台任务？"></a>11. When are background/worker processes useful? How can you handle worker tasks? 后台进程什么时候有用？你是如何处理后台任务？</h3><blockquote>
+<p>当需要在后台进行数据处理时，例如发送电子邮件或处理图像，后台进程很有用。<br>处理耗时的后台任务时，可以通过创建子进程，或者使用一些消息队列，如 RabbitMQ</p>
+</blockquote>
+<h3 id="12-How-can-you-secure-your-HTTP-cookies-against-XSS-attacks-如何防止-HTTP-的cookies-被-XSS攻击？"><a href="#12-How-can-you-secure-your-HTTP-cookies-against-XSS-attacks-如何防止-HTTP-的cookies-被-XSS攻击？" class="headerlink" title="12. How can you secure your HTTP cookies against XSS attacks? 如何防止 HTTP 的cookies 被 XSS攻击？"></a>12. How can you secure your HTTP cookies against XSS attacks? 如何防止 HTTP 的cookies 被 XSS攻击？</h3><blockquote>
+<p>设置 HTTP 头部 set-cookie 的属性 HttpOnly 或者 secure<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Set-Cookie: name=value; secure; HttpOnly</div></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="13-How-can-you-make-sure-your-dependencies-are-safe-如何确保引用的依赖包是安全的？"><a href="#13-How-can-you-make-sure-your-dependencies-are-safe-如何确保引用的依赖包是安全的？" class="headerlink" title="13. How can you make sure your dependencies are safe? 如何确保引用的依赖包是安全的？"></a>13. How can you make sure your dependencies are safe? 如何确保引用的依赖包是安全的？</h3><blockquote>
+<p>自动执行依赖关系的更新或者对引入的依赖进行安全审查</p>
+<ul>
+<li>Trace by RisingStack</li>
+<li>NSP</li>
+<li>GreenKeeper</li>
+<li>Snyk</li>
+</ul>
+</blockquote>
+<h2 id="Node-js-答疑解惑"><a href="#Node-js-答疑解惑" class="headerlink" title="Node.js 答疑解惑"></a>Node.js 答疑解惑</h2><p>错误代码片段<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</div><div class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'error'</span>)</div><div class="line">&#125;).then(<span class="built_in">console</span>.log)</div></pre></td></tr></table></figure></p>
+<p>没有 catch ，无法捕获异常<br>更正如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</div><div class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'error'</span>)</div><div class="line">&#125;).then(<span class="built_in">console</span>.log).catch(<span class="built_in">console</span>.error)</div><div class="line"></div><div class="line"><span class="comment">// 当你不知道哪个 promise 可能会隐藏问题时，使用 unhandledRejection ，可以打印出所有未处理的 Promise reject</span></div><div class="line">process.on(<span class="string">'unhandledRejection'</span>, (err) =&gt; &#123;</div><div class="line">  <span class="built_in">console</span>.log(err)</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>错误代码片段<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">checkApiKey</span> (<span class="params">apiKeyFromDb, apiKeyReceived</span>) </span>&#123;</div><div class="line">  <span class="keyword">if</span> (apiKeyFromDb === apiKeyReceived) &#123;</div><div class="line">    <span class="keyword">return</span> <span class="literal">true</span></div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> <span class="literal">false</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>当你比较安全凭证时，至关重要的一点是不要泄露任何信息，因此你必须确保在固定时间内对其进行比较。如果你不这样做，你的应用程序将容易受到时间攻击。<br>使用 cryptiles 模块：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">checkApiKey</span> (<span class="params">apiKeyFromDb, apiKeyReceived</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> cryptiles.fixedTimeComparison(apiKeyFromDb, apiKeyReceived)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>以下代码输出结果是什么<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Promise</span>.resolve(<span class="number">1</span>)</div><div class="line">  .then(<span class="function">(<span class="params">x</span>) =&gt;</span> x + <span class="number">1</span>)                             <span class="comment">// 得到值 2</span></div><div class="line">  .then(<span class="function">(<span class="params">x</span>) =&gt;</span> &#123; <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'My Error'</span>) &#125;)   </div><div class="line">  .catch(<span class="function"><span class="params">()</span> =&gt;</span> <span class="number">1</span>)                                 <span class="comment">// 错误信息被抛弃，返回一个新的值 1</span></div><div class="line">  .then(<span class="function">(<span class="params">x</span>) =&gt;</span> x + <span class="number">1</span>)                             <span class="comment">// 得到值 2</span></div><div class="line">  .then(<span class="function">(<span class="params">x</span>) =&gt;</span> <span class="built_in">console</span>.log(x))                    <span class="comment">// 打印 2</span></div><div class="line">  .catch(<span class="built_in">console</span>.error)                           <span class="comment">// 没有异常抛出，这一行不执行</span></div><div class="line"></div><div class="line"><span class="comment">// 最后输出 2</span></div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/weixin.png" alt="Peter Lee WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/zhifubao.png" alt="Peter Lee Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/node-js/" rel="tag"># node.js</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/27/新技术/零配置打包工具——Parcel/" rel="next" title="零配置打包工具——Parcel">
+                <i class="fa fa-chevron-left"></i> 零配置打包工具——Parcel
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/04/web安全/web安全/" rel="prev" title="web 安全">
+                web 安全 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="Peter Lee" />
+          <p class="site-author-name" itemprop="name">Peter Lee</p>
+           
+              <p class="site-description motion-element" itemprop="description">积累JavaScript，HTML 5，CSS3等前端基础知识，探究vue.js，webpack等前端主流技术，了解前端界内最新动态</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/peterlhx" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://stackoverflow.com/users/4940899/peter-lee" target="_blank" title="stack-overflow">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  stack-overflow
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/Peterlhx" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-zhihu"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-What-is-an-error-first-callback-什么是错误优先回调？"><span class="nav-number">1.</span> <span class="nav-text">1. What is an error-first callback? 什么是错误优先回调？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-How-can-you-avoid-callback-hells-怎样避免回调地狱？"><span class="nav-number">2.</span> <span class="nav-text">2. How can you avoid callback hells?  怎样避免回调地狱？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-How-can-you-listen-on-port-80-with-Node-如何让-Node-监听-80-端口？"><span class="nav-number">3.</span> <span class="nav-text">3. How can you listen on port 80 with Node? 如何让 Node 监听 80 端口？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-What’s-the-event-loop-什么是事件循环？"><span class="nav-number">4.</span> <span class="nav-text">4. What’s the event loop? 什么是事件循环？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-What-tools-can-be-used-to-assure-consistent-style-哪些工具可以让项目代码风格保持一致？"><span class="nav-number">5.</span> <span class="nav-text">5. What tools can be used to assure consistent style? 哪些工具可以让项目代码风格保持一致？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-What’s-the-difference-between-operational-and-programmer-errors-运行错误与编码错误有什么区别？"><span class="nav-number">6.</span> <span class="nav-text">6. What’s the difference between operational and programmer errors? 运行错误与编码错误有什么区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-Why-npm-shrinkwrap-is-useful-为啥-NPM-shrinkwrap很有用？"><span class="nav-number">7.</span> <span class="nav-text">7. Why npm shrinkwrap is useful? 为啥 NPM shrinkwrap很有用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-What’s-a-stub-Name-a-use-case-什么是-stub-举个栗子"><span class="nav-number">8.</span> <span class="nav-text">8. What’s a stub? Name a use case. 什么是 stub? 举个栗子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-What’s-a-test-pyramid-How-can-you-implement-it-when-talking-about-HTTP-APIs-什么是测试金字塔？当涉及到-HTTP-APIs-时，要如何实现它？"><span class="nav-number">9.</span> <span class="nav-text">9. What’s a test pyramid? How can you implement it when talking about HTTP APIs? 什么是测试金字塔？当涉及到 HTTP APIs 时，要如何实现它？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-What’s-your-favourite-HTTP-framework-and-why"><span class="nav-number">10.</span> <span class="nav-text">10. What’s your favourite HTTP framework and why?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-When-are-background-worker-processes-useful-How-can-you-handle-worker-tasks-后台进程什么时候有用？你是如何处理后台任务？"><span class="nav-number">11.</span> <span class="nav-text">11. When are background/worker processes useful? How can you handle worker tasks? 后台进程什么时候有用？你是如何处理后台任务？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-How-can-you-secure-your-HTTP-cookies-against-XSS-attacks-如何防止-HTTP-的cookies-被-XSS攻击？"><span class="nav-number">12.</span> <span class="nav-text">12. How can you secure your HTTP cookies against XSS attacks? 如何防止 HTTP 的cookies 被 XSS攻击？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-How-can-you-make-sure-your-dependencies-are-safe-如何确保引用的依赖包是安全的？"><span class="nav-number">13.</span> <span class="nav-text">13. How can you make sure your dependencies are safe? 如何确保引用的依赖包是安全的？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Node-js-答疑解惑"><span class="nav-number"></span> <span class="nav-text">Node.js 答疑解惑</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Peter Lee</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("ljcUFcjlR98hxBxhTA3k6lCA-gzGzoHsz", "f2BpBAbcvA7z8NuroKVyJTVp");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
