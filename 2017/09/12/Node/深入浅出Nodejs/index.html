@@ -64,17 +64,17 @@
 
 
 
-<meta name="description" content="模块机制路径分析、文件定位、编译执行 模块分为两类：Node 自身提供的核心模块；用户编写的文件模块（node_modules） 核心模块在 Node 源码的编译过程中，被编译进了二进制执行文件。需要完整的路径分析、文件定位、编译执行 文件模块是在运行时动态加载 Node 对引入过的模块会进行缓存，缓存的是编译执行后的对象 路径分析区分核心模块、文件模块、自定义模块 node 寻址  当前目录下的">
+<meta name="description" content="模块机制路径分析、文件定位、编译执行 模块分为两类：Node 自身提供的核心模块；用户编写的文件模块（node_modules） 核心模块在 Node 源码的编译过程中，被编译进了二进制执行文件。需要完整的路径分析、文件定位、编译执行 文件模块是在运行时动态加载 Node 对引入过的模块会进行缓存，缓存的是编译执行后的对象 CommonJS 模块是同步加载和同步执行，AMD 模块是异步加载和异步执">
 <meta name="keywords" content="node.js">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《深入浅出Node.js》笔记">
 <meta property="og:url" content="http://peterlhx.github.io/2017/09/12/Node/深入浅出Nodejs/index.html">
 <meta property="og:site_name" content="Mr.JS">
-<meta property="og:description" content="模块机制路径分析、文件定位、编译执行 模块分为两类：Node 自身提供的核心模块；用户编写的文件模块（node_modules） 核心模块在 Node 源码的编译过程中，被编译进了二进制执行文件。需要完整的路径分析、文件定位、编译执行 文件模块是在运行时动态加载 Node 对引入过的模块会进行缓存，缓存的是编译执行后的对象 路径分析区分核心模块、文件模块、自定义模块 node 寻址  当前目录下的">
-<meta property="og:updated_time" content="2018-03-20T13:18:09.241Z">
+<meta property="og:description" content="模块机制路径分析、文件定位、编译执行 模块分为两类：Node 自身提供的核心模块；用户编写的文件模块（node_modules） 核心模块在 Node 源码的编译过程中，被编译进了二进制执行文件。需要完整的路径分析、文件定位、编译执行 文件模块是在运行时动态加载 Node 对引入过的模块会进行缓存，缓存的是编译执行后的对象 CommonJS 模块是同步加载和同步执行，AMD 模块是异步加载和异步执">
+<meta property="og:updated_time" content="2018-03-21T08:59:07.766Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《深入浅出Node.js》笔记">
-<meta name="twitter:description" content="模块机制路径分析、文件定位、编译执行 模块分为两类：Node 自身提供的核心模块；用户编写的文件模块（node_modules） 核心模块在 Node 源码的编译过程中，被编译进了二进制执行文件。需要完整的路径分析、文件定位、编译执行 文件模块是在运行时动态加载 Node 对引入过的模块会进行缓存，缓存的是编译执行后的对象 路径分析区分核心模块、文件模块、自定义模块 node 寻址  当前目录下的">
+<meta name="twitter:description" content="模块机制路径分析、文件定位、编译执行 模块分为两类：Node 自身提供的核心模块；用户编写的文件模块（node_modules） 核心模块在 Node 源码的编译过程中，被编译进了二进制执行文件。需要完整的路径分析、文件定位、编译执行 文件模块是在运行时动态加载 Node 对引入过的模块会进行缓存，缓存的是编译执行后的对象 CommonJS 模块是同步加载和同步执行，AMD 模块是异步加载和异步执">
 
 
 
@@ -383,6 +383,7 @@
 <p>核心模块在 Node 源码的编译过程中，被编译进了二进制执行文件。需要完整的路径分析、文件定位、编译执行</p>
 <p>文件模块是在运行时动态加载</p>
 <p>Node 对引入过的模块会进行缓存，缓存的是编译执行后的对象</p>
+<p>CommonJS 模块是同步加载和同步执行，<br>AMD 模块是异步加载和异步执行，<br>CMD（Sea.js）模块是异步加载和同步执行。<br>ES6 的模块体系最后选择的是异步加载和同步执行。</p>
 <h3 id="路径分析"><a href="#路径分析" class="headerlink" title="路径分析"></a>路径分析</h3><p>区分核心模块、文件模块、自定义模块</p>
 <p>node 寻址</p>
 <blockquote>
@@ -556,7 +557,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
