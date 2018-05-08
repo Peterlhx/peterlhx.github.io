@@ -64,17 +64,19 @@
 
 
 
-<meta name="description" content="模块机制路径分析、文件定位、编译执行 模块分为两类：Node 自身提供的核心模块；用户编写的文件模块（node_modules） 核心模块在 Node 源码的编译过程中，被编译进了二进制执行文件。需要完整的路径分析、文件定位、编译执行 文件模块是在运行时动态加载 Node 对引入过的模块会进行缓存，缓存的是编译执行后的对象 CommonJS 模块是同步加载和同步执行，AMD 模块是异步加载和异步执">
+<meta name="description" content="Node 简介Node 是单线程的，基于事件驱动的，是基于事件循环进行执行的，还具有异步 I/O、跨平台等特点 单线程和多线程单线程串行依次执行，单线程的最大好处是不用像多线程编程那样处处在意状态的同步问题，这里没有死锁，也没有线程上下文交换所带来的性能上的开销。 多线程并行完成，多线程的好处是可以有多条线程来处理不同的任务，可以充分利用 CPU，而无须像单线程那样需要等待一个任务完成后，才能继续">
 <meta name="keywords" content="node.js">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《深入浅出Node.js》笔记">
-<meta property="og:url" content="http://peterlhx.github.io/2017/09/12/Node/深入浅出Nodejs/index.html">
+<meta property="og:url" content="http://peterlhx.github.io/2018/03/12/Node/深入浅出Nodejs/index.html">
 <meta property="og:site_name" content="Mr.JS">
-<meta property="og:description" content="模块机制路径分析、文件定位、编译执行 模块分为两类：Node 自身提供的核心模块；用户编写的文件模块（node_modules） 核心模块在 Node 源码的编译过程中，被编译进了二进制执行文件。需要完整的路径分析、文件定位、编译执行 文件模块是在运行时动态加载 Node 对引入过的模块会进行缓存，缓存的是编译执行后的对象 CommonJS 模块是同步加载和同步执行，AMD 模块是异步加载和异步执">
-<meta property="og:updated_time" content="2018-03-21T08:59:07.766Z">
+<meta property="og:description" content="Node 简介Node 是单线程的，基于事件驱动的，是基于事件循环进行执行的，还具有异步 I/O、跨平台等特点 单线程和多线程单线程串行依次执行，单线程的最大好处是不用像多线程编程那样处处在意状态的同步问题，这里没有死锁，也没有线程上下文交换所带来的性能上的开销。 多线程并行完成，多线程的好处是可以有多条线程来处理不同的任务，可以充分利用 CPU，而无须像单线程那样需要等待一个任务完成后，才能继续">
+<meta property="og:image" content="http://peterlhx.github.io/uploads/node_async.png">
+<meta property="og:updated_time" content="2018-05-08T17:51:24.785Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《深入浅出Node.js》笔记">
-<meta name="twitter:description" content="模块机制路径分析、文件定位、编译执行 模块分为两类：Node 自身提供的核心模块；用户编写的文件模块（node_modules） 核心模块在 Node 源码的编译过程中，被编译进了二进制执行文件。需要完整的路径分析、文件定位、编译执行 文件模块是在运行时动态加载 Node 对引入过的模块会进行缓存，缓存的是编译执行后的对象 CommonJS 模块是同步加载和同步执行，AMD 模块是异步加载和异步执">
+<meta name="twitter:description" content="Node 简介Node 是单线程的，基于事件驱动的，是基于事件循环进行执行的，还具有异步 I/O、跨平台等特点 单线程和多线程单线程串行依次执行，单线程的最大好处是不用像多线程编程那样处处在意状态的同步问题，这里没有死锁，也没有线程上下文交换所带来的性能上的开销。 多线程并行完成，多线程的好处是可以有多条线程来处理不同的任务，可以充分利用 CPU，而无须像单线程那样需要等待一个任务完成后，才能继续">
+<meta name="twitter:image" content="http://peterlhx.github.io/uploads/node_async.png">
 
 
 
@@ -102,7 +104,7 @@
 
 
 
-  <link rel="canonical" href="http://peterlhx.github.io/2017/09/12/Node/深入浅出Nodejs/"/>
+  <link rel="canonical" href="http://peterlhx.github.io/2018/03/12/Node/深入浅出Nodejs/"/>
 
 
 
@@ -281,7 +283,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://peterlhx.github.io/2017/09/12/Node/深入浅出Nodejs/">
+    <link itemprop="mainEntityOfPage" href="http://peterlhx.github.io/2018/03/12/Node/深入浅出Nodejs/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Peter Lee">
@@ -310,8 +312,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-12T23:31:45+08:00">
-                2017-09-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-12T23:31:45+08:00">
+                2018-03-12
               </time>
             
 
@@ -350,7 +352,7 @@
 
           
           
-             <span id="/2017/09/12/Node/深入浅出Nodejs/" class="leancloud_visitors" data-flag-title="《深入浅出Node.js》笔记">
+             <span id="/2018/03/12/Node/深入浅出Nodejs/" class="leancloud_visitors" data-flag-title="《深入浅出Node.js》笔记">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -378,21 +380,57 @@
       
 
       
-        <h2 id="模块机制"><a href="#模块机制" class="headerlink" title="模块机制"></a>模块机制</h2><p>路径分析、文件定位、编译执行</p>
-<p>模块分为两类：Node 自身提供的核心模块；用户编写的文件模块（node_modules）</p>
-<p>核心模块在 Node 源码的编译过程中，被编译进了二进制执行文件。需要完整的路径分析、文件定位、编译执行</p>
-<p>文件模块是在运行时动态加载</p>
-<p>Node 对引入过的模块会进行缓存，缓存的是编译执行后的对象</p>
-<p>CommonJS 模块是同步加载和同步执行，<br>AMD 模块是异步加载和异步执行，<br>CMD（Sea.js）模块是异步加载和同步执行。<br>ES6 的模块体系最后选择的是异步加载和同步执行。</p>
-<h3 id="路径分析"><a href="#路径分析" class="headerlink" title="路径分析"></a>路径分析</h3><p>区分核心模块、文件模块、自定义模块</p>
-<p>node 寻址</p>
+        <h2 id="Node-简介"><a href="#Node-简介" class="headerlink" title="Node 简介"></a>Node 简介</h2><p>Node 是单线程的，基于事件驱动的，是基于事件循环进行执行的，还具有异步 I/O、跨平台等特点</p>
+<h3 id="单线程和多线程"><a href="#单线程和多线程" class="headerlink" title="单线程和多线程"></a>单线程和多线程</h3><p>单线程串行依次执行，单线程的最大好处是不用像多线程编程那样处处在意状态的同步问题，这里没有<strong>死锁</strong>，也没有<strong>线程上下文交换</strong>所带来的性能上的开销。</p>
+<p>多线程并行完成，多线程的好处是可以有多条线程来处理不同的任务，可以充分利用 CPU，而无须像单线程那样需要等待一个任务完成后，才能继续下一个任务。</p>
+<h2 id="模块机制"><a href="#模块机制" class="headerlink" title="模块机制"></a>模块机制</h2><p>Node 采用的是 CommonJS 规范，采用同步 require</p>
+<blockquote>
+<p>为啥是同步 require ?</p>
+<p> 因为 Node 遵循 CommonJS 规范。当时模块加载的方案只有 CommonJS 和 AMD，<br>而考虑到 Node 的模块是来自本地文件系统，加载更快，所以选择了 CommonJS</p>
+</blockquote>
+<ul>
+<li>CommonJS 是同步加载，同步执行</li>
+<li>AMD 是异步加载，异步执行（前置依赖）</li>
+<li>CMD 是异步加载，同步执行（就近依赖）</li>
+<li>ES6 模块是异步加载，同步执行</li>
+</ul>
+<p>CommonJS 对模块的定义分为三部分：<strong>模块引用</strong>、<strong>模块定义</strong>、<strong>模块标识</strong></p>
+<p>模块分为两类：</p>
+<p><strong>Node 自身提供的核心模块</strong></p>
+<blockquote>
+<p>核心模块在 Node 源码的编译过程中，被编译进了二进制执行文件。不需要完整文件定位和编译执行</p>
+</blockquote>
+<p><strong>用户编写的文件模块（包括 node_modules）</strong></p>
+<blockquote>
+<p>文件模块是在运行时动态加载，需要完整的路径分析、文件定位、编译执行</p>
+</blockquote>
+<p>Node 对引入过的模块会进行缓存，缓存的是编译执行后的对象，<strong>模块加载会优先从缓存中加载</strong><br>核心模块的缓存检查先与文件模块的缓存检查</p>
+<p>模块加载执行的步骤：<strong>路径分析</strong>、<strong>文件定位</strong>、<strong>编译执行</strong></p>
+<h3 id="路径分析"><a href="#路径分析" class="headerlink" title="路径分析"></a>路径分析</h3><p>根据 require 的路径，区分核心模块、文件模块、自定义模块</p>
+<p><strong>核心模块</strong>的寻址</p>
+<blockquote>
+<p>如果是核心模块，则直接返回该模块（如果不是第一次引入该模块，则会从缓存中引入）</p>
+</blockquote>
+<p><strong>（路径形式）文件模块</strong>的寻址</p>
+<blockquote>
+<p>将 require 中的路径转换为真实路径，并以真实路径为索引，将编译执行后的结果存放到缓存中，以使下次加载时更快</p>
+</blockquote>
+<p><strong>（非路径）自定义模块</strong>的寻址</p>
 <blockquote>
 <p>当前目录下的 node_modules 目录<br>父目录下的 node_modules 目录<br>父目录的父目录下的 node_modules 目录<br>逐级向上查找，一直到根目录下的 node_modules 目录</p>
 </blockquote>
 <h3 id="文件定位步骤"><a href="#文件定位步骤" class="headerlink" title="文件定位步骤"></a>文件定位步骤</h3><ul>
-<li>文件扩展名分析（非 js 文件最好带上文件后缀，能够稍微优化文件定位的效率）</li>
-<li>目录分析和包 （查找当前目录下的 package.json，通过 JSON.parse() 解析出包描述对象，从中取出 main 属性指定的文件名进行定位）</li>
+<li>文件扩展名分析</li>
 </ul>
+<blockquote>
+<p>Node 会按 .js、.json、.node 的次序补足扩展名，依次尝试。在尝试过程中，调用 fs 模块同步阻塞式地判断文件是否存在。非 js 文件最好带上文件后缀，能够稍微优化文件定位的效率。</p>
+</blockquote>
+<ul>
+<li>目录分析和包</li>
+</ul>
+<blockquote>
+<p>查找当前目录下的 package.json，通过 JSON.parse() 解析出包描述对象，从中取出 main 属性指定的文件名进行定位</p>
+</blockquote>
 <h3 id="模块编译"><a href="#模块编译" class="headerlink" title="模块编译"></a>模块编译</h3><p>定位到具体的文件后，Node 会新建一个模块对象，然后根据路径载入并编译。</p>
 <blockquote>
 <p>.js 文件，通过 fs 同步读取并编译<br>.node 文件，通过 dlopen() 方法加载最后编译生成的文件<br>.json 文件，通过 fs 同步读取，用 JSON.parse 解析<br>其余文件会被当做 js 文件处理</p>
@@ -400,6 +438,10 @@
 <p>每个编译成功的模块都会将其文件路径作为索引缓存在 Module._cache 对象上</p>
 <h4 id="JavaScript-模块的编译"><a href="#JavaScript-模块的编译" class="headerlink" title="JavaScript 模块的编译"></a>JavaScript 模块的编译</h4><p>在编译过程中，Node 对获取的 JavaScript 文件内容做了头尾包装。<br>在头部添加了 <strong>(function (exports, require, module, <strong>filename, </strong>dirname) { \n</strong>，<br>在尾部添加了 <strong>\n})</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">exports, require, module, __filename, __dirname</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> math = <span class="built_in">require</span>(<span class="string">'math'</span>)</div><div class="line">  exports.area = <span class="function"><span class="keyword">function</span> (<span class="params">radius</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.PI * radius * radius;</div><div class="line">  &#125;</div><div class="line">&#125;）</div></pre></td></tr></table></figure></p>
 <p>包装后的代码会通过 runInThisContext() 方法执行（类似于eval）</p>
+<p><strong>exports</strong> 和 <strong>module.exports</strong></p>
+<blockquote>
+<p>exports 是 module.exports 的引用。exports 是通过形参传递的，在函数作用域内修改该值，并不会改变作用域之外的值。</p>
+</blockquote>
 <h4 id="C-C-模块的编译"><a href="#C-C-模块的编译" class="headerlink" title="C/C++ 模块的编译"></a>C/C++ 模块的编译</h4><p>Node 调用 process.dlopen() 方法进行加载和执行，不需要编译</p>
 <h4 id="JSON-文件的编译"><a href="#JSON-文件的编译" class="headerlink" title="JSON 文件的编译"></a>JSON 文件的编译</h4><p>Node 调用 fs 同步读取 JSON 文件内容之后，用 JSON.parse 解析得到对象，然后将它赋值给模块对象的 exports</p>
 <h3 id="核心模块"><a href="#核心模块" class="headerlink" title="核心模块"></a>核心模块</h3><p>分为两部分：C/C++编写部分，存放在 Node 项目的 src文件夹；JavaScript 编写部分，存放在 Node 项目，存放在 lib 文件夹</p>
@@ -408,8 +450,43 @@
 <blockquote>
 <p>require(‘os’) =&gt; NativeModule.require(‘os’) =&gt; process.binding(‘os’) =&gt; get_builtin_moduel(‘node_os’) =&gt; NODE_MODULE(node_os, reg_func)</p>
 </blockquote>
-<h2 id="异步-I-O"><a href="#异步-I-O" class="headerlink" title="异步 I/O"></a>异步 I/O</h2><p>多线程的代价在于创建线程和执行期线程上下文切换的开销较大</p>
-<p>未完，待续。。。</p>
+<p>JavaScript 核心模块主要职责</p>
+<blockquote>
+<ul>
+<li>作为 C/C++ 内建模块的封装层和桥接层，供文件模块调用</li>
+<li>纯粹的功能模块</li>
+</ul>
+</blockquote>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Node require 寻址</p>
+<ul>
+<li>分析路径，判断引入的模块时核心模块还是文件模块，</li>
+<li>如果是核心模块，则直接返回该模块（如果不是第一次引入该模块，则会从缓存中引入）</li>
+<li>如果是文件模块（以’./‘、’/‘、’../‘等引入），则首先会根据该模块的父模块，确定该模块的绝对路径，将该模块当做文件处理，依次查找 X，X.js，X.json、X.node，如果找到，则返回该文件，不再继续</li>
+<li>将该模块当做文件夹处理，则依次查找’X/package.json’,’X/index.js’,’X/index.json’,’X/index.node’，只要其中有一个存在，就返回该文件，不再继续执行</li>
+<li>如果该模块不带路径，根据该模块所在的父模块，确定该模块可能的安装目录。<br>依次在每个目录中，将该模块当成文件名或目录名加载。</li>
+</ul>
+<p>require 其实是调用了 Module._load 方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">Module._load = <span class="function"><span class="keyword">function</span>(<span class="params">request, parent, isMain</span>) </span>&#123;</div><div class="line"></div><div class="line">  <span class="comment">//  计算绝对路径</span></div><div class="line">  <span class="keyword">var</span> filename = Module._resolveFilename(request, parent);</div><div class="line"></div><div class="line">  <span class="comment">//  第一步：如果有缓存，取出缓存</span></div><div class="line">  <span class="keyword">var</span> cachedModule = Module._cache[filename];</div><div class="line">  <span class="keyword">if</span> (cachedModule) &#123;</div><div class="line">    <span class="keyword">return</span> cachedModule.exports;</div><div class="line"></div><div class="line">  <span class="comment">// 第二步：是否为内置模块</span></div><div class="line">  <span class="keyword">if</span> (NativeModule.exists(filename)) &#123;</div><div class="line">    <span class="keyword">return</span> NativeModule.require(filename);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">// 第三步：生成模块实例，存入缓存</span></div><div class="line">  <span class="keyword">var</span> <span class="built_in">module</span> = <span class="keyword">new</span> Module(filename, parent);</div><div class="line">  Module._cache[filename] = <span class="built_in">module</span>;</div><div class="line"></div><div class="line">  <span class="comment">// 第四步：加载模块</span></div><div class="line">  <span class="keyword">try</span> &#123;</div><div class="line">    <span class="built_in">module</span>.load(filename);</div><div class="line">    hadException = <span class="literal">false</span>;</div><div class="line">  &#125; <span class="keyword">finally</span> &#123;</div><div class="line">    <span class="keyword">if</span> (hadException) &#123;</div><div class="line">      <span class="keyword">delete</span> Module._cache[filename];</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">// 第五步：输出模块的exports属性</span></div><div class="line">  <span class="keyword">return</span> <span class="built_in">module</span>.exports;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="异步-I-O"><a href="#异步-I-O" class="headerlink" title="异步 I/O"></a>异步 I/O</h2><blockquote>
+<p>多线程的代价在于创建线程和执行期线程上下文切换的开销较大。</p>
+<p>单线程串行同步执行，会因阻塞 I/O 导致其他资源得不到最优的使用</p>
+</blockquote>
+<p>Node 利用单线程，远离多线程死锁、状态同步等问题；利用异步 I/O ，让单线程远离阻塞，以更好利用 CPU。</p>
+<p>Node 的异步 I/O 是 libuv 和线程池（或 IOCP）来实现的</p>
+<h3 id="异步I-O过程"><a href="#异步I-O过程" class="headerlink" title="异步I/O过程"></a>异步I/O过程</h3><p><img src="/uploads/node_async.png" alt=""></p>
+<p>由上图可知：当发起一个异步调用时，会封装一个<strong>请求对象</strong>，JavaScript层传入的参数和当前方法都会被封装在这个请求对象中，回调函数则被设置在这个对象的 oncomplete_sym 属性上，封装完成后，则将该请求对象推入线程池中等待执行。</p>
+<p>当线程池中有可用线程时，则会执行请求对象的 I/O 操作，然后将执行完成的结果放在请求对象中，然后通知 IOCP 调用完成，I/O 观察者获取到调用结果，然后事件循环时会从 I/O观察者中取出可用的请求对象，然后从请求对象中取出回调函数和结果，调用执行。</p>
+<p><strong>请求对象是异步 I/O 过程中的重要中间产物，所有的状态都保存在这个对象中，包括送入线程池等待执行以及 I/O 操作完毕后的回调处理。</strong></p>
+<p>Node 异步 I/O 模型的基本要素是<strong>事件循环</strong>、<strong>观察者</strong>、<strong>请求对象</strong>、<strong>I/O 线程池</strong></p>
+<h3 id="process-nextTick-VS-setImmediate"><a href="#process-nextTick-VS-setImmediate" class="headerlink" title="process.nextTick VS setImmediate"></a>process.nextTick VS setImmediate</h3><p>两者十分类似，都是将回调函数延迟执行，但两者又有所不同：</p>
+<blockquote>
+<p>process.nextTick 优先与 setImmediate。前者属于 idle 观察者，后者属于 check 观察者。在事件循环中，idle 观察者先于 I/O 观察者，I/O 观察者先于 check 观察者</p>
+<p>process.nextTick 的回调函数保存在一个数组中，setImmediate 的结果是保存在链表中。</p>
+<p>process.nextTick 在每轮循环中会将数组中的回调函数全部执行完，setImmediate 在每轮循环中执行链表中的一个回调函数。</p>
+</blockquote>
+<h2 id="异步编程"><a href="#异步编程" class="headerlink" title="异步编程"></a>异步编程</h2><p>异步编程的多种方法，请查看<a href="https://peterlhx.github.io/2017/06/20/JavaScript/JavaScript%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/">另一篇文章</a></p>
+<p>Node 自身提供的 events 模块就是发布/订阅模式的简单实现。Node 默认一个事件不可添加超过10个侦听器。（调用 emitter.setMaxListeners(0)取消这个限制）</p>
+<p>未完，待续…</p>
 
       
     </div>
@@ -473,8 +550,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/10/Vue/Vue 底层原理/" rel="next" title="Vue 底层原理">
-                <i class="fa fa-chevron-left"></i> Vue 底层原理
+              <a href="/2018/03/10/JavaScript/Babel安装使用及基本原理/" rel="next" title="Babel 安装使用及基本原理">
+                <i class="fa fa-chevron-left"></i> Babel 安装使用及基本原理
               </a>
             
           </div>
@@ -483,8 +560,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/11/10/积累/WebSocket基本原理和心跳机制/" rel="prev" title="WebSocket基本原理和心跳机制">
-                WebSocket基本原理和心跳机制 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/04/10/JavaScript/JavaScript数据结构与算法/" rel="prev" title="JavaScript 数据结构与算法">
+                JavaScript 数据结构与算法 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -643,7 +720,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#模块机制"><span class="nav-number">1.</span> <span class="nav-text">模块机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#路径分析"><span class="nav-number">1.1.</span> <span class="nav-text">路径分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件定位步骤"><span class="nav-number">1.2.</span> <span class="nav-text">文件定位步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块编译"><span class="nav-number">1.3.</span> <span class="nav-text">模块编译</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JavaScript-模块的编译"><span class="nav-number">1.3.1.</span> <span class="nav-text">JavaScript 模块的编译</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#C-C-模块的编译"><span class="nav-number">1.3.2.</span> <span class="nav-text">C/C++ 模块的编译</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSON-文件的编译"><span class="nav-number">1.3.3.</span> <span class="nav-text">JSON 文件的编译</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#核心模块"><span class="nav-number">1.4.</span> <span class="nav-text">核心模块</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步-I-O"><span class="nav-number">2.</span> <span class="nav-text">异步 I/O</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Node-简介"><span class="nav-number">1.</span> <span class="nav-text">Node 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单线程和多线程"><span class="nav-number">1.1.</span> <span class="nav-text">单线程和多线程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块机制"><span class="nav-number">2.</span> <span class="nav-text">模块机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#路径分析"><span class="nav-number">2.1.</span> <span class="nav-text">路径分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件定位步骤"><span class="nav-number">2.2.</span> <span class="nav-text">文件定位步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块编译"><span class="nav-number">2.3.</span> <span class="nav-text">模块编译</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JavaScript-模块的编译"><span class="nav-number">2.3.1.</span> <span class="nav-text">JavaScript 模块的编译</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#C-C-模块的编译"><span class="nav-number">2.3.2.</span> <span class="nav-text">C/C++ 模块的编译</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSON-文件的编译"><span class="nav-number">2.3.3.</span> <span class="nav-text">JSON 文件的编译</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#核心模块"><span class="nav-number">2.4.</span> <span class="nav-text">核心模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">2.5.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步-I-O"><span class="nav-number">3.</span> <span class="nav-text">异步 I/O</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#异步I-O过程"><span class="nav-number">3.1.</span> <span class="nav-text">异步I/O过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#process-nextTick-VS-setImmediate"><span class="nav-number">3.2.</span> <span class="nav-text">process.nextTick VS setImmediate</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步编程"><span class="nav-number">4.</span> <span class="nav-text">异步编程</span></a></li></ol></div>
             
 
           </div>
