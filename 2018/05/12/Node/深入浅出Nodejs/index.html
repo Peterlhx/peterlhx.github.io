@@ -68,11 +68,12 @@
 <meta name="keywords" content="node.js">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《深入浅出Node.js》笔记">
-<meta property="og:url" content="http://peterlhx.github.io/2018/03/12/Node/深入浅出Nodejs/index.html">
+<meta property="og:url" content="http://peterlhx.github.io/2018/05/12/Node/深入浅出Nodejs/index.html">
 <meta property="og:site_name" content="Mr.JS">
 <meta property="og:description" content="Node 简介Node 是单线程的，基于事件驱动的，是基于事件循环进行执行的，还具有异步 I/O、跨平台等特点 单线程和多线程单线程串行依次执行，单线程的最大好处是不用像多线程编程那样处处在意状态的同步问题，这里没有死锁，也没有线程上下文交换所带来的性能上的开销。 多线程并行完成，多线程的好处是可以有多条线程来处理不同的任务，可以充分利用 CPU，而无须像单线程那样需要等待一个任务完成后，才能继续">
 <meta property="og:image" content="http://peterlhx.github.io/uploads/node_async.png">
-<meta property="og:updated_time" content="2018-05-10T17:17:25.131Z">
+<meta property="og:image" content="http://peterlhx.github.io/uploads/node_handle.png">
+<meta property="og:updated_time" content="2018-05-13T08:11:32.383Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《深入浅出Node.js》笔记">
 <meta name="twitter:description" content="Node 简介Node 是单线程的，基于事件驱动的，是基于事件循环进行执行的，还具有异步 I/O、跨平台等特点 单线程和多线程单线程串行依次执行，单线程的最大好处是不用像多线程编程那样处处在意状态的同步问题，这里没有死锁，也没有线程上下文交换所带来的性能上的开销。 多线程并行完成，多线程的好处是可以有多条线程来处理不同的任务，可以充分利用 CPU，而无须像单线程那样需要等待一个任务完成后，才能继续">
@@ -104,7 +105,7 @@
 
 
 
-  <link rel="canonical" href="http://peterlhx.github.io/2018/03/12/Node/深入浅出Nodejs/"/>
+  <link rel="canonical" href="http://peterlhx.github.io/2018/05/12/Node/深入浅出Nodejs/"/>
 
 
 
@@ -283,7 +284,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://peterlhx.github.io/2018/03/12/Node/深入浅出Nodejs/">
+    <link itemprop="mainEntityOfPage" href="http://peterlhx.github.io/2018/05/12/Node/深入浅出Nodejs/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Peter Lee">
@@ -312,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-12T23:31:45+08:00">
-                2018-03-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-12T22:30:20+08:00">
+                2018-05-12
               </time>
             
 
@@ -352,7 +353,7 @@
 
           
           
-             <span id="/2018/03/12/Node/深入浅出Nodejs/" class="leancloud_visitors" data-flag-title="《深入浅出Node.js》笔记">
+             <span id="/2018/05/12/Node/深入浅出Nodejs/" class="leancloud_visitors" data-flag-title="《深入浅出Node.js》笔记">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -641,7 +642,85 @@
 <p>HTTPS的加密方式是：<em>对传输的报文数据采用共享密钥进行加密，而共享密钥加密的密钥又被公开密钥进行加密</em>。</p>
 <p>这样的好处是，避免了公共密钥加密需要耗费大量的CPU和内存资源，传输较慢的问题，同时又能够确保传输的数据能够安全传输</p>
 <h2 id="构建-Web-应用"><a href="#构建-Web-应用" class="headerlink" title="构建 Web 应用"></a>构建 Web 应用</h2><p>略</p>
-<h2 id="玩转进程"><a href="#玩转进程" class="headerlink" title="玩转进程"></a>玩转进程</h2><p>未完，待续。。。</p>
+<h2 id="玩转进程"><a href="#玩转进程" class="headerlink" title="玩转进程"></a>玩转进程</h2><p>Node 是运行在单个进程的单个线程上。这带来的好处是：程序状态是单一的，在没有多线程的情况下没有锁、线程同步问题，操作系统在调度时也因为较少上下文的切换，可以很好地提高 CPU 的使用率</p>
+<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>进程和线程都是一个时间段的描述，是CPU工作时间段的描述</p>
+<blockquote>
+<p>进程：<strong>CPU 分配资源的最小单位</strong>。每个应用至少有一个进程，<strong>每个进程都有自己的独立地址空间</strong>。进程之间的通信需要以通信的方式（IPC)进行，进程之间相互不影响。</p>
+<p>线程：<strong>CPU 调度资源的最小单位</strong>。每个进程至少有一个线程，线程之间共享同一个进程的数据，一个线程挂掉，意味着整个进程都挂掉了。</p>
+</blockquote>
+<p>死锁、活锁和饥饿</p>
+<blockquote>
+<p>死锁：<strong>指两个或两个以上的进程（或线程）在执行过程中，因争夺资源而造成一种相互等待的现象，若无外力作用，它们都将无法推进下去</strong>。此时称系统处于死锁状态或系统产生了死锁，这些永远在互相等待的进程称为死锁进程。</p>
+<p>活锁：执行的任务没有被阻塞，由于某些条件没有满足，导致一直重复尝试。在单一实体中，执行一个任务，任务失败，继续尝试执行这个任务。在协同中，两个或多个进程相互“礼让”，导致都无法使用资源。</p>
+<p>饥饿：某个进程一直等待资源的释放，但资源却被后面一个又一个进程占用，导致了该进程一直无法请求到资源，处于饥饿状态。</p>
+</blockquote>
+<h3 id="多进程架构"><a href="#多进程架构" class="headerlink" title="多进程架构"></a>多进程架构</h3><p>基于事件的 Node 服务模型存在两个问题：CPU 的利用率和进程的健壮性。</p>
+<p>为此，Node 提供了 child_process 模块，实现了多进程架构，能够充分利用 CPU。</p>
+<p>Node 在多进程架构中，采用<strong>主从模式</strong>，进程分为主进程和工作进程。</p>
+<blockquote>
+<p>主进程不负责具体业务的处理，而是负责调度或管理工作进程。工作进程则负责具体的业务处理。</p>
+</blockquote>
+<h3 id="进程间通信（IPC）"><a href="#进程间通信（IPC）" class="headerlink" title="进程间通信（IPC）"></a>进程间通信（IPC）</h3><p>进程间通信的目的是为了让不同的进程能够互相访问资源并进行协调工作。</p>
+<blockquote>
+<p>实现进程间通信的技术有：命名管道、匿名管道、socket、信号量、共享内存、消息队列、Domain Socket 等。</p>
+</blockquote>
+<p>Node 中实现 IPC 通道的是管道（pipe）技术，具体实现由 libuv 提供，在 windows 下由<strong>命名管道</strong>实现，<em>nix 系统则采用 <em>*Unix Domain Socket</em></em> 实现。</p>
+<p>父进程在实际创建子进程之前，会创建 IPC 通道并监听它，然后才创建出子进程，并<strong>通过环境变量（ NODE_CHANNEL_FD ）</strong>告诉子进程这个 IPC 通道的文件描述符。</p>
+<p>子进程在启动过程中，根据文件描述符去链接这个已存在的 IPC 通道，从而完成与父进程之间的连接。</p>
+<h3 id="句柄传递"><a href="#句柄传递" class="headerlink" title="句柄传递"></a>句柄传递</h3><blockquote>
+<p>如何让服务器都监听到相同的端口呢？</p>
+</blockquote>
+<p>通常的做法是，<strong>各个进程监听不同的端口，主进程监听主端口，主进程对外接收所有的网络请求，然后将这些请求代理到不同端口的子进程上</strong>。通过代理，可以避免端口不能重复监听的问题，甚至可以在代理进程上做适当的负载均衡。但是由于进程每接收到一个连接，将会用掉一个文件描述符，<strong>代理进程的方案会浪费掉一倍数量的文件描述符</strong>，而操作系统的文件描述符是有限的，这样会影响系统的扩展能力。</p>
+<p>句柄传递的方案因此诞生。<strong>句柄是一种可以用来标识资源的引用，它的内部包含了指向对象的文件描述符</strong></p>
+<p>比如句柄可以用来标识一个服务端 socket 对象、一个客户端 socket 对象、一个 UDP 套接字、一个管道等。</p>
+<p>发送句柄：主进程接收到 socket 请求后，将这个 socket 直接发送给工作进程，而不是重新与工作进程之间建立新的 socket 连接来转发数据。文件描述符浪费的问题可以通过这样的方式解决。</p>
+<p>master.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> child = <span class="built_in">require</span>(<span class="string">'child_process'</span>).fork(<span class="string">'child.js'</span>)</div><div class="line"></div><div class="line"><span class="keyword">var</span> server = <span class="built_in">require</span>(<span class="string">'net'</span>).createServer();</div><div class="line"></div><div class="line">server.listen(<span class="number">1337</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  child.send(<span class="string">'server'</span>, server)	   <span class="comment">// 发送句柄 server</span></div><div class="line">  server.close()</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>child.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>)</div><div class="line"><span class="keyword">var</span> server = http.createServer(<span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</div><div class="line">  res.writeHead(<span class="number">200</span>, &#123;<span class="string">'Content-Type'</span>: <span class="string">'text/plain'</span>&#125;);</div><div class="line">  res.end(<span class="string">'handle by child, pid is '</span> + process.pid + <span class="string">'\n'</span>)</div><div class="line">&#125;)</div><div class="line"></div><div class="line">process.on(<span class="string">'message'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">m, tcp</span>) </span>&#123;    <span class="comment">// 接收句柄 tcp server</span></div><div class="line">  <span class="keyword">if</span> (m == <span class="string">'server'</span>) &#123;</div><div class="line">    tcp.on(<span class="string">'connection'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">socket</span>) </span>&#123;</div><div class="line">    	server.emit(<span class="string">'connection'</span>, socket)</div><div class="line">    &#125;)</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="句柄发送与还原"><a href="#句柄发送与还原" class="headerlink" title="句柄发送与还原"></a>句柄发送与还原</h4><p>示意图<br><img src="/uploads/node_handle.png" alt=""></p>
+<p>send() 方法将消息发送到 IPC 管道前，将消息组装成两个对象，一个参数是 handle， 另一个是 message</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">message = &#123;</div><div class="line">  <span class="attr">cmd</span>: <span class="string">'NODE_HANDLE'</span>,</div><div class="line">  <span class="attr">type</span>: <span class="string">'net.Server'</span>,</div><div class="line">  <span class="attr">msg</span>: message</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>发送到 IPC 管道中的实际上是要发送的<strong>句柄文件描述符</strong>，文件描述符实际上是一个<strong>整数值</strong>。这个 message 对象在写入到 IPC 管道时通过 JSON.stringify() 进行序列化。最终发送到 IPC 通道中的信息都是字符串。send() 方法不能发送任意对象。</p>
+<p>连接了 IPC 通道的子进程可以读取父进程发来的消息，将字符串通过 JSON.parse() 解析还原为对象后，才触发 message 事件将消息传递给应用层使用。</p>
+<h3 id="集群稳定之路"><a href="#集群稳定之路" class="headerlink" title="集群稳定之路"></a>集群稳定之路</h3><blockquote>
+<p>多个工作进程的存活状态管理</p>
+<p>工作进程的平滑重启</p>
+<p>配置或静态数据的动态重新载入</p>
+</blockquote>
+<p>进程事件</p>
+<blockquote>
+<p>message 事件：接收消息</p>
+<p>error 事件：当子进程无法被复制创建、无法被杀死、无法发送消息时触发该事件</p>
+<p>exit 事件：子进程退出时触发该事件。子进程正常退出，事件的第一个参数为退出码，否则为 null 。如果进程通过 kill() 方法被杀死的，会得到第二个参数，它表示杀死进程时的信号</p>
+<p>close 事件：在子进程的标准输输出流中止时触发该事件，参数与 exit 相同</p>
+<p>disconnect 事件：在父进程或子进程中调用 disconnect() 方法时触发该事件，在调用该方法时，将关闭监听 IPC 通道</p>
+</blockquote>
+<p>自动重启</p>
+<blockquote>
+<ul>
+<li>主进程监听子进程的 exit 事件，然后重新启动一个工作进程来继续服务。</li>
+<li>子进程退出时，向主进程发送一个自杀信号，主进程接收到信号后，立即创建一个新的工作进程。从 exit 事件的处理函数中转移到 message 事件的处理函数中。</li>
+</ul>
+</blockquote>
+<p>负载均衡</p>
+<blockquote>
+<p>Node 默认提供的机制是采用操作系统的抢占式策略。进程对到来的请求进行争抢，哪个进程抢到哪个进程服务</p>
+<p>Node 还有一种新的策略，Round-Robin，又叫轮叫调度。轮叫调度的工作方式是<strong>由主进程接受连接，将其依次分发给工作进程</strong>。</p>
+</blockquote>
+<p>状态共享</p>
+<blockquote>
+<p>Node 进程中不宜存放过多数据，会加重垃圾回收的负担，影响性能。可采用<strong>第三方数据存储</strong>。数据发送改变时，可通过定时轮询和主动通知两种方法来更新数据。</p>
+</blockquote>
+<h3 id="Cluster-模块"><a href="#Cluster-模块" class="headerlink" title="Cluster 模块"></a>Cluster 模块</h3><p>Cluster 模块是 child_process 和 net 模块的组合应用。Cluster 有以下事件：</p>
+<blockquote>
+<p>fork： 复制一个工作进程后触发</p>
+<p>online：复制好一个工作进程后，工作进程主动发送一条 online 消息给主进程，主进程接收后，触发该事件</p>
+<p>listening：工作进程中调用 listen() （共享了服务端 Socket ）后，发送一条 listening 消息给主进程，主进程接收后触发该事件</p>
+<p>disconnect：主进程与工作进程之间的 IPC 通道断开后触发</p>
+<p>exit：有工作进程退出时触发</p>
+<p>setup：cluster.setupMaster() 执行后触发该事件</p>
+</blockquote>
 
       
     </div>
@@ -705,8 +784,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/10/JavaScript/Babel安装使用及基本原理/" rel="next" title="Babel 安装使用及基本原理">
-                <i class="fa fa-chevron-left"></i> Babel 安装使用及基本原理
+              <a href="/2018/04/10/JavaScript/JavaScript数据结构与算法/" rel="next" title="JavaScript 数据结构与算法">
+                <i class="fa fa-chevron-left"></i> JavaScript 数据结构与算法
               </a>
             
           </div>
@@ -714,10 +793,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/04/10/JavaScript/JavaScript数据结构与算法/" rel="prev" title="JavaScript 数据结构与算法">
-                JavaScript 数据结构与算法 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -875,7 +950,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Node-简介"><span class="nav-number">1.</span> <span class="nav-text">Node 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单线程和多线程"><span class="nav-number">1.1.</span> <span class="nav-text">单线程和多线程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块机制"><span class="nav-number">2.</span> <span class="nav-text">模块机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#路径分析"><span class="nav-number">2.1.</span> <span class="nav-text">路径分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件定位步骤"><span class="nav-number">2.2.</span> <span class="nav-text">文件定位步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块编译"><span class="nav-number">2.3.</span> <span class="nav-text">模块编译</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JavaScript-模块的编译"><span class="nav-number">2.3.1.</span> <span class="nav-text">JavaScript 模块的编译</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#C-C-模块的编译"><span class="nav-number">2.3.2.</span> <span class="nav-text">C/C++ 模块的编译</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSON-文件的编译"><span class="nav-number">2.3.3.</span> <span class="nav-text">JSON 文件的编译</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#核心模块"><span class="nav-number">2.4.</span> <span class="nav-text">核心模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">2.5.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步-I-O"><span class="nav-number">3.</span> <span class="nav-text">异步 I/O</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#异步I-O过程"><span class="nav-number">3.1.</span> <span class="nav-text">异步I/O过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#process-nextTick-VS-setImmediate"><span class="nav-number">3.2.</span> <span class="nav-text">process.nextTick VS setImmediate</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步编程"><span class="nav-number">4.</span> <span class="nav-text">异步编程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存控制"><span class="nav-number">5.</span> <span class="nav-text">内存控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#V8-的内存限制"><span class="nav-number">5.1.</span> <span class="nav-text">V8 的内存限制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#V8-的垃圾回收机制"><span class="nav-number">5.2.</span> <span class="nav-text">V8 的垃圾回收机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存泄漏"><span class="nav-number">5.3.</span> <span class="nav-text">内存泄漏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大内存应用"><span class="nav-number">5.4.</span> <span class="nav-text">大内存应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#理解-Buffer"><span class="nav-number">6.</span> <span class="nav-text">理解 Buffer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络编程"><span class="nav-number">7.</span> <span class="nav-text">网络编程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP"><span class="nav-number">7.1.</span> <span class="nav-text">TCP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP-优化"><span class="nav-number">7.1.1.</span> <span class="nav-text">TCP 优化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP"><span class="nav-number">7.2.</span> <span class="nav-text">UDP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP-VS-UDP"><span class="nav-number">7.2.1.</span> <span class="nav-text">TCP VS UDP</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP"><span class="nav-number">7.3.</span> <span class="nav-text">HTTP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WebSocket"><span class="nav-number">7.4.</span> <span class="nav-text">WebSocket</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络服务与安全"><span class="nav-number">7.5.</span> <span class="nav-text">网络服务与安全</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TLS-SSL"><span class="nav-number">7.5.1.</span> <span class="nav-text">TLS/SSL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTPS"><span class="nav-number">7.5.2.</span> <span class="nav-text">HTTPS</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建-Web-应用"><span class="nav-number">8.</span> <span class="nav-text">构建 Web 应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#玩转进程"><span class="nav-number">9.</span> <span class="nav-text">玩转进程</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Node-简介"><span class="nav-number">1.</span> <span class="nav-text">Node 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单线程和多线程"><span class="nav-number">1.1.</span> <span class="nav-text">单线程和多线程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块机制"><span class="nav-number">2.</span> <span class="nav-text">模块机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#路径分析"><span class="nav-number">2.1.</span> <span class="nav-text">路径分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件定位步骤"><span class="nav-number">2.2.</span> <span class="nav-text">文件定位步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块编译"><span class="nav-number">2.3.</span> <span class="nav-text">模块编译</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JavaScript-模块的编译"><span class="nav-number">2.3.1.</span> <span class="nav-text">JavaScript 模块的编译</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#C-C-模块的编译"><span class="nav-number">2.3.2.</span> <span class="nav-text">C/C++ 模块的编译</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSON-文件的编译"><span class="nav-number">2.3.3.</span> <span class="nav-text">JSON 文件的编译</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#核心模块"><span class="nav-number">2.4.</span> <span class="nav-text">核心模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">2.5.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步-I-O"><span class="nav-number">3.</span> <span class="nav-text">异步 I/O</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#异步I-O过程"><span class="nav-number">3.1.</span> <span class="nav-text">异步I/O过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#process-nextTick-VS-setImmediate"><span class="nav-number">3.2.</span> <span class="nav-text">process.nextTick VS setImmediate</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步编程"><span class="nav-number">4.</span> <span class="nav-text">异步编程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存控制"><span class="nav-number">5.</span> <span class="nav-text">内存控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#V8-的内存限制"><span class="nav-number">5.1.</span> <span class="nav-text">V8 的内存限制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#V8-的垃圾回收机制"><span class="nav-number">5.2.</span> <span class="nav-text">V8 的垃圾回收机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存泄漏"><span class="nav-number">5.3.</span> <span class="nav-text">内存泄漏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大内存应用"><span class="nav-number">5.4.</span> <span class="nav-text">大内存应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#理解-Buffer"><span class="nav-number">6.</span> <span class="nav-text">理解 Buffer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络编程"><span class="nav-number">7.</span> <span class="nav-text">网络编程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP"><span class="nav-number">7.1.</span> <span class="nav-text">TCP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP-优化"><span class="nav-number">7.1.1.</span> <span class="nav-text">TCP 优化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP"><span class="nav-number">7.2.</span> <span class="nav-text">UDP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP-VS-UDP"><span class="nav-number">7.2.1.</span> <span class="nav-text">TCP VS UDP</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP"><span class="nav-number">7.3.</span> <span class="nav-text">HTTP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WebSocket"><span class="nav-number">7.4.</span> <span class="nav-text">WebSocket</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络服务与安全"><span class="nav-number">7.5.</span> <span class="nav-text">网络服务与安全</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TLS-SSL"><span class="nav-number">7.5.1.</span> <span class="nav-text">TLS/SSL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTPS"><span class="nav-number">7.5.2.</span> <span class="nav-text">HTTPS</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建-Web-应用"><span class="nav-number">8.</span> <span class="nav-text">构建 Web 应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#玩转进程"><span class="nav-number">9.</span> <span class="nav-text">玩转进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本概念"><span class="nav-number">9.1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多进程架构"><span class="nav-number">9.2.</span> <span class="nav-text">多进程架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程间通信（IPC）"><span class="nav-number">9.3.</span> <span class="nav-text">进程间通信（IPC）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#句柄传递"><span class="nav-number">9.4.</span> <span class="nav-text">句柄传递</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#句柄发送与还原"><span class="nav-number">9.4.1.</span> <span class="nav-text">句柄发送与还原</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集群稳定之路"><span class="nav-number">9.5.</span> <span class="nav-text">集群稳定之路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cluster-模块"><span class="nav-number">9.6.</span> <span class="nav-text">Cluster 模块</span></a></li></ol></li></ol></div>
             
 
           </div>
