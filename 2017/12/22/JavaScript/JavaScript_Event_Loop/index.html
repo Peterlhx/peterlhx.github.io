@@ -72,7 +72,7 @@
 <meta property="og:site_name" content="Mr.JS">
 <meta property="og:description" content="单线程的JavaScript JavaScript 是单线程的，主要是因为 JavaScript 的主要用途是与用户交互，以及操作 DOM。如果 JavaScript 是多线程，那么当多个线程同时操作一个 DOM 元素时，那么就无法保证哪个线程优先去操作该 DOM 元素。 也许，有小伙伴会说：“我们可以通过HTML 5的 web worker 来创建 JavaScript 的多个线程啊”。是的，w">
 <meta property="og:image" content="http://peterlhx.github.io/uploads/event_loop.png">
-<meta property="og:updated_time" content="2018-03-22T02:18:33.292Z">
+<meta property="og:updated_time" content="2018-05-28T06:21:40.991Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript Event Loop">
 <meta name="twitter:description" content="单线程的JavaScript JavaScript 是单线程的，主要是因为 JavaScript 的主要用途是与用户交互，以及操作 DOM。如果 JavaScript 是多线程，那么当多个线程同时操作一个 DOM 元素时，那么就无法保证哪个线程优先去操作该 DOM 元素。 也许，有小伙伴会说：“我们可以通过HTML 5的 web worker 来创建 JavaScript 的多个线程啊”。是的，w">
@@ -393,7 +393,7 @@
 <p>任务队列，是一个事件队列，如果事件指定过回调函数，这些事件发生时就进入“任务队列”，等待主线程读取。我们常说的回调函数，也就是被主线程暂时挂起不执行的代码，当事件发生时，主线程才会将这代码加入进来执行。注意，同步任务总是在主线程读取“任务队列”之前执行的</p>
 <h2 id="事件循环（Event-Loop）"><a href="#事件循环（Event-Loop）" class="headerlink" title="事件循环（Event Loop）"></a>事件循环（Event Loop）</h2><p>主线程读取“任务列表”这一过程是循环不断的，这种运行机制称为事件循环。<br><img src="/uploads/event_loop.png" alt="事件循环"></p>
 <h2 id="定时器"><a href="#定时器" class="headerlink" title="定时器"></a>定时器</h2><p>任务队列，不仅仅存放了异步任务的事件，还存放了定时事件（<strong>setTimeout</strong>，<strong>setInterval</strong>）<br>定时器 setTimeout 和 setInterval 只是把事件放置到任务队列中，必须等待任务队列中的事件执行完毕，主线程才会调用定时器相应的回调函数。</p>
-<h2 id="Microtasks-和-Macrotasks"><a href="#Microtasks-和-Macrotasks" class="headerlink" title="Microtasks 和 Macrotasks"></a>Microtasks 和 Macrotasks</h2><p>任务队列布置一个，还包括了 microtasks（微任务） 和 macrotasks（宏任务）</p>
+<h2 id="Microtasks-和-Macrotasks"><a href="#Microtasks-和-Macrotasks" class="headerlink" title="Microtasks 和 Macrotasks"></a>Microtasks 和 Macrotasks</h2><p>任务队列不止一个，还包括了 microtasks（微任务） 和 macrotasks（宏任务）</p>
 <h3 id="microtasks"><a href="#microtasks" class="headerlink" title="microtasks"></a>microtasks</h3><blockquote>
 <ul>
 <li>process.nextTick</li>
@@ -414,13 +414,13 @@
 <ul>
 <li>一个事件循环中会有一个或多个任务队列</li>
 <li>任务队列就是宏任务（macrotasks）</li>
-<li>每个事件循环都有一个microtasks queue</li>
+<li>每个事件循环都有一个 microtasks queue</li>
 <li>task queue == macrotasks queue != microtasks queue</li>
 </ul>
 <p>主线程拥有一个执行栈和一个事件循环</p>
 <blockquote>
 <p>因此，JavaScript 运行机制是这样的：</p>
-<p>首先，全部代码的script是一个macrotask。<br>第一次事件循环，主线程先执行同步任务（其实也是macrotask），执行过程中会创造新的macrotask，接着继续执行，然后会把一些事件，如promise，放置在microtask中。如果有microtasks则执行microtasks，没有则进入下一次循环。</p>
+<p>首先，全部代码的 script 是一个 macrotask。<br>第一次事件循环，主线程先执行同步任务（其实也是macrotask），执行过程中会创造新的macrotask，接着继续执行，然后会把一些事件，如promise（发现 then 方法，则放入 microtask），放置在 microtask 中。如果有 microtask 则执行 microtask，没有则进入下一次循环。</p>
 </blockquote>
 <p>总结为：同步完成，一个宏任务，所有微任务，一个宏任务，所有微任务…</p>
 <p>最后，看以下这道面试题</p>
