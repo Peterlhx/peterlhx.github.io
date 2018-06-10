@@ -48,7 +48,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="JavaScript, Hexo, NexT" />
+  <meta name="keywords" content="Node," />
 
 
 
@@ -64,15 +64,17 @@
 
 
 
-<meta name="description" content="积累JavaScript，HTML 5，CSS3等前端基础知识，探究vue.js，webpack等前端主流技术，了解前端界内最新动态">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Mr.JS">
-<meta property="og:url" content="http://peterlhx.github.io/tags/项目总结/index.html">
+<meta name="description" content="Node 事件循环（Event-Loop） Node.js 是通过事件驱动来服务 I/O 的，而事件循环是 Node 实现异步非阻塞 I/O 的基础  Node 事件循环是基于 libuv 实现的，而内部实现，其实就是一个 while 语句块Node 程序启动时，则会初始化事件循环 这里需要说明下，Node 事件循环与浏览器环境下 JavaScript 的事件循环是完全不一样的 浏览器环境下 JS">
+<meta name="keywords" content="Node">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node.js-Event-Loop">
+<meta property="og:url" content="http://peterlhx.github.io/2018/06/09/Node/Node-js-Event-Loop/index.html">
 <meta property="og:site_name" content="Mr.JS">
-<meta property="og:description" content="积累JavaScript，HTML 5，CSS3等前端基础知识，探究vue.js，webpack等前端主流技术，了解前端界内最新动态">
+<meta property="og:description" content="Node 事件循环（Event-Loop） Node.js 是通过事件驱动来服务 I/O 的，而事件循环是 Node 实现异步非阻塞 I/O 的基础  Node 事件循环是基于 libuv 实现的，而内部实现，其实就是一个 while 语句块Node 程序启动时，则会初始化事件循环 这里需要说明下，Node 事件循环与浏览器环境下 JavaScript 的事件循环是完全不一样的 浏览器环境下 JS">
+<meta property="og:updated_time" content="2018-06-10T17:39:00.474Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mr.JS">
-<meta name="twitter:description" content="积累JavaScript，HTML 5，CSS3等前端基础知识，探究vue.js，webpack等前端主流技术，了解前端界内最新动态">
+<meta name="twitter:title" content="Node.js-Event-Loop">
+<meta name="twitter:description" content="Node 事件循环（Event-Loop） Node.js 是通过事件驱动来服务 I/O 的，而事件循环是 Node 实现异步非阻塞 I/O 的基础  Node 事件循环是基于 libuv 实现的，而内部实现，其实就是一个 while 语句块Node 程序启动时，则会初始化事件循环 这里需要说明下，Node 事件循环与浏览器环境下 JavaScript 的事件循环是完全不一样的 浏览器环境下 JS">
 
 
 
@@ -100,13 +102,13 @@
 
 
 
-  <link rel="canonical" href="http://peterlhx.github.io/tags/项目总结/"/>
+  <link rel="canonical" href="http://peterlhx.github.io/2018/06/09/Node/Node-js-Event-Loop/"/>
 
 
 
 
 
-  <title>标签: 项目总结 | Mr.JS</title>
+  <title>Node.js-Event-Loop | Mr.JS</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -131,7 +133,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -269,72 +271,252 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h1>项目总结<small>标签</small>
-      </h1>
-    </div>
-
+  <div id="posts" class="posts-expand">
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/12/10/积累/文件断点续传（上传）以及秒传/" itemprop="url">
-              
-                <span itemprop="name">文件断点续传（上传）以及秒传</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-12-10T23:17:53+08:00"
-              content="2017-12-10" >
-          12-10
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/11/10/积累/WebSocket基本原理和心跳机制/" itemprop="url">
-              
-                <span itemprop="name">WebSocket基本原理和心跳机制</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-11-10T22:07:53+08:00"
-              content="2017-11-10" >
-          11-10
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-  </div>
 
   
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://peterlhx.github.io/2018/06/09/Node/Node-js-Event-Loop/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Peter Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.JS">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Node.js-Event-Loop</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-09T16:19:26+08:00">
+                2018-06-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/积累/" itemprop="url" rel="index">
+                    <span itemprop="name">积累</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/06/09/Node/Node-js-Event-Loop/" class="leancloud_visitors" data-flag-title="Node.js-Event-Loop">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Node-事件循环（Event-Loop）"><a href="#Node-事件循环（Event-Loop）" class="headerlink" title="Node 事件循环（Event-Loop）"></a>Node 事件循环（Event-Loop）</h2><blockquote>
+<p>Node.js 是通过事件驱动来服务 I/O 的，而事件循环是 Node 实现异步非阻塞 I/O 的基础</p>
+</blockquote>
+<p>Node 事件循环是基于 libuv 实现的，而内部实现，其实就是一个 <strong>while 语句块</strong><br>Node 程序启动时，则会初始化事件循环</p>
+<p>这里需要说明下，Node 事件循环与浏览器环境下 JavaScript 的事件循环是完全不一样的</p>
+<p><a href="https://peterlhx.github.io/2017/12/22/JavaScript/JavaScript_Event_Loop/">浏览器环境下 JS 事件循环</a></p>
+<p>Node 事件循环是分阶段的，有 update time、timer、 pending (I/O) callbacks、idle, prepare、poll（轮询）、check、close callbacks 七个阶段</p>
+<p>而这七个阶段都是在核心函数 <strong>uv_run()</strong> 中进行</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Node 事件循环核心函数</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">uv_run</span><span class="params">(<span class="keyword">uv_loop_t</span>* loop, uv_run_mode mode)</span> </span>&#123;</div><div class="line">  <span class="keyword">int</span> timeout;</div><div class="line">  <span class="keyword">int</span> r;</div><div class="line">  <span class="keyword">int</span> ran_pending;</div><div class="line"></div><div class="line">  r = uv__loop_alive(loop);</div><div class="line">  <span class="keyword">if</span> (!r)	<span class="comment">// 检查当前循环是否存活</span></div><div class="line">    uv__update_time(loop);	<span class="comment">// 如果没有则更新时间并结束当前循环，进入下一个循环</span></div><div class="line"></div><div class="line">  <span class="comment">// Node 事件循环从一个 while 循环开始</span></div><div class="line">  <span class="keyword">while</span> (r != <span class="number">0</span> &amp;&amp; loop-&gt;stop_flag == <span class="number">0</span>) &#123;</div><div class="line">    uv__update_time(loop);	<span class="comment">// 更新时间</span></div><div class="line">    </div><div class="line">    uv__run_timers(loop);		<span class="comment">// 执行到期的定时器（setTimeout 和 setInterval）回调（往往是之前n轮循环中设置的定时器）</span></div><div class="line">    </div><div class="line">    ran_pending = uv__run_pending(loop);	<span class="comment">// 处理异步 I/O，如网络请求 I/O、文件请求 I/O 等</span></div><div class="line">    </div><div class="line">    uv__run_idle(loop);</div><div class="line">    uv__run_prepare(loop);</div><div class="line">    <span class="comment">// idle 和 prepare 是 Node 内部的一些操作，跟事件循环没有什么关联</span></div><div class="line"></div><div class="line">    timeout = <span class="number">0</span>;		<span class="comment">// 设置 poll 阶段的时间变量</span></div><div class="line">    <span class="keyword">if</span> ((mode == UV_RUN_ONCE &amp;&amp; !ran_pending) || mode == UV_RUN_DEFAULT)</div><div class="line">      timeout = uv_backend_timeout(loop);	<span class="comment">// 计算 timeout 时间，用于后面 poll 阶段的操作</span></div><div class="line"></div><div class="line">    uv__io_poll(loop, timeout);	<span class="comment">// 执行 poll 阶段的相关回调，此阶段有可能会阻塞</span></div><div class="line">    uv__run_check(loop);		<span class="comment">// 执行 setImmediate 回调</span></div><div class="line">    uv__run_closing_handles(loop);	<span class="comment">// 执行回调函数关闭的方法，如关闭文件描述符</span></div><div class="line"></div><div class="line">    <span class="comment">// Node默认的mode是 `UV_RUN_ONCE`</span></div><div class="line">    <span class="keyword">if</span> (mode == UV_RUN_ONCE) &#123;</div><div class="line">      uv__update_time(loop);		<span class="comment">// 更新时间</span></div><div class="line">      uv__run_timers(loop);		<span class="comment">// 执行到期的定时器回调</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    r = uv__loop_alive(loop);</div><div class="line">    <span class="keyword">if</span> (mode == UV_RUN_ONCE || mode == UV_RUN_NOWAIT)</div><div class="line">      <span class="keyword">break</span>;</div><div class="line">  &#125; <span class="comment">// while 循环结束</span></div><div class="line"></div><div class="line">  <span class="keyword">if</span> (loop-&gt;stop_flag != <span class="number">0</span>)</div><div class="line">    loop-&gt;stop_flag = <span class="number">0</span>;</div><div class="line"></div><div class="line">  <span class="keyword">return</span> r;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 计算 poll 阶段的时间参数</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">uv_backend_timeout</span><span class="params">(<span class="keyword">const</span> <span class="keyword">uv_loop_t</span>* loop)</span> </span>&#123;</div><div class="line">  <span class="keyword">if</span> (loop-&gt;stop_flag != <span class="number">0</span>)	<span class="comment">// 事件循环是否结束的标志，如果结束则返回0</span></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line"></div><div class="line">  <span class="keyword">if</span> (!uv__has_active_handles(loop) &amp;&amp; !uv__has_active_reqs(loop))  <span class="comment">// 是否有异步任务，没有则返回0</span></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line"></div><div class="line">  <span class="keyword">if</span> (!QUEUE_EMPTY(&amp;loop-&gt;idle_handles))	</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line"></div><div class="line">  <span class="keyword">if</span> (!QUEUE_EMPTY(&amp;loop-&gt;pending_queue))</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">  </div><div class="line">  <span class="comment">// QUEUE_EMPTY(idle_handles)和QUEUE_EMPTY(pending_queue)</span></div><div class="line">  <span class="comment">// 判断前面阶段注册的异步任务队列是否为空，则不为空直接返回0，执行这些异步任务回调</span></div><div class="line"> </div><div class="line">  <span class="keyword">if</span> (loop-&gt;closing_handles)	<span class="comment">// 循环进入关闭阶段，返回0</span></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line"></div><div class="line">  <span class="comment">// 如果上述条件都不成立，那么 poll 阶段将等待第一个到期的 timer，如果在极短的时间（32.767毫秒）内没有到期的 timer ，则结束等待，进入 下一个阶段（check阶段）</span></div><div class="line">  <span class="keyword">return</span> uv__next_timeout(loop);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="各阶段简述"><a href="#各阶段简述" class="headerlink" title="各阶段简述"></a>各阶段简述</h3><ul>
+<li>update time：更新时间</li>
+<li>timer：执行到期的定时器回调函数</li>
+<li>pending (I/O) callbacks：执行延迟到下一个循环迭代的 I/O 回调</li>
+<li>idle, prepare：Node 内部执行的</li>
+<li>poll：检索新的 I/O事件；执行I / O相关的回调函数（几乎所有函数都关闭回调函数，除了定时器和setImmediate）；此外，适当时，节点将在此处阻塞</li>
+<li>check：执行 setImmediate 回调</li>
+<li>close callbacks：一些关闭回调，如 socket.on(‘close’, …)</li>
+</ul>
+<h3 id="poll-阶段（重点理解）"><a href="#poll-阶段（重点理解）" class="headerlink" title="poll 阶段（重点理解）"></a>poll 阶段（重点理解）</h3><p>poll阶段有两个功能:</p>
+<ul>
+<li>当 timers 到达指定的时间后，执行指定的 timer 的回调</li>
+<li>处理 poll 队列的事件</li>
+</ul>
+<p>1、当进入到 poll 阶段，并且<strong>没有 timers 被调用</strong>的时候，会发生下面的情况:</p>
+<ul>
+<li>如果 poll 队列不为空，Event Loop 将同步的执行 poll queue 里的 callback ，直到 queue 为空或者执行的 callback 到达上限</li>
+<li>如果 poll 队列为空，则会发生下面的情况:</li>
+</ul>
+<blockquote>
+<ul>
+<li>如果脚本调用了 setImmediate()，Event Loop 将会结束 poll 阶段并且进入到 check 阶段执行 setImmediate() 的回调</li>
+<li>如果脚本没有被 setImmediate() 调用，Event Loop 将会等待（此时会阻塞极短时间32.767毫秒）回调被添加到队列中，然后立即执行它们</li>
+</ul>
+</blockquote>
+<p>2、当进入到 poll 阶段，并且调用了 timers 的话，会发生下面的情况:</p>
+<ul>
+<li>一旦 poll queue 是空的话，Event Loop 会检查是否 timers，如果有1个或多个 timers 时间已经到达，Event Loop 将会回到 timer 阶段并执行那些 timers 的 callback （即进入到下一次 tick）。</li>
+</ul>
+<blockquote>
+<p>Pending callbacks（即I/O callbacks）被调用，大多数情况下，所有的 I/O callbacks 都是在 poll for I/O（即 poll 阶段）后理解调用的。然而，有些情况，会在下一次 tick 调用，以前被推迟的 I/O callback 会在下一次 tick 的 I/O 阶段调用。</p>
+</blockquote>
+<p><strong>在 Event Loop 完成一个阶段，然后到另一个阶段之前，Event Loop 将会执行这 Next Tick Queue 以及 MicroTask Queue 里面的回调，直到这两个队列为空。一旦它们空了后，Event Loop 会进入到下一个阶段</strong></p>
+<p><strong>Next Tick Queue的优先级高于MicroTask Queue</strong></p>
+<h3 id="setImmediate-vs-setTimeout"><a href="#setImmediate-vs-setTimeout" class="headerlink" title="setImmediate() vs setTimeout()"></a>setImmediate() vs setTimeout()</h3><p>setImmediate和setTimeout（）是相似的，但取决于它们何时被调用，其行为方式不同。</p>
+<ul>
+<li>setImmediate（）用于在当前 poll（轮询）阶段完成后执行脚本</li>
+<li>setTimeout（）设置在一定时间（以毫秒为单位）后运行</li>
+</ul>
+<p>定时器执行的顺序取决于它们被调用的上下文<br><strong>如果在 I/O 周期内这两个被调用，则 setImmediate 回调总是先执行</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"></div><div class="line">fs.readFile(__filename, () =&gt; &#123;</div><div class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'timeout'</span>);</div><div class="line">  &#125;, <span class="number">0</span>);</div><div class="line">  setImmediate(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'immediate'</span>);</div><div class="line">  &#125;);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">// immediate</span></div><div class="line"><span class="comment">// timeout</span></div></pre></td></tr></table></figure></p>
+<p><strong>如果它们不在 I/O 周期内被调用，则两者执行顺序是不确定的</strong></p>
+<h3 id="process-nextTick-vs-setImmediate"><a href="#process-nextTick-vs-setImmediate" class="headerlink" title="process.nextTick() vs setImmediate()"></a>process.nextTick() vs setImmediate()</h3><p>process.nextTick() 属于 idle 观察者，setImmediate() 属于 check 观察者，idle 观察者优先级大于 I/O 观察者，I/O 观察者优先级大于 check 观察者，因此 process.nextTick() 总是先执行</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/weixin.png" alt="Peter Lee WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/zhifubao.png" alt="Peter Lee Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Node/" rel="tag"># Node</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/01/JavaScript/JavaScript数组方法/" rel="next" title="JavaScript数组方法">
+                <i class="fa fa-chevron-left"></i> JavaScript数组方法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -342,6 +524,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -361,8 +547,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.png"
@@ -453,6 +648,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Node-事件循环（Event-Loop）"><span class="nav-number">1.</span> <span class="nav-text">Node 事件循环（Event-Loop）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#各阶段简述"><span class="nav-number">1.1.</span> <span class="nav-text">各阶段简述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#poll-阶段（重点理解）"><span class="nav-number">1.2.</span> <span class="nav-text">poll 阶段（重点理解）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setImmediate-vs-setTimeout"><span class="nav-number">1.3.</span> <span class="nav-text">setImmediate() vs setTimeout()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#process-nextTick-vs-setImmediate"><span class="nav-number">1.4.</span> <span class="nav-text">process.nextTick() vs setImmediate()</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -566,6 +777,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
 
   
 
