@@ -71,7 +71,7 @@
 <meta property="og:url" content="http://peterlhx.github.io/2018/03/04/web安全/web安全/index.html">
 <meta property="og:site_name" content="Mr.JS">
 <meta property="og:description" content="在web中，主要存在数据与指令，当正常数据中掺杂了指令时，则会产生攻击，web安全攻击主要有以下三种：XSS（跨站脚本）攻击、CSRF（跨站请求伪造）攻击、界面操作劫持攻击  web 安全的角色 W3C 浏览器厂商 Web 厂商 攻击者（黑客） 被攻击者（用户）  本地存储方式 Cookie UserData localStorage local DataBase Flash Cookie  W">
-<meta property="og:updated_time" content="2018-03-06T16:55:33.079Z">
+<meta property="og:updated_time" content="2018-06-11T18:03:00.094Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="web 安全">
 <meta name="twitter:description" content="在web中，主要存在数据与指令，当正常数据中掺杂了指令时，则会产生攻击，web安全攻击主要有以下三种：XSS（跨站脚本）攻击、CSRF（跨站请求伪造）攻击、界面操作劫持攻击  web 安全的角色 W3C 浏览器厂商 Web 厂商 攻击者（黑客） 被攻击者（用户）  本地存储方式 Cookie UserData localStorage local DataBase Flash Cookie  W">
@@ -442,6 +442,64 @@
 <li>Frame Busting 脚本防御：使用 js 对页面进行控制，达到页面无法被 iframe 嵌入的目的。通过判断主体窗口地址与当前窗口地址是否一致</li>
 <li>使用 token 防御</li>
 </ul>
+<h3 id="DoS-amp-DDoS-攻击"><a href="#DoS-amp-DDoS-攻击" class="headerlink" title="DoS &amp; DDoS 攻击"></a>DoS &amp; DDoS 攻击</h3><p>DoS 指的是拒绝服务攻击</p>
+<blockquote>
+<p>一台或多台计算机对受攻击服务器的某一个端口发送大量无关的数据，导致整个通道内的正常服务无法进行</p>
+</blockquote>
+<p>DDoS 指的是分布式拒绝服务攻击</p>
+<blockquote>
+<p>大量的肉鸡（僵尸计算机）对服务器的不同端口发送巨型流量的数据，无法通关关闭端口的方式来进行隔离，破坏力极强，严重会造成服务器宕机</p>
+</blockquote>
+<h4 id="常见的DOS-攻击类型"><a href="#常见的DOS-攻击类型" class="headerlink" title="常见的DOS 攻击类型"></a>常见的DOS 攻击类型</h4><p><strong>SYN Flood攻击</strong></p>
+<blockquote>
+<p>利用 TCP 协议的三次握手进行攻击，向服务器发送了SYN报文后，立刻离线，那么服务器在发出SYN + ACK 应答报文后是无法收到客户端的ACK报文的（第三次握手无法完成），这种情况下服务器端会进行重试，然后等待一段时间（SYN Timeout）后才丢弃这个连接。当有大量这样的请求时，服务器会忙着处理这些恶意请求，导致正常请求无法被响应</p>
+</blockquote>
+<p><strong>防范</strong></p>
+<ul>
+<li>缩短SYN Timeout时间</li>
+<li>设置SYN Cookie，就是给每一个请求连接的IP地址分配一个Cookie，如果短时间内连续受到某个IP的重复SYN报文，就认定是受到了攻击，以后从这个IP地址来的包会被一概丢弃</li>
+</ul>
+<p>所有的主机平台都有抵御DoS的设置，总结一下，基本的有几种：</p>
+<ul>
+<li>关闭不必要的服务</li>
+<li>限制同时打开的SYN半连接数目</li>
+<li>缩短SYN半连接的time out 时间</li>
+<li>及时更新系统补丁</li>
+</ul>
+<h3 id="DNS-劫持"><a href="#DNS-劫持" class="headerlink" title="DNS 劫持"></a>DNS 劫持</h3><p>通过劫持域名解析服务器，或伪造域名解析服务器的方法，把目标网站域名解析到错误的地址从而实现用户无法访问目标网站的目的</p>
+<p>DNS（域名解析）的原理</p>
+<ul>
+<li>访客向本地 ISP（网络运营商）的 DNS 服务器发起一个域名解析请求</li>
+<li>ISP 的 DNS 服务器向授权的DNS服务器发起域名解析请求</li>
+<li>授权的 DNS 服务器将结果返回给 ISP 的 DNS 服务器</li>
+<li>ISP 的 DNS 将结果返回给用户</li>
+<li>用户根据返回结果中的 IP 地址向网站的服务器发起请求</li>
+</ul>
+<p>常见攻击方式</p>
+<blockquote>
+<p>域名劫持<br>域名欺骗(缓存投毒)，其攻击现象就是利用控制DNS缓存服务器，把原本准备访问某网站的用户在不知不觉中带到黑客指向的其他网站上，其实现方式可以通过利用网民<strong>ISP端的DNS缓存服务器</strong>的漏洞进行攻击或控制，从而改变该 ISP 内的用户访问域名的响应结果<br>DDoS攻击</p>
+</blockquote>
+<p>防御手段</p>
+<blockquote>
+<p>HTTPDNS，是使用HTTP协议进行域名解析，代替现有基于UDP的DNS协议，具有防劫持、精准调度等特性。</p>
+<ul>
+<li><p>避免LocalDNS劫持：由于HttpDNS是通过ip直接请求http获取服务器A记录地址，不存在向本地运营商询问domain解析过程，所以从根本避免了劫持问题</p>
+</li>
+<li><p>平均访问延迟下降：由于是ip直接访问省掉了一次domain解析过程，通过智能算法排序后找到最快节点进行访问</p>
+</li>
+<li><p>用户连接失败率下降：通过算法降低以往失败率过高的服务器排序，通过时间近期访问过的数据提高服务器排序，通过历史访问成功记录提高服务器排序。如果ip(a)访问错误，在下一次返回ip(b)或者ip(c) 排序后的记录</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="HTTP-劫持"><a href="#HTTP-劫持" class="headerlink" title="HTTP 劫持"></a>HTTP 劫持</h3><p>DNS 解析的域名的IP地址不变，在和网站交互过程中的劫持了你的请求，在网站发给你信息前就给你返回了请求。（各种运营商为了营利而操作的劫持，主要方式为 js 劫持、 iframe 、HTML）</p>
+<p>解决 HTTP 劫持的方法</p>
+<ul>
+<li>全站替换成 HTTPS 协议</li>
+<li>向 ISP 投诉，如果 ISP 不受理，则向工信部举报</li>
+</ul>
+<blockquote>
+<p>DNS 劫持：将你访问的网址解析成另一个网址，如访问<a href="http://www.google.com，显示是百度的页面" target="_blank" rel="external">http://www.google.com，显示是百度的页面</a><br>HTTP 劫持：正常访问你输入网址的网站，但是这个网站页面中有很多小广告</p>
+</blockquote>
 <h2 id="XSS-Proxy-技术"><a href="#XSS-Proxy-技术" class="headerlink" title="XSS Proxy 技术"></a>XSS Proxy 技术</h2><p>XSS Proxy 技术用到了基于浏览器的远程控制上，要实现远程控制，要具备以下两个条件：</p>
 <ul>
 <li>远控指令要在目标浏览器上“实时”执行</li>
@@ -694,7 +752,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#web-安全的角色"><span class="nav-number">1.</span> <span class="nav-text">web 安全的角色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地存储方式"><span class="nav-number">2.</span> <span class="nav-text">本地存储方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Web-同源协议"><span class="nav-number">3.</span> <span class="nav-text">Web 同源协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XSS-攻击"><span class="nav-number">4.</span> <span class="nav-text">XSS 攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#反射型-XSS"><span class="nav-number">4.1.</span> <span class="nav-text">反射型 XSS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#存储型-XSS"><span class="nav-number">4.2.</span> <span class="nav-text">存储型 XSS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM-XSS"><span class="nav-number">4.3.</span> <span class="nav-text">DOM XSS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XSS-危害"><span class="nav-number">4.4.</span> <span class="nav-text">XSS 危害</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XSS-防御"><span class="nav-number">4.5.</span> <span class="nav-text">XSS 防御</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSRF"><span class="nav-number">5.</span> <span class="nav-text">CSRF</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CSRF-的漏洞挖掘"><span class="nav-number">5.1.</span> <span class="nav-text">CSRF 的漏洞挖掘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSRF-危害"><span class="nav-number">5.2.</span> <span class="nav-text">CSRF 危害</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSRF-防御"><span class="nav-number">5.3.</span> <span class="nav-text">CSRF 防御</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#界面操作劫持"><span class="nav-number">6.</span> <span class="nav-text">界面操作劫持</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#界面操作劫持的漏洞挖掘"><span class="nav-number">6.1.</span> <span class="nav-text">界面操作劫持的漏洞挖掘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#界面操作劫持的防御"><span class="nav-number">6.2.</span> <span class="nav-text">界面操作劫持的防御</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XSS-Proxy-技术"><span class="nav-number">7.</span> <span class="nav-text">XSS Proxy 技术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防御手段"><span class="nav-number">8.</span> <span class="nav-text">防御手段</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-响应的-X-头部"><span class="nav-number">8.1.</span> <span class="nav-text">HTTP 响应的 X-头部</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#域分离"><span class="nav-number">8.2.</span> <span class="nav-text">域分离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全传输（HTTPS）"><span class="nav-number">8.3.</span> <span class="nav-text">安全传输（HTTPS）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全的Cookie（HttpOnly）"><span class="nav-number">8.4.</span> <span class="nav-text">安全的Cookie（HttpOnly）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证码"><span class="nav-number">8.5.</span> <span class="nav-text">验证码</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#web-安全的角色"><span class="nav-number">1.</span> <span class="nav-text">web 安全的角色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地存储方式"><span class="nav-number">2.</span> <span class="nav-text">本地存储方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Web-同源协议"><span class="nav-number">3.</span> <span class="nav-text">Web 同源协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XSS-攻击"><span class="nav-number">4.</span> <span class="nav-text">XSS 攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#反射型-XSS"><span class="nav-number">4.1.</span> <span class="nav-text">反射型 XSS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#存储型-XSS"><span class="nav-number">4.2.</span> <span class="nav-text">存储型 XSS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM-XSS"><span class="nav-number">4.3.</span> <span class="nav-text">DOM XSS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XSS-危害"><span class="nav-number">4.4.</span> <span class="nav-text">XSS 危害</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XSS-防御"><span class="nav-number">4.5.</span> <span class="nav-text">XSS 防御</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSRF"><span class="nav-number">5.</span> <span class="nav-text">CSRF</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CSRF-的漏洞挖掘"><span class="nav-number">5.1.</span> <span class="nav-text">CSRF 的漏洞挖掘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSRF-危害"><span class="nav-number">5.2.</span> <span class="nav-text">CSRF 危害</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSRF-防御"><span class="nav-number">5.3.</span> <span class="nav-text">CSRF 防御</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#界面操作劫持"><span class="nav-number">6.</span> <span class="nav-text">界面操作劫持</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#界面操作劫持的漏洞挖掘"><span class="nav-number">6.1.</span> <span class="nav-text">界面操作劫持的漏洞挖掘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#界面操作劫持的防御"><span class="nav-number">6.2.</span> <span class="nav-text">界面操作劫持的防御</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DoS-amp-DDoS-攻击"><span class="nav-number">6.3.</span> <span class="nav-text">DoS & DDoS 攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常见的DOS-攻击类型"><span class="nav-number">6.3.1.</span> <span class="nav-text">常见的DOS 攻击类型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS-劫持"><span class="nav-number">6.4.</span> <span class="nav-text">DNS 劫持</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-劫持"><span class="nav-number">6.5.</span> <span class="nav-text">HTTP 劫持</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XSS-Proxy-技术"><span class="nav-number">7.</span> <span class="nav-text">XSS Proxy 技术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防御手段"><span class="nav-number">8.</span> <span class="nav-text">防御手段</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-响应的-X-头部"><span class="nav-number">8.1.</span> <span class="nav-text">HTTP 响应的 X-头部</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#域分离"><span class="nav-number">8.2.</span> <span class="nav-text">域分离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全传输（HTTPS）"><span class="nav-number">8.3.</span> <span class="nav-text">安全传输（HTTPS）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全的Cookie（HttpOnly）"><span class="nav-number">8.4.</span> <span class="nav-text">安全的Cookie（HttpOnly）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证码"><span class="nav-number">8.5.</span> <span class="nav-text">验证码</span></a></li></ol></li></ol></div>
             
 
           </div>

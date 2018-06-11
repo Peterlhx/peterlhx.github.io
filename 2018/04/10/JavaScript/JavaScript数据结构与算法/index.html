@@ -71,7 +71,7 @@
 <meta property="og:url" content="http://peterlhx.github.io/2018/04/10/JavaScript/JavaScript数据结构与算法/index.html">
 <meta property="og:site_name" content="Mr.JS">
 <meta property="og:description" content="栈先进后出，采用数组实现。利用数组的 push 和 pop 方法实现入栈、出栈的操作12345678910111213class Stack () &amp;#123;  constructor () &amp;#123;    this.items = []  &amp;#125;  push (item) &amp;#123;    this.items.push(item)  &amp;#125;  pop () &amp;#123;">
-<meta property="og:updated_time" content="2018-05-28T09:31:23.853Z">
+<meta property="og:updated_time" content="2018-06-11T15:17:12.963Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript 数据结构与算法">
 <meta name="twitter:description" content="栈先进后出，采用数组实现。利用数组的 push 和 pop 方法实现入栈、出栈的操作12345678910111213class Stack () &amp;#123;  constructor () &amp;#123;    this.items = []  &amp;#125;  push (item) &amp;#123;    this.items.push(item)  &amp;#125;  pop () &amp;#123;">
@@ -437,6 +437,18 @@
 <p>贪心算法解决最少硬币找零问题<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MinCoinChange</span>(<span class="title">coins</span>)</span>&#123;</div><div class="line">  construtcor (coins) &#123;</div><div class="line">    <span class="keyword">this</span>.coins = coins</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  makeChange (amount) &#123;</div><div class="line">    <span class="keyword">let</span> change = [],</div><div class="line">      total = <span class="number">0</span></div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = coins.length; i &gt;= <span class="number">0</span>; i--) &#123;</div><div class="line">      <span class="keyword">let</span> coin = coins[i]</div><div class="line">      <span class="keyword">while</span> (total + coin &lt;= amount) &#123;</div><div class="line">        change.push(coin)</div><div class="line">        total += coin</div><div class="line">      &#125; </div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> change</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>贪心算法对于最少硬币找零问题的解决，是基于硬币数组里的数值是有序的，从大到小排列。<br>此外，比起动态规划算法而言，贪心算法更简单、更快。然而，如我们所见，它并不总是得到最优答案。但是综合来看，它相对执行时间来说，输出了一个可以接受的解。</p>
 <h3 id="大O表示法"><a href="#大O表示法" class="headerlink" title="大O表示法"></a>大O表示法</h3><p>大O表示法，是描述算法的性能和复杂程度。</p>
+<p>推导大O阶，我们可以按照如下的规则来进行推导，得到的结果就是大O表示法：</p>
+<ul>
+<li>用常数1来取代运行时间中所有加法常数</li>
+<li>修改后的运行次数函数中，只保留最高阶项 </li>
+<li>如果最高阶项存在且不是1，则去除与这个项相乘的常数</li>
+</ul>
+<p>算法时间复杂度计算</p>
+<ul>
+<li>找出算法中的基本语句</li>
+<li>计算基本语句的执行次数的数量级</li>
+<li>用大Ο记号表示算法的时间性能（将基本语句执行次数的数量级放入大Ο记号中）</li>
+</ul>
 
       
     </div>
