@@ -71,7 +71,7 @@
 <meta property="og:url" content="http://peterlhx.github.io/2018/06/09/Node/Node-js-Event-Loop/index.html">
 <meta property="og:site_name" content="Mr.JS">
 <meta property="og:description" content="Node 事件循环（Event-Loop） Node.js 是通过事件驱动来服务 I/O 的，而事件循环是 Node 实现异步非阻塞 I/O 的基础  Node 事件循环是基于 libuv 实现的，而内部实现，其实就是一个 while 语句块Node 程序启动时，则会初始化事件循环 这里需要说明下，Node 事件循环与浏览器环境下 JavaScript 的事件循环是完全不一样的 浏览器环境下 JS">
-<meta property="og:updated_time" content="2018-06-10T17:39:00.474Z">
+<meta property="og:updated_time" content="2018-06-11T02:08:26.649Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Node.js-Event-Loop">
 <meta name="twitter:description" content="Node 事件循环（Event-Loop） Node.js 是通过事件驱动来服务 I/O 的，而事件循环是 Node 实现异步非阻塞 I/O 的基础  Node 事件循环是基于 libuv 实现的，而内部实现，其实就是一个 while 语句块Node 程序启动时，则会初始化事件循环 这里需要说明下，Node 事件循环与浏览器环境下 JavaScript 的事件循环是完全不一样的 浏览器环境下 JS">
@@ -392,7 +392,7 @@
 <li>timer：执行到期的定时器回调函数</li>
 <li>pending (I/O) callbacks：执行延迟到下一个循环迭代的 I/O 回调</li>
 <li>idle, prepare：Node 内部执行的</li>
-<li>poll：检索新的 I/O事件；执行I / O相关的回调函数（几乎所有函数都关闭回调函数，除了定时器和setImmediate）；此外，适当时，节点将在此处阻塞</li>
+<li>poll：检索新的 I/O事件；执行I / O相关的回调函数（几乎所有函数的回调函数，除了定时器和setImmediate）；此外，适当时，节点将在此处阻塞</li>
 <li>check：执行 setImmediate 回调</li>
 <li>close callbacks：一些关闭回调，如 socket.on(‘close’, …)</li>
 </ul>
