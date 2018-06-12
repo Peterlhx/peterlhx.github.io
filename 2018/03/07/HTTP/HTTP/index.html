@@ -71,7 +71,7 @@
 <meta property="og:url" content="http://peterlhx.github.io/2018/03/07/HTTP/HTTP/index.html">
 <meta property="og:site_name" content="Mr.JS">
 <meta property="og:description" content="HTTP超文本传输协议，基于TCP/IP协议运作，是无连接、无状态的。 三项 WWW 构建技术：HTTP协议、HTML、URL 与HTTP关系密切的协议   IP: 处于网络层，负责把各种数据包传送给对方。IP 间通信依赖 MAC 地址。（使用ARP协议可以根据IP反查出对应的MAC地址） TCP: 位于传输层，通过三次握手确保数据送达目标处。三次握手：发送端首先发送一个带有 SYN 标志的数据包">
-<meta property="og:updated_time" content="2018-03-10T08:19:55.696Z">
+<meta property="og:updated_time" content="2018-06-12T16:39:05.660Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTTP">
 <meta name="twitter:description" content="HTTP超文本传输协议，基于TCP/IP协议运作，是无连接、无状态的。 三项 WWW 构建技术：HTTP协议、HTML、URL 与HTTP关系密切的协议   IP: 处于网络层，负责把各种数据包传送给对方。IP 间通信依赖 MAC 地址。（使用ARP协议可以根据IP反查出对应的MAC地址） TCP: 位于传输层，通过三次握手确保数据送达目标处。三次握手：发送端首先发送一个带有 SYN 标志的数据包">
@@ -438,6 +438,28 @@
 <p>Cookie: 服务端接收到的 Cookie 信息，包含了客户端发送的 sessionId (请求首部)</p>
 <p>Set-Cookie: 开始状态管理的 Cookie 信息，包含了服务端返回的 sessionId （响应首部）</p>
 </blockquote>
+<h3 id="缓存相关首部"><a href="#缓存相关首部" class="headerlink" title="缓存相关首部"></a>缓存相关首部</h3><p>浏览器缓存分为强缓存和协商缓存</p>
+<p>两者主要区别在于：强缓存不会向服务器发起请求，直接返回状态码：200 from cache；协商缓存会向服务器发起请求验证，如果缓存有效，那么返回状态码 304</p>
+<p>强缓存相关字段</p>
+<blockquote>
+<p>Pragma：http 1.0 时代，控制缓存的http首部字段</p>
+<p>Expires：http 1.0 时代出现，用于设置缓存的时间</p>
+<p>Cache-control：http 1.1 新增的，可用于禁止缓存（no-store）、设置缓存失效时间（max-age）<br>no-store 表示禁用缓存，不将资源存储在浏览器中，no-cache表示不使用浏览器中存储的缓存数据（不缓存过期的资源）</p>
+</blockquote>
+<p><strong>Pragma、Expires 和 Cache-Control 同时出现，那么会以 Cache-Control 为准</strong></p>
+<p>协商缓存相关</p>
+<blockquote>
+<p>If-Modified-Since/LastModified：请求首部 If-Modified 与响应首部 LastModified，标识资源最后更改的时间，如果两者相同，则返回 304 ，不相同则返回 200，然后客户端发起请求最新资源</p>
+<p>If-Unmodified-Since/LastModified：表示从某个时间点算起, 文件没有被修改。如果没有被修改，则开始继续传送文件，服务器返回 200；如果文件被修改，则不传输，服务器返回 412（预处理错误）</p>
+<p>If-None-Match/Etag：请求首部 If-None-Match 与响应首部 Etag，标识资源文件有没有被实质性更改过。Etag 是服务端根据算法，对资源生成的唯一标识，根据这个唯一标识是否相同，判断资源有没有被修改。</p>
+</blockquote>
+<p><strong>Last-Modified 和 ETag 同时被使用，则两者都必须验证通过，才会返回 304 状态码，否则服务端会认为资源缓存失效，重新发送资源给客户端</strong></p>
+<p><strong>如果If-Modified-Since的时间比服务器当前时间(当前的请求时间request_time)还晚，会认为是个非法请求</strong></p>
+<ul>
+<li>Last-Modified 的缺点：只能精确到秒的级别，一旦在一秒的时间里出现了多次修改，那么这个字段不会发生改变</li>
+<li>Etag的缺点：分布式系统中，每台机器生成的 Etag 会不同，导致缓存失效，所以分布式系统尽量关闭掉Etag</li>
+<li>Expires的缺点：返回的到期时间是服务器端的时间，如果客户端的时间与服务器的时间相差很大，那么误差就很大</li>
+</ul>
 <h2 id="通信数据转发程序：代理、网关、隧道"><a href="#通信数据转发程序：代理、网关、隧道" class="headerlink" title="通信数据转发程序：代理、网关、隧道"></a>通信数据转发程序：代理、网关、隧道</h2><h3 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h3><p>代理服务器的基本行为就是接收客户端发送的请求后转发给其他服务器。<br>持有资源实体的服务器被称为源服务器。在HTTP通信过程中，从源服务器返回的响应经过多个串联似的的代理服务器，再传给客户端。<br>代理按两种基准分类：一种是是否使用缓存，另一种是是否会修改报文</p>
 <blockquote>
 <p>缓存代理：会预先将资源的副本保存在代理服务器上，当收到客户端对相同资源的再次请求时，会直接从代理服务器中返回<br>透明代理：不对报文做任何加工的代理类型被称为透明代理，反之，称为非透明代理</p>
@@ -454,7 +476,21 @@
 <p>共享密钥加密：又叫对称加密，是指加密、解密都用同一个密钥</p>
 <p>公开密钥加密：又叫非对称加密，对外发布公钥，对数据进行加密，然后通过私钥对数据进行解密</p>
 </blockquote>
-<p>HTTPS的加密方式是：对传输的报文数据采用共享密钥进行加密，而共享密钥加密的密钥又被公开密钥进行加密。<br>这样的好处是，避免了公共密钥加密需要耗费大量的CPU和内存资源，传输较慢的问题，同时又能够确保传输的数据能够安全传输</p>
+<p>HTTPS的加密方式是：对传输的报文数据采用共享密钥进行加密，而共享密钥加密的密钥又被公开密钥进行加密。<br>这样的好处是，避免了公共密钥加密需要耗费大量的CPU和内存资源，传输较慢的问题，同时又能够确保传输的数据能够安全传输。</p>
+<h3 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h3><blockquote>
+<p>数字签名技术就是对“非对称密钥加解密”和“数字摘要“两项技术的应用，它将摘要信息用发送者的私钥加密，与原文一起传送给接收者。</p>
+<p>接收者只有用发送者的公钥才能解密被加密的摘要信息，然后用HASH函数对收到的原文产生一个摘要信息，与解密的摘要信息对比。</p>
+<p>如果相同，则说明收到的信息是完整的，在传输过程中没有被修改，否则说明信息被修改过，因此数字签名能够验证信息的完整性。</p>
+</blockquote>
+<h3 id="数字证书颁发过程"><a href="#数字证书颁发过程" class="headerlink" title="数字证书颁发过程"></a>数字证书颁发过程</h3><blockquote>
+<p>用户首先产生自己的密钥对，并将公共密钥及部分个人身份信息传送给认证中心。</p>
+<p>认证中心在核实身份后，将执行一些必要的步骤，以确信请求确实由用户发送而来，然后，认证中心将发给用户一个数字证书，该证书内包含用户的个人信息和他的公钥信息，同时还附有认证中心的签名信息（根证书私钥签名）。用户就可以使用自己的数字证书进行相关的各种活动。</p>
+</blockquote>
+<h3 id="CA验证"><a href="#CA验证" class="headerlink" title="CA验证"></a>CA验证</h3><ul>
+<li>证书颁发的机构(CA)是伪造的，那么浏览器会认为是危险证书</li>
+<li>证书颁发的机构是确实存在的，于是根据CA名，找到对应内置的CA根证书、CA的公钥。用CA的公钥，对<strong>伪造的证书</strong>的摘要进行解密，发现解不了，认为是危险证书</li>
+<li>对于<strong>篡改的证书</strong>，使用CA的公钥对数字签名进行解密得到摘要A，然后再根据签名的Hash算法计算出证书的摘要B，对比A与B，若相等则正常，若不相等则是被篡改过的。 </li>
+</ul>
 
       
     </div>
@@ -688,7 +724,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP"><span class="nav-number">1.</span> <span class="nav-text">HTTP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-报文"><span class="nav-number">1.1.</span> <span class="nav-text">HTTP 报文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-IP-分层"><span class="nav-number">1.2.</span> <span class="nav-text">TCP/IP 分层</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-状态码"><span class="nav-number">2.</span> <span class="nav-text">HTTP 状态码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-首部"><span class="nav-number">3.</span> <span class="nav-text">HTTP 首部</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通信数据转发程序：代理、网关、隧道"><span class="nav-number">4.</span> <span class="nav-text">通信数据转发程序：代理、网关、隧道</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代理"><span class="nav-number">4.1.</span> <span class="nav-text">代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网关"><span class="nav-number">4.2.</span> <span class="nav-text">网关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隧道"><span class="nav-number">4.3.</span> <span class="nav-text">隧道</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTPS"><span class="nav-number">5.</span> <span class="nav-text">HTTPS</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP"><span class="nav-number">1.</span> <span class="nav-text">HTTP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-报文"><span class="nav-number">1.1.</span> <span class="nav-text">HTTP 报文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-IP-分层"><span class="nav-number">1.2.</span> <span class="nav-text">TCP/IP 分层</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-状态码"><span class="nav-number">2.</span> <span class="nav-text">HTTP 状态码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-首部"><span class="nav-number">3.</span> <span class="nav-text">HTTP 首部</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存相关首部"><span class="nav-number">3.1.</span> <span class="nav-text">缓存相关首部</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通信数据转发程序：代理、网关、隧道"><span class="nav-number">4.</span> <span class="nav-text">通信数据转发程序：代理、网关、隧道</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代理"><span class="nav-number">4.1.</span> <span class="nav-text">代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网关"><span class="nav-number">4.2.</span> <span class="nav-text">网关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隧道"><span class="nav-number">4.3.</span> <span class="nav-text">隧道</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTPS"><span class="nav-number">5.</span> <span class="nav-text">HTTPS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数字签名"><span class="nav-number">5.1.</span> <span class="nav-text">数字签名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数字证书颁发过程"><span class="nav-number">5.2.</span> <span class="nav-text">数字证书颁发过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CA验证"><span class="nav-number">5.3.</span> <span class="nav-text">CA验证</span></a></li></ol></li></ol></div>
             
 
           </div>
