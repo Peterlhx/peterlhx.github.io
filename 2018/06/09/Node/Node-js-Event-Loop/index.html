@@ -71,7 +71,7 @@
 <meta property="og:url" content="http://peterlhx.github.io/2018/06/09/Node/Node-js-Event-Loop/index.html">
 <meta property="og:site_name" content="Mr.JS">
 <meta property="og:description" content="Node 事件循环（Event-Loop） Node.js 是通过事件驱动来服务 I/O 的，而事件循环是 Node 实现异步非阻塞 I/O 的基础  Node 事件循环是基于 libuv 实现的，而内部实现，其实就是一个 while 语句块Node 程序启动时，则会初始化事件循环 这里需要说明下，Node 事件循环与浏览器环境下 JavaScript 的事件循环是完全不一样的 浏览器环境下 JS">
-<meta property="og:updated_time" content="2018-06-11T02:08:26.649Z">
+<meta property="og:updated_time" content="2018-06-12T04:47:49.130Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Node.js-Event-Loop">
 <meta name="twitter:description" content="Node 事件循环（Event-Loop） Node.js 是通过事件驱动来服务 I/O 的，而事件循环是 Node 实现异步非阻塞 I/O 的基础  Node 事件循环是基于 libuv 实现的，而内部实现，其实就是一个 while 语句块Node 程序启动时，则会初始化事件循环 这里需要说明下，Node 事件循环与浏览器环境下 JavaScript 的事件循环是完全不一样的 浏览器环境下 JS">
@@ -429,6 +429,7 @@
 <p>定时器执行的顺序取决于它们被调用的上下文<br><strong>如果在 I/O 周期内这两个被调用，则 setImmediate 回调总是先执行</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"></div><div class="line">fs.readFile(__filename, () =&gt; &#123;</div><div class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'timeout'</span>);</div><div class="line">  &#125;, <span class="number">0</span>);</div><div class="line">  setImmediate(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'immediate'</span>);</div><div class="line">  &#125;);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">// immediate</span></div><div class="line"><span class="comment">// timeout</span></div></pre></td></tr></table></figure></p>
 <p><strong>如果它们不在 I/O 周期内被调用，则两者执行顺序是不确定的</strong></p>
 <h3 id="process-nextTick-vs-setImmediate"><a href="#process-nextTick-vs-setImmediate" class="headerlink" title="process.nextTick() vs setImmediate()"></a>process.nextTick() vs setImmediate()</h3><p>process.nextTick() 属于 idle 观察者，setImmediate() 属于 check 观察者，idle 观察者优先级大于 I/O 观察者，I/O 观察者优先级大于 check 观察者，因此 process.nextTick() 总是先执行</p>
+<p>参考 <a href="https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/" target="_blank" rel="external">The Node.js Event Loop, Timers, and process.nextTick()</a></p>
 
       
     </div>
